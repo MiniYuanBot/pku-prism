@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PKU Prism 开发环境</title>
+    <style>
+      body { max-width: 760px; margin: 64px auto; padding: 0 24px; font: 16px/1.8 system-ui; color: #303643; }
+      a { color: #315fa8; } code { background: #f4f5f7; padding: 2px 5px; border-radius: 4px; }
+    </style>
+  </head>
+  <body>
+    <h1>PKU Prism</h1>
+    <p>本地开发服务器已启动。</p>
+    <p><a href="/__prism__/install.user.js">安装开发脚本</a>后，在教学网已验证的页面调试；修改源文件由 Vite 热更新。</p>
+    <p>发布文件：运行 <code>npm run build</code>，安装 <code>dist/pku-prism.user.js</code>。</p>
+    <p>开发脚本依赖本地服务器。若浏览器的 CSP 或本地网络策略阻止加载，可用构建脚本通过 Chrome DevTools MCP 临时注入。</p>
+  </body>
+</html>

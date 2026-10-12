@@ -1,0 +1,9 @@
+node_modules/
+dist/
+.local/
+.impeccable/config.local.json
+.env
+.env.*
+!.env.example
+*.log
+.DS_Store

@@ -1,0 +1,148 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-12T04:01:49.282274+00:00",
+  "title": "PKU Prism 视觉规范",
+  "extensions": {
+    "shadows": [
+      {
+        "name": "flat",
+        "value": "none",
+        "purpose": "以中性表面、边线和排版建立层级。"
+      }
+    ],
+    "motion": [
+      {
+        "name": "static",
+        "value": "none",
+        "purpose": "不新增动画；hover 与主题切换直接改变颜色。"
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "course-cards-single-column",
+        "value": "600px"
+      },
+      {
+        "name": "course-mobile",
+        "value": "736px"
+      },
+      {
+        "name": "workspace-single-column",
+        "value": "1037px"
+      },
+      {
+        "name": "compact-desktop",
+        "value": "1200px"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "中性按钮",
+      "kind": "button",
+      "refersTo": "button-neutral",
+      "description": "本地视图或说明操作；不提交原生表单。",
+      "html": "<button class=\"ds-button\" type=\"button\">查看说明</button>",
+      "css": ".ds-button{display:inline-flex;align-items:center;justify-content:center;min-height:36px;padding:6px 12px;margin:0;border:1px solid var(--prism-border, #e4e4e7);border-radius:var(--prism-radius-md, 6px);background:var(--prism-surface, #fff);color:var(--prism-text, #18181b);font:500 13px/1.6 var(--prism-font, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif);cursor:pointer;white-space:nowrap}.ds-button:hover{background:var(--prism-subtle, #f4f4f5);border-color:var(--prism-control-border, #71717a)}.ds-button[aria-pressed='true']{background:var(--prism-selected, #faeef0);color:var(--prism-accent, #9e2533);border-color:var(--prism-accent, #9e2533)}.ds-button:focus-visible{outline:2px solid var(--prism-accent, #9e2533);outline-offset:2px}@media(max-width:736px){.ds-button{min-height:44px}}"
+    },
+    {
+      "name": "已选视图按钮",
+      "kind": "button",
+      "refersTo": "button-selected",
+      "description": "已有视图的选中状态，同时以 aria-pressed 标识。",
+      "html": "<button class=\"ds-button\" type=\"button\" aria-pressed=\"true\">当前学期</button>",
+      "css": ".ds-button{display:inline-flex;align-items:center;justify-content:center;min-height:36px;padding:6px 12px;margin:0;border:1px solid var(--prism-border, #e4e4e7);border-radius:var(--prism-radius-md, 6px);background:var(--prism-surface, #fff);color:var(--prism-text, #18181b);font:500 13px/1.6 var(--prism-font, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif);cursor:pointer;white-space:nowrap}.ds-button:hover{background:var(--prism-subtle, #f4f4f5);border-color:var(--prism-control-border, #71717a)}.ds-button[aria-pressed='true']{background:var(--prism-selected, #faeef0);color:var(--prism-accent, #9e2533);border-color:var(--prism-accent, #9e2533)}.ds-button:focus-visible{outline:2px solid var(--prism-accent, #9e2533);outline-offset:2px}@media(max-width:736px){.ds-button{min-height:44px}}"
+    },
+    {
+      "name": "本地搜索",
+      "kind": "input",
+      "refersTo": "search",
+      "description": "过滤已经加载的本页内容，右侧预留清空按钮空间。",
+      "html": "<input class=\"ds-search\" type=\"search\" aria-label=\"搜索本页内容名称或说明\" placeholder=\"搜索本页内容名称或说明\">",
+      "css": ".ds-search{display:block;width:100%;min-width:0;height:36px;padding:7px 60px 7px 12px;margin:0;border:1px solid var(--prism-control-border, #71717a);border-radius:var(--prism-radius-md, 6px);background:var(--prism-surface, #fff);color:var(--prism-text, #18181b);caret-color:var(--prism-accent, #9e2533);font:400 13px/1.6 var(--prism-font, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif);box-sizing:border-box}.ds-search::placeholder{color:var(--prism-muted, #52525b);opacity:1}.ds-search::-webkit-search-cancel-button{display:none}.ds-search:focus-visible{outline:2px solid var(--prism-accent, #9e2533);outline-offset:2px}@media(max-width:736px){.ds-search{min-height:44px}}"
+    },
+    {
+      "name": "工作区导航",
+      "kind": "nav",
+      "description": "首页原生导航的紧凑行式表现；当前项使用选中色。",
+      "html": "<nav class=\"ds-nav\" aria-label=\"教学网工作区\"><a href=\"#courses\" aria-current=\"true\">我的课程</a><a href=\"#tools\">工具</a></nav>",
+      "css": ".ds-nav a{display:block;padding:8px 12px;margin:2px 0;border-radius:var(--prism-radius-md, 6px);background:none;color:var(--prism-muted, #52525b);font:500 13px/1.6 var(--prism-font, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif);text-decoration:none;white-space:normal}.ds-nav a[aria-current='true']{background:var(--prism-selected, #faeef0);color:var(--prism-accent, #9e2533)}.ds-nav a:hover{background:var(--prism-subtle, #f4f4f5)}.ds-nav a:focus-visible{outline:2px solid var(--prism-accent, #9e2533);outline-offset:2px}@media(max-width:1037px){.ds-nav a{min-height:28px}}"
+    },
+    {
+      "name": "课程入口卡片",
+      "kind": "card",
+      "refersTo": "course-card",
+      "description": "同一个原生链接内先显示名称，再显示完整学期和编号；示例文字是字段占位。",
+      "html": "<a class=\"ds-course\" href=\"#course\"><span class=\"ds-course-name\">课程名称</span><span class=\"ds-course-term\">原生学期</span><span class=\"ds-course-code\">原生课程编号</span></a>",
+      "css": ".ds-course{display:flex;flex-direction:column;align-items:flex-start;gap:6px;min-height:124px;padding:16px;border:1px solid var(--prism-border, #e4e4e7);border-radius:var(--prism-radius-lg, 8px);background:var(--prism-surface, #fff);color:var(--prism-text, #18181b);font:400 14px/1.6 var(--prism-font, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif);text-decoration:none;overflow-wrap:anywhere;box-sizing:border-box}.ds-course-name{font:600 15px/1.5 var(--prism-font, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif)}.ds-course-term,.ds-course-code{color:var(--prism-muted, #52525b);font:400 12px/1.6 var(--prism-font, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif)}.ds-course-code{margin-top:auto;font-variant-numeric:tabular-nums}.ds-course:hover{border-color:var(--prism-control-border, #71717a);background:var(--prism-subtle, #f4f4f5)}.ds-course:focus-visible{outline:2px solid var(--prism-accent, #9e2533);outline-offset:2px}@media(max-width:600px){.ds-course{min-height:112px}}"
+    },
+    {
+      "name": "公告目录项",
+      "kind": "button",
+      "description": "选择原生公告，完整标题和已有日期分层呈现；示例文字是字段占位。",
+      "html": "<button class=\"ds-notice-entry\" type=\"button\" aria-current=\"true\"><span class=\"ds-notice-entry-title\">公告标题</span><span class=\"ds-notice-entry-date\">原生公告日期</span></button>",
+      "css": ".ds-notice-entry{display:flex;flex-direction:column;align-items:flex-start;gap:8px;width:100%;min-width:0;padding:12px;margin:0;border:1px solid transparent;border-radius:var(--prism-radius-md, 6px);background:transparent;color:var(--prism-text, #18181b);text-align:left;cursor:pointer}.ds-notice-entry-title{font:500 13px/1.6 var(--prism-font, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif);overflow-wrap:anywhere}.ds-notice-entry-date{color:var(--prism-muted, #52525b);font:400 12px/1.6 var(--prism-font, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif);font-variant-numeric:tabular-nums}.ds-notice-entry:hover{background:var(--prism-subtle, #f4f4f5)}.ds-notice-entry[aria-current='true']{background:var(--prism-selected, #faeef0);border-color:var(--prism-accent, #9e2533)}.ds-notice-entry:focus-visible{outline:2px solid var(--prism-accent, #9e2533);outline-offset:2px}"
+    },
+    {
+      "name": "公告阅读区",
+      "kind": "card",
+      "refersTo": "notice-reader",
+      "description": "平整容器内展示完整原生标题、元信息与正文；示例文字是字段占位。",
+      "html": "<section class=\"ds-reader\" aria-label=\"公告正文\"><h3 class=\"ds-reader-title\" tabindex=\"-1\">公告标题</h3><p class=\"ds-reader-meta\">原生日期与来源</p><div class=\"ds-reader-body\">原生公告正文</div></section>",
+      "css": ".ds-reader{min-width:0;padding:24px;border:1px solid var(--prism-border, #e4e4e7);border-radius:var(--prism-radius-lg, 8px);background:var(--prism-surface, #fff);color:var(--prism-text, #18181b)}.ds-reader-title{margin:0 0 4px;font:600 20px/1.5 var(--prism-font, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif);overflow-wrap:anywhere}.ds-reader-meta{margin:0 0 12px;padding:0 0 12px;border-bottom:1px solid var(--prism-border, #e4e4e7);color:var(--prism-muted, #52525b);font:400 12px/1.7 var(--prism-font, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif)}.ds-reader-body{max-width:76ch;font:400 14px/1.8 var(--prism-font, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif);overflow-wrap:anywhere}@media(max-width:736px){.ds-reader{padding:16px}.ds-reader-title{font-size:18px}}"
+    },
+    {
+      "name": "外观控制组",
+      "kind": "custom",
+      "description": "Shadow DOM 内的启停与主题选择；桌面固定于右下角，手机在页面标题区参与文档流。",
+      "html": "<div class=\"ds-appearance\" role=\"group\" aria-label=\"Prism 外观\"><button type=\"button\" aria-pressed=\"true\">Prism</button><select aria-label=\"主题\"><option>系统</option><option>浅色</option><option>深色</option></select></div>",
+      "css": ".ds-appearance{display:flex;gap:4px;padding:4px;border:1px solid var(--prism-border, #e4e4e7);border-radius:var(--prism-radius-lg, 8px);background:var(--prism-surface, #fff);color:var(--prism-text, #18181b);font:500 12px/1.5 var(--prism-font, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif);width:max-content;max-width:100%}.ds-appearance button,.ds-appearance select{min-height:32px;padding:4px 8px;border:1px solid transparent;border-radius:var(--prism-radius-sm, 4px);color:var(--prism-muted, #52525b);background:var(--prism-surface, #fff);font:inherit;cursor:pointer}.ds-appearance button[aria-pressed='true']{color:var(--prism-accent, #9e2533);background:var(--prism-selected, #faeef0)}.ds-appearance select{border-color:var(--prism-control-border, #71717a)}.ds-appearance button:hover,.ds-appearance select:hover{background:var(--prism-subtle, #f4f4f5);color:var(--prism-text, #18181b)}.ds-appearance button:focus-visible,.ds-appearance select:focus-visible{outline:2px solid var(--prism-accent, #9e2533);outline-offset:2px}@media(max-width:736px){.ds-appearance{padding:0;border:0;background:transparent}.ds-appearance button,.ds-appearance select{min-height:44px}}"
+    }
+  ],
+  "narrative": {
+    "northStar": "大学课程工作区",
+    "overview": "面向每日查看课程、通知与教学材料的教学网用户。延续 Linear 的紧凑层级、shadcn/ui 的语义色与状态、Notion 的阅读节奏，以中性表面与北大红组织一个安静、清晰的课程工作区。课程名称和正在阅读的内容承担视觉重心，编号、学期、日期和来源完整保留并降低权重。\n\n组件以内容和操作为单位：课程入口使用卡片，通知使用目录与阅读区，教学材料和作业使用平整资源行。局部组件只改变本地呈现，不推断业务状态。原生内容、链接、权限、表单归属和事件语义决定界面能做什么；CSS 负责表现，TypeScript 负责可逆 DOM 重组。",
+    "keyCharacteristics": [
+      "中性色为主，品牌色只标识品牌、链接、选中与焦点。",
+      "名称优先、元信息完整，长标题可换行。",
+      "以分区、间距与细边框建立层级，表面平整。",
+      "浅深色共享布局，窄屏通过重排与折叠保留阅读空间。"
+    ],
+    "rules": [
+      {
+        "name": "The Semantic Contrast Rule",
+        "body": "普通文字及次级文字目标 ≥4.5:1；焦点与必要的控件边界 ≥3:1。内容分隔线不承担控件识别功能，状态不能只靠颜色。",
+        "section": "colors"
+      },
+      {
+        "name": "The Complete Identifier Rule",
+        "body": "名称置前，学期与编号次级显示；唯一识别信息完整保留，长文本换行，不以截断换取整齐。",
+        "section": "typography"
+      },
+      {
+        "name": "The Reading Space Rule",
+        "body": "窄屏将辅助导航折叠、内容改为单列，主要入口和附件保持可见；不以压缩正文行高或截断课程标识获得密度。",
+        "section": "layout"
+      },
+      {
+        "name": "The Flat Surface Rule",
+        "body": "课程卡片、公告阅读区、资源行与控制面板均保持平整，用背景、边线和排版表示层级。",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "**Do** 复用语义 Token；浅深色改变颜色，保持几何尺寸一致。",
+      "**Do** 优先呈现名称、正文与主要业务入口，完整保留课程、角色和资源标识。",
+      "**Do** 为本地搜索、选中和展开提供可访问状态、数量反馈及清空入口。",
+      "**Do** 在已识别页面的 `html[data-pku-prism='enabled']` 范围内改造；移动原生节点而不复制业务节点，停用恢复位置、属性和文本。",
+      "**Do** 用真实 DOM 与构建产物核验布局；未知页保留原站，验证范围与环境限制写入验证记录。"
+    ],
+    "donts": [
+      "**Don't** 使用渐变、毛玻璃、装饰性 Emoji、重阴影、入场动画或新增动画。",
+      "**Don't** 增加外部字体请求、联网依赖、React 或组件框架。",
+      "**Don't** 以装饰性卡片、胶囊和文字截断削弱内容层级。",
+      "**Don't** 从本地呈现推断未读、截止时间、提交或完成状态，不改写原生业务语义。",
+      "**Don't** 修改原站 body class、覆盖原生事件或操作跨域 iframe；所有新增节点和监听器必须可清理。"
+    ]
+  }
+}

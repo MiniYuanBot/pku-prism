@@ -1,0 +1,60 @@
+/* Shared by the scoped page stylesheet and the isolated Prism control. */
+html[data-pku-prism='enabled'], :host {
+  --prism-white: #fff;
+  --prism-zinc-50: #fafafa;
+  --prism-zinc-100: #f4f4f5;
+  --prism-zinc-200: #e4e4e7;
+  --prism-zinc-400: #a1a1aa;
+  --prism-zinc-500: #71717a;
+  --prism-zinc-600: #52525b;
+  --prism-zinc-700: #3f3f46;
+  --prism-zinc-800: #27272a;
+  --prism-zinc-900: #18181b;
+  --prism-brand: #9e2533;
+  --prism-font: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+  --prism-space-1: 4px;
+  --prism-space-2: 8px;
+  --prism-space-3: 12px;
+  --prism-space-4: 16px;
+  --prism-space-6: 24px;
+  --prism-space-8: 32px;
+  --prism-space-12: 48px;
+  --prism-radius-sm: 4px;
+  --prism-radius-md: 6px;
+  --prism-radius-lg: 8px;
+  --prism-canvas: var(--prism-zinc-50);
+  --prism-surface: var(--prism-white);
+  --prism-subtle: var(--prism-zinc-100);
+  --prism-border: var(--prism-zinc-200);
+  --prism-control-border: var(--prism-zinc-500);
+  --prism-text: var(--prism-zinc-900);
+  --prism-muted: var(--prism-zinc-600);
+  --prism-accent: var(--prism-brand);
+  --prism-selected: #faeef0;
+  --prism-on-brand: var(--prism-white);
+  color-scheme: light;
+}
+html[data-pku-prism='enabled'][data-pku-prism-theme='dark'], :host([data-theme='dark']) {
+  --prism-canvas: var(--prism-zinc-900);
+  --prism-surface: #202023;
+  --prism-subtle: var(--prism-zinc-800);
+  --prism-border: var(--prism-zinc-700);
+  --prism-control-border: var(--prism-zinc-400);
+  --prism-text: var(--prism-zinc-100);
+  --prism-muted: var(--prism-zinc-400);
+  --prism-accent: #f0a3ad;
+  --prism-selected: #38272d;
+  color-scheme: dark;
+}
+@media print {
+  html[data-pku-prism='enabled'] {
+    --prism-canvas: var(--prism-white);
+    --prism-surface: var(--prism-white);
+    --prism-subtle: var(--prism-zinc-100);
+    --prism-text: var(--prism-zinc-900);
+    --prism-muted: var(--prism-zinc-600);
+    --prism-accent: var(--prism-brand);
+    --prism-border: var(--prism-zinc-200);
+    color-scheme: light;
+  }
+}

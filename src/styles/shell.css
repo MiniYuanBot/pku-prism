@@ -1,0 +1,152 @@
+/* Only pages positively identified by the route + DOM guard receive this sheet. */
+html[data-pku-prism='enabled'] {
+  background: var(--prism-canvas);
+  scrollbar-color: var(--prism-control-border) var(--prism-canvas);
+}
+html[data-pku-prism='enabled'] #learn-oe-body {
+  min-width: 0;
+  background: var(--prism-canvas);
+  color: var(--prism-text);
+  font: 400 14px/1.6 var(--prism-font);
+}
+html[data-pku-prism='enabled'] :is(#globalNavPageContentArea, .locationPane, .contentBox, #contentPanel, #containerdiv, #contentPanel > .shadow) {
+  background: var(--prism-canvas);
+  color: var(--prism-text);
+  box-shadow: none;
+  border-color: var(--prism-border);
+}
+html[data-pku-prism='enabled'] #globalNavPageContentArea { padding-bottom: 88px; }
+/* The site applies Open Sans through a universal rule; restate the UI family on text nodes. */
+html[data-pku-prism='enabled'] :is(#appTabList, #breadcrumbs, #courseMenuPalette, #myGroups, .portlet, #announcementList, #content_listContainer) :where(p, span, a, li, h2, h3, h4, label) { font-family: var(--prism-font); }
+html[data-pku-prism='enabled'] :is(#topTabs, .brandingImgWrap, .tabWrapper-right) {
+  background: var(--prism-surface) !important;
+  box-shadow: none;
+}
+html[data-pku-prism='enabled'] #topTabs {
+  height: auto !important;
+  min-height: 0;
+  border-bottom: 1px solid var(--prism-border);
+}
+html[data-pku-prism='enabled'] .brandingImgWrap {
+  height: 56px;
+  box-sizing: border-box;
+  padding: 16px 24px;
+}
+html[data-pku-prism='enabled'] .brandingImgWrap::before {
+  content: '北京大学 教学网';
+  font: 600 16px/24px var(--prism-font);
+  color: var(--prism-text);
+}
+html[data-pku-prism='enabled'] .brandingImgWrap::after {
+  content: 'PKU Prism';
+  margin-left: 12px;
+  color: var(--prism-accent);
+  font-size: 12px;
+  font-weight: 500;
+}
+html[data-pku-prism='enabled'] .tabWrapper-right { padding: 0 24px; min-height: 44px; }
+html[data-pku-prism='enabled'] #appTabList { float: none; width: auto; height: auto; margin: 0; border: 0; }
+html[data-pku-prism='enabled'] #appTabList :is(td, td.active) {
+  padding: 0;
+  border: 0;
+  background: none;
+  vertical-align: middle;
+}
+html[data-pku-prism='enabled'] #appTabList a {
+  display: block;
+  padding: 10px 16px;
+  margin: 0;
+  border: 0;
+  border-bottom: 2px solid transparent;
+  border-radius: 0;
+  background: none;
+  color: var(--prism-muted);
+  font: 500 13px/22px var(--prism-font);
+  text-shadow: none;
+  white-space: nowrap;
+}
+html[data-pku-prism='enabled'] #appTabList a[aria-current='true'] {
+  border-bottom-color: var(--prism-accent);
+  color: var(--prism-accent);
+}
+html[data-pku-prism='enabled'] #appTabList a:hover { background: var(--prism-subtle); color: var(--prism-text); }
+html[data-pku-prism='enabled'] :is(#global-nav, .global-nav-bar.logout) { top: 12px; }
+html[data-pku-prism='enabled'] :is(#global-nav-link, .logout-link) {
+  background-color: var(--prism-surface);
+  color: var(--prism-text);
+  font: 400 13px/28px var(--prism-font);
+  border-color: var(--prism-border);
+  box-shadow: none;
+}
+html[data-pku-prism='enabled'] #global-nav-flyout {
+  background: var(--prism-surface);
+  color: var(--prism-text);
+  border-color: var(--prism-border);
+}
+html[data-pku-prism='enabled'] :is(#breadcrumbs, .paneTabs) {
+  background: var(--prism-canvas);
+  border-color: var(--prism-border);
+  box-shadow: none;
+}
+html[data-pku-prism='enabled'] #breadcrumbs { padding: 12px 24px; font: 400 13px/1.6 var(--prism-font); }
+html[data-pku-prism='enabled'] #breadcrumbs a { color: var(--prism-muted); }
+html[data-pku-prism='enabled'] :is(#appTabList, #breadcrumbs, #courseMenuPalette, #myGroups, .portlet, #announcementList, #content_listContainer, #paneTabs) a:focus-visible {
+  outline: 2px solid var(--prism-accent);
+  outline-offset: 2px;
+  border-radius: var(--prism-radius-sm);
+}
+html[data-pku-prism='enabled'] :is(#announcementList, #content_listContainer, .portlet) ::selection {
+  background: var(--prism-selected);
+  color: var(--prism-text);
+}
+html[data-pku-prism='enabled'] :is(#announcementList, #content_listContainer, .portlet) a:hover { text-decoration: underline; text-underline-offset: 3px; }
+html[data-pku-prism='enabled'] :is(#announcementList, #content_listContainer) img { max-width: 100%; height: auto; }
+html[data-pku-prism='enabled'] :is(.portlet .button-6, #announcementForm input[type='submit']) {
+  padding: 6px 12px;
+  border: 1px solid var(--prism-control-border);
+  border-radius: var(--prism-radius-md);
+  background: var(--prism-surface);
+  color: var(--prism-text);
+  font: 500 13px/1.6 var(--prism-font);
+  box-shadow: none;
+  text-shadow: none;
+}
+html[data-pku-prism='enabled'] :is(.portlet .button-6, #announcementForm input[type='submit']):focus-visible {
+  outline: 2px solid var(--prism-accent);
+  outline-offset: 2px;
+}
+@media (max-width: 1037px) {
+  html[data-pku-prism='enabled'] :is(.brandingImgWrap, .tabWrapper-right) { padding-left: 16px; padding-right: 16px; }
+  html[data-pku-prism='enabled'] #breadcrumbs { padding: 12px 16px; }
+}
+@media (max-width: 736px) {
+  html[data-pku-prism='enabled'] .brandingImgWrap { padding: 16px 12px 16px 52px; }
+  html[data-pku-prism='enabled'] .brandingImgWrap::after { display: none; }
+  html[data-pku-prism='enabled'] .tabWrapper-right { padding: 0 12px; overflow-x: auto; }
+  html[data-pku-prism='enabled'] #breadcrumbs { padding: 12px; overflow-wrap: anywhere; }
+  html[data-pku-prism='enabled'] #appTabList a { padding: 10px 12px; }
+}
+
+/* Legacy branding uses nested IDs and direct child colours. Keep overrides local. */
+html[data-pku-prism='enabled'] :is(#pageTitleText, #breadcrumbs, #breadcrumbs span) { color: var(--prism-text); }
+html[data-pku-prism='enabled'] :is(#topTabs, .paneTabs, .portlet h2) { border-color: var(--prism-border) !important; }
+html[data-pku-prism='enabled'] #pageTitleText { font: inherit; }
+html[data-pku-prism='enabled'] #pageTitleText span { color: inherit !important; }
+/* Legacy colour transitions briefly create unreadable intermediate themes. */
+html[data-pku-prism='enabled'] :is(#topTabs, .portlet, .portlet h2, #announcementList > li, #content_listContainer > li, #courseMenuPalette_contents a) { transition: none !important; }
+@media (max-width: 1037px) {
+  html[data-pku-prism='enabled'] .brandingImgWrap::before,
+  html[data-pku-prism='enabled'] .brandingImgWrap::after { display: none; }
+  html[data-pku-prism='enabled'] #appTabList td.active > a { padding-left: 56px; }
+  html[data-pku-prism='enabled'] .hamburger-inner,
+  html[data-pku-prism='enabled'] .hamburger-inner::before,
+  html[data-pku-prism='enabled'] .hamburger-inner::after { background-color: var(--prism-text); }
+}
+@media (max-width: 736px) {
+  /* The native mobile tab bar stays native; only remove unused desktop header space. */
+  html[data-pku-prism='enabled'] #topTabs { min-height: 44px; }
+  html[data-pku-prism='enabled'] .tabWrapper-right { min-height: 44px; }
+  html[data-pku-prism='enabled'] #breadcrumbs { box-sizing: border-box; width: 100%; }
+  html[data-pku-prism='enabled'] #breadcrumbs :is(.path, .path > ol, .placeholder) { box-sizing: border-box; width: 100%; max-width: 100%; }
+  html[data-pku-prism='enabled'] #breadcrumb_controls_id { left: auto; right: 0; width: auto; max-width: 100%; }
+}
