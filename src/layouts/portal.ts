@@ -1,5 +1,5 @@
 import type { DomSession } from '../core/dom-session';
-import { button, element, responsiveDisclosure, searchControl, status } from './components';
+import { button, element, searchControl, status } from './components';
 
 export function redesignPortal(session: DomSession): void {
   const container = document.querySelector<HTMLElement>('.containerPortal');
@@ -13,13 +13,8 @@ export function redesignPortal(session: DomSession): void {
   const workspace = session.own(element('div', 'prism-workspace'), container, container.firstChild);
   const navigation = element('aside', 'prism-workspace-nav');
   navigation.setAttribute('aria-label', '教学网工作区');
-  const disclosure = element('details', 'prism-workspace-disclosure');
-  disclosure.append(element('summary', 'prism-nav-summary', '工作区导航'));
-  const global = element('nav', 'prism-global-links');
-  global.setAttribute('aria-label', '全局导航');
-  disclosure.append(global);
-  navigation.append(disclosure);
   const main = element('section', 'prism-course-catalog');
+  main.id = 'pku-prism-courses';
   main.setAttribute('aria-label', '我的课程');
   const heading = element('header', 'prism-catalog-heading');
   heading.append(element('h1', 'prism-page-heading', '我的课程'));
@@ -66,13 +61,13 @@ export function redesignPortal(session: DomSession): void {
     empty.hidden = matches > 0;
   }
   const search = searchControl(session, '搜索当前视图的课程名称或编号', value => { query = value; render(); });
+  search.input.id = 'pku-prism-course-search';
   toolbar.append(search.group, count);
   main.append(heading, toolbar, stage, empty);
   const support = element('aside', 'prism-workspace-context');
   support.setAttribute('aria-label', '公告与事务');
   workspace.append(navigation, main, support);
-  session.move(tabs, global);
-  session.move(tools, disclosure);
+  session.move(tools, navigation);
   session.move(current, stage);
   session.move(history, stage);
   session.move(context, support);
@@ -80,6 +75,6 @@ export function redesignPortal(session: DomSession): void {
   session.attribute(container, 'data-prism-layout', 'workspace');
   session.listen(currentButton, 'click', () => { active = current; render(); });
   session.listen(historyButton, 'click', () => { active = history; render(); });
-  responsiveDisclosure(session, disclosure);
   render();
+  if (location.hash === '#pku-prism-course-search') search.input.focus();
 }

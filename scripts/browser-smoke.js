@@ -13,7 +13,18 @@ async function smokePrism(source) {
     node, parent: node.parentNode, children: [...node.childNodes], hidden: node.getAttribute('hidden'), id: node.getAttribute('id'), tabindex: node.getAttribute('tabindex'),
   }));
   const originalLinks = [...document.querySelectorAll('a')];
-  const businessLinks = [...document.querySelectorAll('.courseListing a,#announcementList a,#content_listContainer a,#courseMenuPalette_contents a')].map(node => ({ node, href: node.getAttribute('href') }));
+  const businessLinks = [...document.querySelectorAll('.courseListing a,#announcementList a,#content_listContainer a,#navigationPane a,#appTabList a,#paneTabs a,.portletList a,#quick_links_lightbox_link')].map(node => ({ node, href: node.getAttribute('href') }));
+  const helpLink = document.querySelector('#helpTextToggleLink');
+  const nativeFlyout = document.querySelector('#overflowIconId')?.flyoutMenu;
+  const nativeFlyoutEnabled = nativeFlyout?.enabled;
+  const siteLabels = [...document.querySelectorAll('#appTabList td > a')].map(node => ({ node, text: node.textContent }));
+  const quickLinks = document.querySelector('#quick_links_wrap');
+  const originalFrames = [...document.querySelectorAll('iframe')].flatMap(frame => {
+    try {
+      const doc = frame.contentDocument;
+      return doc?.querySelector('body#learn-oe-body, body#tinymce') ? [{ frame, doc }] : [];
+    } catch { return []; }
+  });
   const originalForms = [...document.forms].map(form => ({ form, controls: [...form.elements] }));
   const courseText = [...document.querySelectorAll('.courseListing a')].map(link => ({ link, text: link.textContent, node: link.firstChild }));
   const bodyClass = document.body.className;
@@ -31,6 +42,9 @@ async function smokePrism(source) {
       node.parentNode === parent && node.getAttribute('hidden') === hidden && node.getAttribute('id') === id && node.getAttribute('tabindex') === tabindex &&
       node.childNodes.length === children.length && children.every((child, index) => node.childNodes[index] === child)), 'Exact native tree and attributes restored');
     assert(courseText.every(({link, node}) => link.firstChild === node), 'Original Text nodes restored');
+    assert(siteLabels.every(({node, text}) => node.textContent === text), 'Original bilingual site labels restored');
+    assert(originalFrames.every(({frame, doc}) => frame.contentDocument === doc), 'Original live iframe documents preserved');
+    assert(!nativeFlyout || nativeFlyout.enabled === nativeFlyoutEnabled, 'Original overflow keyboard behavior restored');
   };
   const probeTargets = [...document.querySelectorAll('.courseListing, #announcementForm, #content_listContainer')];
   let probes = 0;
@@ -39,15 +53,16 @@ async function smokePrism(source) {
   try {
     localStorage.setItem(keys[0], 'true'); localStorage.setItem(keys[1], 'light');
     new Function(source)();
+    await new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve)));
     const page = root.dataset.pkuPrismPage;
-    assert(page && document.querySelector('[data-prism-layout]'), 'Recognized structural redesign');
+    assert(page && document.querySelector('.prism-shell-header'), 'Recognized shared shell');
     assert(button()?.getAttribute('aria-pressed') === 'true', 'Enabled switch');
     assert(document.querySelectorAll('#pku-prism-styles').length === 1, 'One stylesheet');
     assert(courseText.every(({link, text}) => link.textContent === text), 'Full course text preserved');
     results.push('structural mount + original text');
 
     if (page === 'portal') {
-      assert(document.querySelector('.prism-global-links #appTabList'), 'Native navigation moved to workspace');
+      assert(document.querySelector('.prism-shell-site-panel #appTabList'), 'Native navigation moved to shared header');
       const currentCount = visible('.courseListing > li').length;
       document.querySelectorAll('.prism-view-switch button')[1].click();
       assert(visible('.prism-course-stage > .portlet').length === 1, 'One course scope at a time');
@@ -66,7 +81,7 @@ async function smokePrism(source) {
       document.querySelector('.prism-list-toolbar > button').click();
       assert(visible('#announcementList > li').length === entries.length, 'Read all announcements');
       results.push('announcement selection + reader focus + read all');
-    } else {
+    } else if (page === 'content') {
       const toggles = document.querySelectorAll('.prism-description-toggle');
       if (toggles.length) {
         assert(visible('#content_listContainer .vtbegenerated').length === 0, 'Instructions start collapsed');
@@ -80,6 +95,7 @@ async function smokePrism(source) {
       assert(visible('#content_listContainer > li').length > 0, 'Matching resource remains');
       results.push(toggles.length ? 'assignment disclosures + expand all + filtering' : 'resource browser + filtering');
     }
+    if (document.querySelector('.prism-search-input')) {
     search('pku-prism-no-such-result-9xq');
     assert(visible('.prism-empty').length === 1, 'No-results state');
     document.querySelector('.prism-search-clear').click();
@@ -88,22 +104,85 @@ async function smokePrism(source) {
     document.querySelector('.prism-search-input').dispatchEvent(enter);
     assert(enter.defaultPrevented, 'Search Enter cannot submit native form');
     results.push('empty + clear + no form submission');
+    }
+
+    assert(!document.querySelector('.prism-shell-sites'), 'No redundant site dropdown');
+    assert(visible('.prism-shell-site-panel #appTabList td > a').length === siteLabels.length + 1, 'All site links and My Courses directly visible');
+    assert(siteLabels.every(({node}) => !/\([A-Za-z ]+\)/.test(node.textContent)), 'Site labels omit English suffix');
+    if (quickLinks) assert(document.querySelector('.prism-shell-appearance-panel').contains(quickLinks), 'Native quick links in header settings');
+    assert(!document.querySelector('.prism-shell-header #breadcrumbs, .prism-shell-header #paneTabs'), 'Header has no context navigation');
+    const footer = document.querySelector('.prism-context-footer');
+    if (footer) {
+      assert(footer.parentElement.lastElementChild === footer && footer.querySelector('.nav.clearfix.u_floatThis-right'), 'Native low-frequency actions are at the end of the sidebar');
+      assert(footer.querySelector('#courseMenu_combo[data-prism-icon-action="home"]'), 'Course home link joins footer icons');
+    }
+    const overflow = document.querySelector('.prism-home-menu #overflowULId');
+    if (overflow) {
+      assert(getComputedStyle(overflow).display !== 'none' && getComputedStyle(overflow).visibility === 'visible' && !overflow.closest('[hidden]'), 'Native overflow destinations are exposed directly');
+      assert(overflow.parentElement.id === 'overflowLiId' && document.querySelector('#overflowIconId').hidden, 'Native resize containers remain intact; only the disclosure is hidden');
+      assert(overflow.getAttribute('role') !== 'menu' && !overflow.querySelector('[role="menuitem"]'), 'Inline destinations use ordinary link semantics');
+      assert(overflow.getAttribute('aria-hidden') === 'false' && [...overflow.querySelectorAll('a')].every(a => a.getAttribute('role') === 'link' && a.tabIndex === 0), 'Inline destinations remain visible to keyboard and accessibility APIs');
+    }
+    assert(document.querySelector('.prism-global-search'), 'Global course search destination');
+    if (helpLink) assert(document.querySelector('.actionBarMicro .nav').contains(helpLink) && helpLink.querySelector('svg'), 'Native help toggle becomes a toolbar icon');
+    for (const link of document.querySelectorAll('[data-prism-context-jump]')) assert(link.querySelectorAll('svg').length === 1, 'One icon per native jump action');
+    const appearance = document.querySelector('.prism-shell-appearance');
+    appearance.querySelector('summary').click();
+    appearance.querySelector('summary').dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true }));
+    assert(!appearance.open && document.activeElement === appearance.querySelector('summary'), 'Appearance Escape restores focus');
+    const railButton = document.querySelector('.prism-rail-toggle');
+    if (railButton) {
+      const initial = railButton.getAttribute('aria-expanded');
+      const main = document.querySelector('.prism-course-catalog, .prism-shell-body > #contentPanel, #iframe_wrap');
+      const before = main?.getBoundingClientRect().width;
+      railButton.click();
+      assert(railButton.getAttribute('aria-expanded') !== initial, 'Shared rail toggles');
+      assert(document.querySelector('[data-prism-context-rail]').inert === (railButton.getAttribute('aria-expanded') === 'false'), 'Closed rail is not keyboard reachable');
+      if (main && before && initial === 'true' && matchMedia('(min-width: 901px)').matches) {
+        assert(!visible('[data-prism-context-rail]').length, 'Desktop rail fully disappears');
+        assert(main.getBoundingClientRect().width > before, 'Collapsing sidebar releases width to content');
+      }
+      railButton.click();
+      assert(railButton.getAttribute('aria-expanded') === initial, 'Rail state restored');
+    }
+    const childDocs = () => {
+      const docs = [];
+      const visit = doc => { for (const frame of doc.querySelectorAll('iframe')) { let d; try { d = frame.contentDocument; } catch {} if (d?.body) { docs.push(d); visit(d); } } };
+      visit(document); return docs;
+    };
+    const themed = childDocs().filter(d => d.querySelector('#pku-prism-frame-styles'));
+    assert(themed.every(d => d.querySelectorAll('#pku-prism-frame-styles').length === 1), 'One stylesheet per native frame');
+    results.push('site navigation + rail + native frame mount');
 
     probeTargets.forEach(node => node.firstElementChild?.dispatchEvent(new Event('pku-prism:qa-probe', { bubbles: true })));
     assert(probes === probeTargets.filter(node => node.firstElementChild).length, 'Original ancestor events reachable');
     assert(originalLinks.every(node => node.isConnected), 'All original links retained');
     assert(businessLinks.every(({node, href}) => node.getAttribute('href') === href), 'Business URLs unchanged');
     assert(originalForms.every(({form, controls}) => form.isConnected && controls.every(node => node.form === form)), 'Original controls retain their form');
+    assert(originalFrames.every(({frame, doc}) => frame.contentDocument === doc), 'Mount keeps live iframe documents');
     assert(document.body.className === bodyClass, 'Native responsive state retained');
     results.push('links + form ownership + ancestor events');
 
+    for (const localButton of document.querySelectorAll('.prism-button')) {
+      assert(getComputedStyle(localButton).cursor === 'pointer', 'Local action has pointer cursor');
+    }
+    for (const summary of document.querySelectorAll('.prism-nav-summary')) {
+      assert(getComputedStyle(summary).display === 'flex' && getComputedStyle(summary).listStyleType === 'none', 'Disclosure owns its layout and marker');
+      const open = summary.parentElement.open;
+      summary.click(); assert(summary.parentElement.open !== open, 'Disclosure toggles natively');
+      summary.click(); assert(summary.parentElement.open === open, 'Disclosure restores its state');
+    }
+    results.push('action cursor + disclosure layout and interaction');
+
     theme('dark'); assert(root.dataset.pkuPrismTheme === 'dark' && getComputedStyle(root).colorScheme === 'dark', 'Dark theme');
+    assert(themed.every(d => d.documentElement.dataset.pkuPrismTheme === 'dark'), 'Nested frames follow dark theme');
     theme('light'); assert(root.dataset.pkuPrismTheme === 'light', 'Light theme');
     theme('system'); assert(root.dataset.pkuPrismTheme === (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'), 'System theme');
     results.push('light + dark + system');
     button().click();
     assert(!document.querySelector('#pku-prism-styles, [data-prism-layout], .prism-workspace, .prism-search-input'), 'Disable removes all redesign');
     assert(!root.hasAttribute('data-pku-prism'), 'Disable removes scope');
+    assert(themed.every(d => !d.querySelector('#pku-prism-frame-styles') && !d.documentElement.hasAttribute('data-pku-prism-frame')), 'Disable cleans nested frames');
     assertRestored();
     new Function(source)();
     assert(button()?.getAttribute('aria-pressed') === 'false', 'Disabled preference persists');

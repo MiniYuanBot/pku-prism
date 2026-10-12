@@ -15,10 +15,20 @@ export class DomSession {
     node.parentNode.insertBefore(marker, node);
     this.defer(() => {
       // If Blackboard replaced the original region, do not resurrect stale content.
-      if (marker.isConnected) marker.replaceWith(node);
+      if (marker.isConnected) {
+        this.place(marker.parentNode!, node, marker);
+        marker.remove();
+      }
       else marker.remove();
     });
-    parent.insertBefore(node, before);
+    this.place(parent, node, before);
+  }
+
+  private place(parent: Node, node: Node, before: Node | null): void {
+    // insertBefore disconnects/reloads live iframes (including TinyMCE documents).
+    const stable = parent as Node & { moveBefore?: (node: Node, before: Node | null) => void };
+    if (stable.moveBefore && parent.isConnected && node.isConnected) stable.moveBefore(node, before);
+    else parent.insertBefore(node, before);
   }
 
   attribute(node: Element, name: string, value: string | null): void {
@@ -41,6 +51,12 @@ export class DomSession {
   }
 
   hidden(node: HTMLElement, value: boolean): void { this.attribute(node, 'hidden', value ? '' : null); }
+
+  text(node: Text, value: string): void {
+    const original = node.data;
+    node.data = value;
+    this.defer(() => { if (node.data === value) node.data = original; });
+  }
 
   listen(target: EventTarget, type: string, listener: EventListener): void {
     target.addEventListener(type, listener);

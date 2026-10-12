@@ -1,0 +1,40 @@
+/* Blackboard lazily appends this menu to body, outside the breadcrumb container.
+   Match both native link variants (href actions and role=menuitem with grouped labels). */
+html[data-pku-prism='enabled'] #breadcrumbs .courseArrow { margin: 0 0 0 8px; padding: 0; vertical-align: middle; }
+html[data-pku-prism='enabled'] #breadcrumbs .courseArrow .contextMenuContainer { margin: 0; padding: 0; }
+html[data-pku-prism='enabled'] #breadcrumbs .courseArrow a.cmimg { box-sizing: border-box; position: relative; display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; margin: 0; padding: 0; border: 1px solid var(--prism-border); border-radius: var(--prism-radius-md); background: var(--prism-surface); color: var(--prism-muted); cursor: pointer; opacity: 1; }
+html[data-pku-prism='enabled'] #breadcrumbs .courseArrow a.cmimg::before { content: ''; width: 6px; height: 6px; margin-top: -3px; border: solid currentColor; border-width: 0 1.5px 1.5px 0; transform: rotate(45deg); }
+html[data-pku-prism='enabled'] #breadcrumbs .courseArrow a.cmimg:hover { background: var(--prism-subtle); color: var(--prism-text); }
+html[data-pku-prism='enabled'] #breadcrumbs .courseArrow a.cmimg img { position: absolute; width: 1px; height: 1px; opacity: 0; }
+html[data-pku-prism='enabled'] .cmdiv:is(:has(a[href*='breadcrumbs.navCourse']), :has(.labelMenuItem)) { box-sizing: border-box; width: min(360px, calc(100vw - 24px)); max-height: min(560px, calc(100dvh - 140px)); height: auto !important; padding: 8px; overflow: auto !important; overscroll-behavior: contain; border: 1px solid var(--prism-border); border-radius: var(--prism-radius-lg); background: var(--prism-surface); color: var(--prism-text); font: 400 13px/1.6 var(--prism-font); box-shadow: none; scrollbar-color: var(--prism-control-border) var(--prism-surface); }
+html[data-pku-prism='enabled'] .cmdiv:is(:has(a[href*='breadcrumbs.navCourse']), :has(.labelMenuItem)) :is(ul, li) { width: auto; margin: 0; padding: 0; border: 0; background: none; list-style: none; }
+html[data-pku-prism='enabled'] .cmdiv:is(:has(a[href*='breadcrumbs.navCourse']), :has(.labelMenuItem)) > ul + ul:not(.cmul-hide) { margin-top: 8px; padding-top: 8px; border-top: 1px solid var(--prism-border); }
+html[data-pku-prism='enabled'] .cmdiv:is(:has(a[href*='breadcrumbs.navCourse']), :has(.labelMenuItem)) .labelMenuItem { display: block; margin: 0; padding: 8px 12px; color: var(--prism-muted); font: 500 12px/1.6 var(--prism-font); }
+html[data-pku-prism='enabled'] .cmdiv:is(:has(a[href*='breadcrumbs.navCourse']), :has(.labelMenuItem)) a { box-sizing: border-box; display: flex; align-items: center; min-height: 36px; margin: 0; padding: 8px 12px; border: 0; border-radius: var(--prism-radius-md); background: transparent; color: var(--prism-text); font: 400 13px/1.6 var(--prism-font); white-space: normal; overflow-wrap: anywhere; text-decoration: none; cursor: pointer; }
+html[data-pku-prism='enabled'] .cmdiv:is(:has(a[href*='breadcrumbs.navCourse']), :has(.labelMenuItem)) a:is(:hover, :focus) { background: var(--prism-subtle); color: var(--prism-text); text-decoration: none; }
+html[data-pku-prism='enabled'] .cmdiv:is(:has(a[href*='breadcrumbs.navCourse']), :has(.labelMenuItem)) a:focus { outline: 2px solid var(--prism-accent); outline-offset: -2px; }
+html[data-pku-prism='enabled'] .cmdiv:is(:has(a[href*='breadcrumbs.navCourse']), :has(.labelMenuItem)) > ul:first-child { position: sticky; top: -8px; z-index: 1; min-height: 32px; padding: 0 0 8px; background: var(--prism-surface); }
+html[data-pku-prism='enabled'] .cmdiv:is(:has(a[href*='breadcrumbs.navCourse']), :has(.labelMenuItem)) .contextmenubar_top { position: static; display: flex; justify-content: flex-end; }
+/* The native close control declares a white background with !important in every state. */
+html[data-pku-prism='enabled'] .cmdiv:is(:has(a[href*='breadcrumbs.navCourse']), :has(.labelMenuItem)) a.close-menu { position: static; inset: auto; justify-content: center; min-width: 32px; min-height: 32px; padding: 0; background: var(--prism-surface) !important; opacity: 1; }
+html[data-pku-prism='enabled'] .cmdiv:is(:has(a[href*='breadcrumbs.navCourse']), :has(.labelMenuItem)) a.close-menu:is(:hover, :focus) { background: var(--prism-subtle) !important; }
+html[data-pku-prism='enabled'] .cmdiv:is(:has(a[href*='breadcrumbs.navCourse']), :has(.labelMenuItem)) .close-contextmenu { position: relative; width: 14px; height: 14px; }
+html[data-pku-prism='enabled'] .cmdiv:is(:has(a[href*='breadcrumbs.navCourse']), :has(.labelMenuItem)) .close-contextmenu::before,
+html[data-pku-prism='enabled'] .cmdiv:is(:has(a[href*='breadcrumbs.navCourse']), :has(.labelMenuItem)) .close-contextmenu::after { content: ''; position: absolute; top: 6px; left: 0; width: 14px; height: 0; border-top: 1.5px solid currentColor; color: inherit; transform: rotate(45deg); }
+html[data-pku-prism='enabled'] .cmdiv:is(:has(a[href*='breadcrumbs.navCourse']), :has(.labelMenuItem)) .close-contextmenu::after { transform: rotate(-45deg); }
+@media (max-width: 736px) {
+  /* Restore the native course identity and switcher as one usable row on phones. */
+  html[data-pku-prism='enabled'] #breadcrumbs:has(.coursePath) { padding: 12px; }
+  html[data-pku-prism='enabled'] #breadcrumbs .coursePath { box-sizing: border-box; display: flex; align-items: center; gap: 12px; width: 100%; height: auto; margin: 0; padding: 0; }
+  html[data-pku-prism='enabled'] #breadcrumbs .coursePath > a { position: static; display: block; flex: 1; min-width: 0; width: auto; height: auto; margin: 0; padding: 0; color: var(--prism-muted); font: 500 13px/1.6 var(--prism-font); white-space: normal; overflow-wrap: anywhere; }
+  html[data-pku-prism='enabled'] #breadcrumbs .coursePath > a > span { color: inherit; }
+  html[data-pku-prism='enabled'] #breadcrumbs .coursePath ~ .placeholder:not(:has(a)) { display: none; }
+  html[data-pku-prism='enabled'] #breadcrumbs .courseArrow { position: static; display: block; flex: 0 0 auto; margin: 0; padding: 0; }
+  html[data-pku-prism='enabled'] #breadcrumbs .courseArrow a.cmimg { width: 44px; height: 44px; }
+  html[data-pku-prism='enabled']:has(#breadcrumbs .coursePath) .prism-course-context { display: none; }
+  html[data-pku-prism='enabled']:has(#breadcrumbs .coursePath) #pageTitleBar,
+  html[data-pku-prism='enabled']:has(#breadcrumbs .coursePath) #pageTitleDiv > .prism-inline-controls { grid-row: 1; }
+  html[data-pku-prism='enabled'] .cmdiv:is(:has(a[href*='breadcrumbs.navCourse']), :has(.labelMenuItem)) { position: fixed; left: 12px !important; right: 12px !important; top: auto !important; bottom: 12px; width: auto; max-height: min(640px, calc(100dvh - 24px)); }
+  html[data-pku-prism='enabled'] .cmdiv:is(:has(a[href*='breadcrumbs.navCourse']), :has(.labelMenuItem)) a { min-height: 44px; }
+  html[data-pku-prism='enabled'] .cmdiv:is(:has(a[href*='breadcrumbs.navCourse']), :has(.labelMenuItem)) a.close-menu { min-width: 44px; min-height: 44px; }
+}

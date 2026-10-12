@@ -99,7 +99,9 @@ html[data-pku-prism='enabled'] :is(#announcementList, #content_listContainer, .p
   background: var(--prism-selected);
   color: var(--prism-text);
 }
-html[data-pku-prism='enabled'] :is(#announcementList, #content_listContainer, .portlet) a:hover { text-decoration: underline; text-underline-offset: 3px; }
+/* Navigation and resource links signal hover with colour/background, not legacy underlines. */
+html[data-pku-prism='enabled'] :is(#appTabList, #breadcrumbs, #courseMenuPalette, #myGroups, .portlet, #paneTabs, #content_listContainer .item, #content_listContainer .attachments) a:is(:link, :visited, :hover, :focus, :active) { text-decoration: none; }
+html[data-pku-prism='enabled'] :is(#announcementList, #content_listContainer) .vtbegenerated a:hover { color: var(--prism-accent); }
 html[data-pku-prism='enabled'] :is(#announcementList, #content_listContainer) img { max-width: 100%; height: auto; }
 html[data-pku-prism='enabled'] :is(.portlet .button-6, #announcementForm input[type='submit']) {
   padding: 6px 12px;
@@ -137,7 +139,7 @@ html[data-pku-prism='enabled'] :is(#topTabs, .portlet, .portlet h2, #announcemen
 @media (max-width: 1037px) {
   html[data-pku-prism='enabled'] .brandingImgWrap::before,
   html[data-pku-prism='enabled'] .brandingImgWrap::after { display: none; }
-  html[data-pku-prism='enabled'] #appTabList td.active > a { padding-left: 56px; }
+  html[data-pku-prism='enabled'] #topTabs #appTabList td.active > a { padding-left: 56px; }
   html[data-pku-prism='enabled'] .hamburger-inner,
   html[data-pku-prism='enabled'] .hamburger-inner::before,
   html[data-pku-prism='enabled'] .hamburger-inner::after { background-color: var(--prism-text); }

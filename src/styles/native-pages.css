@@ -1,0 +1,200 @@
+/* Native tools get the same system without replacing business forms or rich-text editors. */
+html[data-pku-prism='enabled'] :is(.contentBox, .contentBox-edit, .contentPaneWide, .containerPortal) { min-width: 0; border-color: var(--prism-border); }
+html[data-pku-prism='enabled'] #learn-oe-body :where(p, span, a, li, h1, h2, h3, h4, label, button, th, td) { font-family: var(--prism-font); }
+html[data-pku-prism='enabled'] :is(.locationPane, .contentPaneWide) { border: 0; }
+html[data-pku-prism='enabled'] #pageTitleDiv :is(.helphelp, .helphelp p) { position: static; color: var(--prism-muted); font: 400 13px/1.7 var(--prism-font); }
+html[data-pku-prism='enabled'] #pageTitleBar { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+html[data-pku-prism='enabled'] #pageTitleHeader { order: -1; }
+html[data-pku-prism='enabled'] #pageTitleBar > .helphelp { flex-basis: 100%; order: 1; }
+html[data-pku-prism='enabled'] :is(.contentBox, .contentBox-edit) { padding: 0; border: 0; background: var(--prism-canvas); }
+html[data-pku-prism='enabled'] :is(#containerdiv, .containerPortal:not([data-prism-layout='workspace'])) { box-sizing: border-box; padding: 24px; }
+html[data-pku-prism='enabled'] :is(.actionBar, .actionBarMicro, .rumble_top, .rumble, .paging, .pageHead-2, .additional, .column-nav, .column-inner, .landingPageColumn) { background: var(--prism-surface); color: var(--prism-text); border-color: var(--prism-border); box-shadow: none; }
+html[data-pku-prism='enabled'] :is(.actionBar, .rumble_top, .rumble) { padding: 8px 16px; margin: 0; border-color: var(--prism-border); }
+html[data-pku-prism='enabled'] :is(.actionBar, .rumble_top, .rumble, .paging) a { color: var(--prism-text); text-decoration: none; }
+html[data-pku-prism='enabled'] :is(.rumble .nav > li > a, .pagingprefs > a) { min-height: 28px; border: 1px solid var(--prism-border); border-radius: var(--prism-radius-sm); background: var(--prism-surface) !important; color: var(--prism-text) !important; box-shadow: none; text-shadow: none; cursor: pointer; transition: none !important; }
+html[data-pku-prism='enabled'] :is(.rumble .nav > li > a, .pagingprefs > a):is(:hover, :focus) { background: var(--prism-subtle) !important; color: var(--prism-text) !important; }
+html[data-pku-prism='enabled'] :is(.genericButton, .button-1, .button-2, .button-3, .button-4, .button-5, .button-6, .secondaryButton > a, .mainButton > a, .browse) { box-sizing: border-box; min-height: 32px; border: 1px solid var(--prism-border); border-radius: var(--prism-radius-md); background: var(--prism-surface) !important; color: var(--prism-text) !important; font: 500 13px/1.6 var(--prism-font); box-shadow: none; text-shadow: none; cursor: pointer; transition: none !important; }
+html[data-pku-prism='enabled'] :is(.genericButton, .button-1, .button-2, .button-3, .button-4, .button-5, .button-6, .secondaryButton > a, .mainButton > a, .browse):is(:hover, :focus) { background: var(--prism-subtle) !important; color: var(--prism-text) !important; border-color: var(--prism-control-border); }
+html[data-pku-prism='enabled'] :is(.genericButton, .button-1, .button-2, .button-3, .button-4, .button-5, .button-6, .secondaryButton > a, .mainButton > a, .browse) :is(span, strong) { color: inherit !important; background: none !important; }
+html[data-pku-prism='enabled'] :is(button, input, .genericButton):disabled { cursor: not-allowed; color: var(--prism-muted) !important; background: var(--prism-subtle) !important; }
+html[data-pku-prism='enabled'] :is(input:not([type='hidden']):not([type='checkbox']):not([type='radio']):not([type='submit']):not([type='button']), select, textarea):not(.prism-search-input) { box-sizing: border-box; max-width: 100%; border: 1px solid var(--prism-control-border); border-radius: var(--prism-radius-md); background-color: var(--prism-surface); color: var(--prism-text); font-family: var(--prism-font); box-shadow: none; }
+html[data-pku-prism='enabled'] :is(.inventory, .inventoryListTableContainerDiv, .noItems, .additional) { background: var(--prism-surface); color: var(--prism-text); border-color: var(--prism-border); }
+html[data-pku-prism='enabled'] .inventoryListTableContainerDiv { max-width: 100%; overflow-x: auto; border: 1px solid var(--prism-border); border-radius: var(--prism-radius-md); }
+html[data-pku-prism='enabled'] .inventory { width: 100%; margin: 0; border-collapse: collapse; font: 400 13px/1.6 var(--prism-font); }
+html[data-pku-prism='enabled'] .inventory :is(th, td) { padding: 12px; border-color: var(--prism-border); color: var(--prism-text); background: var(--prism-surface); }
+html[data-pku-prism='enabled'] .inventory th { font-weight: 500; background: var(--prism-subtle); }
+html[data-pku-prism='enabled'] .inventory tr:hover :is(td, th) { background: var(--prism-subtle); color: var(--prism-text); }
+html[data-pku-prism='enabled'] :is(.inventory, .landingPageColumn, .column-inner, .additional) a { color: var(--prism-accent); font-family: var(--prism-font); }
+html[data-pku-prism='enabled'] :is(.noItems, .additional) { padding: 24px; border-radius: var(--prism-radius-md); font: 400 14px/1.8 var(--prism-font); }
+/* Natural module height includes bottom controls; a 4px overflow must not create a scrollbar. */
+html[data-pku-prism='enabled'] .portlet { border: 1px solid var(--prism-border); border-radius: var(--prism-radius-lg); background: var(--prism-surface); color: var(--prism-text); box-shadow: none; }
+html[data-pku-prism='enabled'] .portlet h2 { padding: 16px; border-color: var(--prism-border); background: none !important; color: var(--prism-text); font: 600 14px/1.6 var(--prism-font); }
+html[data-pku-prism='enabled'] .portlet :is(.collapsible, .portletList, .port_clearfix) { height: auto !important; max-height: none !important; min-height: 0; overflow: visible !important; color: var(--prism-text); }
+html[data-pku-prism='enabled'] .portlet .collapsible { padding-bottom: 8px; }
+html[data-pku-prism='enabled'] .portlet :is(p, li, h3, span, .noItems) { color: inherit; font-family: var(--prism-font); }
+html[data-pku-prism='enabled'] .portlet .noItems { color: var(--prism-muted); background: none; }
+html[data-pku-prism='enabled'] .portlet h2 { border-color: var(--prism-border) !important; }
+html[data-pku-prism='enabled'] .portlet :is(a, a:hover, a:focus) { color: var(--prism-accent); text-decoration: none; }
+html[data-pku-prism='enabled'] .portlet a:hover { color: var(--prism-text); }
+html[data-pku-prism='enabled'] .containerPortal:not([data-prism-layout='workspace']) { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; }
+html[data-pku-prism='enabled'] .containerPortal:not([data-prism-layout='workspace']) :is(.column-2, .column-3) { display: contents; }
+html[data-pku-prism='enabled'] .containerPortal:not([data-prism-layout='workspace']) .portlet { margin: 0; }
+html[data-pku-prism='enabled'] .landingPageColumn { float: none; box-sizing: border-box; width: 100%; max-width: 1280px; margin: 0; padding: 0; border: 0; background: none; }
+html[data-pku-prism='enabled'] .landingPageColumn > ul { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 32px; margin: 0; padding: 0; list-style: none; }
+html[data-pku-prism='enabled'] .landingPageColumn > ul > li { min-width: 0; margin: 0; padding: 16px 0; border: 0; border-bottom: 1px solid var(--prism-border); background: none; }
+html[data-pku-prism='enabled'] .landingPageColumn > ul > li > img { float: left; width: 20px; height: 20px; margin: 2px 8px 0 0; object-fit: contain; filter: grayscale(1); }
+html[data-pku-prism='enabled'] .landingPageColumn.twoCol { display: contents; }
+html[data-pku-prism='enabled'] .landingPageColumn.twoCol > ul { margin-bottom: 16px; }
+html[data-pku-prism='enabled'] .landingPageColumn h3 { margin: 0; color: var(--prism-text); font: 500 14px/1.6 var(--prism-font); overflow-wrap: anywhere; }
+html[data-pku-prism='enabled'] .landingPageColumn h3 a { display: inline-block; text-decoration: none; }
+html[data-pku-prism='enabled'] .landingPageColumn h3 a:hover { color: var(--prism-text); }
+html[data-pku-prism='enabled'] .landingPageColumn p { margin: 8px 0 0; color: var(--prism-muted); font: 400 13px/1.7 var(--prism-font); }
+html[data-pku-prism='enabled'] :is(.column-wrapper, #cat-stdBlk) { background: var(--prism-surface); border-color: var(--prism-border); box-shadow: none; }
+html[data-pku-prism='enabled'] .column-nav { border-right: 1px solid var(--prism-border); }
+html[data-pku-prism='enabled'] :is(.column-nav h2, .column-inner h2, .pageHead-2 h2) { color: var(--prism-text); background: none; font: 500 14px/1.6 var(--prism-font); }
+html[data-pku-prism='enabled'] #column-wrapper { display: flow-root; }
+html[data-pku-prism='enabled'] #column-wrapper .column-nav-inner { background: var(--prism-surface); box-shadow: none; border-color: var(--prism-border); }
+html[data-pku-prism='enabled'] #column-wrapper #lrn_std_doc:not(:has(li))::before { content: '暂无可显示的目标集'; display: block; padding: 24px 12px; color: var(--prism-muted); font: 400 13px/1.7 var(--prism-font); }
+/* The My Blackboard outer app and same-origin stream are styled independently. */
+html[data-pku-prism='enabled'][data-pku-prism-page='mybb'] :is(#contentPanel, #containerdiv, .mybb-div) { height: auto !important; min-height: 0 !important; padding: 0; margin: 0; background: var(--prism-canvas); }
+html[data-pku-prism='enabled'][data-pku-prism-page='mybb'] body[data-prism-shell] #globalNavPageContentArea { height: auto !important; padding-bottom: 0; }
+html[data-pku-prism='enabled'][data-pku-prism-page='mybb'] .locationPane { height: auto !important; min-height: 0; padding: 0; }
+html[data-pku-prism='enabled'][data-pku-prism-page='mybb'] #containerdiv::after { display: none; }
+html[data-pku-prism='enabled'] .mybb-div { display: grid; grid-template-columns: 152px minmax(0, 1fr); }
+html[data-pku-prism='enabled'] #side_nav { position: static; box-sizing: border-box; width: auto; height: auto !important; padding: 16px 8px; background: var(--prism-surface); border-right: 1px solid var(--prism-border); box-shadow: none; }
+html[data-pku-prism='enabled'] #mybbListTools { width: 100%; margin: 0; padding: 0; }
+html[data-pku-prism='enabled'] #mybbListTools li { width: auto; height: auto; margin: 0; padding: 0; border: 0; background: none; box-shadow: none; }
+html[data-pku-prism='enabled'] #mybbListTools a { box-sizing: border-box; position: relative; display: flex; align-items: center; width: 100%; height: auto; min-height: 36px; padding: 8px 12px; margin: 2px 0; border: 0; border-radius: var(--prism-radius-md); background: none; color: var(--prism-text); font: 500 13px/1.6 var(--prism-font); text-decoration: none; box-shadow: none; text-shadow: none; }
+html[data-pku-prism='enabled'] #mybbListTools a::after { content: attr(title); }
+html[data-pku-prism='enabled'] #mybbListTools a:hover { background: var(--prism-subtle); color: var(--prism-text); }
+html[data-pku-prism='enabled'] #mybbListTools li.active > a { background: var(--prism-selected); color: var(--prism-accent); }
+html[data-pku-prism='enabled'] #mybbListTools .menu-icon { display: none; }
+html[data-pku-prism='enabled'] #iframe_wrap { position: static; width: auto; min-width: 0; height: calc(100dvh - var(--prism-header-height, 72px)); margin: 0; padding: 0; border: 0; background: var(--prism-canvas); box-shadow: none; }
+html[data-pku-prism='enabled'] #mybbCanvas { display: block; width: 100%; height: 100% !important; min-height: 0; border: 0; }
+html[data-pku-prism='enabled'] :is(.stream_pages, .stream_page, .stream_header, .stream_dynamic_filters, .stream_dynamic_filters_content, .left_stream_wrapper, .right_stream_wrapper) { background-color: var(--prism-surface); color: var(--prism-text); border-color: var(--prism-border); box-shadow: none; }
+html[data-pku-prism='enabled'] :is(.stream_header h2, .stream_page h2, .stream_page h3, .stream_page label) { color: var(--prism-text); font-family: var(--prism-font); }
+html[data-pku-prism='enabled'] .stream_item { background: var(--prism-surface) !important; color: var(--prism-text); border-color: var(--prism-border); padding: 16px 20px; }
+html[data-pku-prism='enabled'] .stream_item:hover { background: var(--prism-subtle) !important; }
+html[data-pku-prism='enabled'] .stream_item :is(p, span, h3, div) { color: inherit; font-family: var(--prism-font); }
+html[data-pku-prism='enabled'] .stream_item a { color: var(--prism-accent); }
+html[data-pku-prism='enabled'] .stream_dynamic_filters :is(a, label) { color: var(--prism-muted); font: 400 13px/1.6 var(--prism-font); }
+html[data-pku-prism='enabled'] .stream_dynamic_filters a:hover { color: var(--prism-text); background: var(--prism-subtle); }
+html[data-pku-prism='enabled'][data-pku-prism-page='stream'] .stream_full { display: grid; grid-template-columns: 240px minmax(0, 1fr); grid-template-rows: auto minmax(0, 1fr); width: 100%; min-height: 100dvh; }
+html[data-pku-prism='enabled'][data-pku-prism-page='stream'] .stream_full > .stream_header { grid-column: 1; grid-row: 1 / 3; }
+html[data-pku-prism='enabled'][data-pku-prism-page='stream'] .current_filter { grid-column: 2; grid-row: 1; position: static; box-sizing: border-box; width: auto; height: auto; margin: 0; padding: 16px 20px; background: var(--prism-surface); color: var(--prism-text); box-shadow: none; font: 500 16px/1.6 var(--prism-font); }
+html[data-pku-prism='enabled'][data-pku-prism-page='stream'] .stream_full > .left_stream_wrapper { grid-column: 2; grid-row: 2; }
+html[data-pku-prism='enabled'][data-pku-prism-page='stream'] .stream_full .stream_left { height: calc(100dvh - 64px) !important; }
+html[data-pku-prism='enabled'][data-pku-prism-page='stream'] .stream_header { position: static; box-sizing: border-box; width: auto; height: auto !important; margin: 0; padding: 16px; background: var(--prism-surface); }
+html[data-pku-prism='enabled'] .stream_header h1 { margin: 0 0 16px; padding: 0; color: var(--prism-text); font: 600 20px/1.4 var(--prism-font); text-shadow: none; }
+html[data-pku-prism='enabled'] .stream_header h1 .icon { display: none; }
+html[data-pku-prism='enabled'] .stream_header h1 .title-text { color: var(--prism-text); font: inherit; text-shadow: none; }
+html[data-pku-prism='enabled'] .stream_header :is(.stream_dynamic_filters, .stream_dynamic_filters_content, .filter-content-wrapper) { position: static; box-sizing: border-box; width: auto; height: auto !important; margin: 0; padding: 0; background: var(--prism-surface); overflow: visible !important; }
+html[data-pku-prism='enabled'][data-pku-prism-page='stream'] .stream_full > .stream_header { max-height: calc(100dvh - 16px); overflow-y: auto; border-right: 1px solid var(--prism-border); }
+html[data-pku-prism='enabled'][data-pku-prism-page='stream'] .left_stream_wrapper { position: static; box-sizing: border-box; width: auto !important; height: auto !important; min-width: 0; margin: 0; padding: 0; }
+html[data-pku-prism='enabled'] .stream_item { box-sizing: border-box; width: 100% !important; margin: 0; border: 0; border-bottom: 1px solid var(--prism-border); box-shadow: none !important; font: 400 13px/1.7 var(--prism-font); }
+html[data-pku-prism='enabled'] .active_stream_item { background: var(--prism-selected) !important; }
+html[data-pku-prism='enabled'] .stream_context { float: none; width: auto; margin: 0 0 8px; color: var(--prism-muted); font: 400 13px/1.7 var(--prism-font); }
+html[data-pku-prism='enabled'] .grade-value-wrapper { float: none; width: auto; margin: 0 0 8px; }
+html[data-pku-prism='enabled'] .grade-value-wrapper :is(.grade-label, .grade-value, span) { color: var(--prism-text); font-family: var(--prism-font); }
+html[data-pku-prism='enabled'] .stream_item :is(.stream_context, .stream_details, .stream_context_bottom) { width: auto; margin-left: 0; margin-right: 0; }
+html[data-pku-prism='enabled'] .stream_item .grade-value-wrapper { float: none; width: auto; }
+html[data-pku-prism='enabled'] .stream_item .grade-value-wrapper * { color: var(--prism-text) !important; font-family: var(--prism-font); }
+html[data-pku-prism='enabled'] .stream_dynamic_filters a { display: block; padding: 6px 8px; border-radius: var(--prism-radius-md); text-decoration: none; }
+html[data-pku-prism='enabled'] .stream_dynamic_filters :is(h2, h3, label) { color: var(--prism-muted); font: 500 13px/1.7 var(--prism-font); }
+html[data-pku-prism='enabled'] :is(.stream_list_filter, .filterBarHorizontal, .receiptBarHorizontal) { background: var(--prism-surface); color: var(--prism-muted); box-shadow: none; border-color: var(--prism-border); }
+html[data-pku-prism='enabled'] :is(.stream_list_filter, .filterBarHorizontal) a { background: none; color: var(--prism-text); border-color: var(--prism-border); box-shadow: none; text-shadow: none; text-decoration: none; }
+html[data-pku-prism='enabled'] :is(.stream_list_filter, .filterBarHorizontal) a:is(:hover, :focus) { background: var(--prism-subtle); color: var(--prism-text); }
+html[data-pku-prism='enabled'] .stream_list_filter button { min-height: 32px; margin: 0; padding: 4px 12px; border: 1px solid var(--prism-border); border-radius: var(--prism-radius-md); background: var(--prism-surface); color: var(--prism-text); box-shadow: none; font: 500 13px/1.6 var(--prism-font); cursor: pointer; }
+html[data-pku-prism='enabled'] .stream_list_filter button:is(:hover, .active) { background: var(--prism-subtle); color: var(--prism-text); }
+html[data-pku-prism='enabled'] :is(.stream-detail-page, #streamDetailRightColumn, .detail-heading, .stream-detail-contents-wrapper, .stream-detail-contents, .gradeTableNew, .gradeTableNew .row) { background: var(--prism-surface); color: var(--prism-text); border-color: var(--prism-border); box-shadow: none; }
+html[data-pku-prism='enabled'] .gradeTableNew :is(.cell, .cell span) { color: var(--prism-text); }
+html[data-pku-prism='enabled'] .gradeTableNew .calculatedRow { background: var(--prism-subtle); }
+html[data-pku-prism='enabled'] .stream-detail-page a { color: var(--prism-accent); }
+html[data-pku-prism='enabled'] .stream-detail-page .streamHeader { font: 600 20px/1.4 var(--prism-font); }
+html[data-pku-prism='enabled'] .stream-detail-page .detail-heading :is(.context, .timestamp, .author) { color: var(--prism-muted); font: 400 13px/1.7 var(--prism-font); }
+html[data-pku-prism='enabled'] :is(.stream-detail-page, #containerdiv:has(> .gradeTableNew)) .filterBarHorizontal { position: static; box-sizing: border-box; display: flex; align-items: center; flex-wrap: wrap; gap: 8px; width: 100%; height: auto; margin: 0 0 12px; padding: 8px 0; box-shadow: none !important; }
+html[data-pku-prism='enabled'] :is(.stream-detail-page, #containerdiv:has(> .gradeTableNew)) .filterBarHorizontal .sorter { position: static; order: 1; display: flex; align-items: center; flex-wrap: wrap; gap: 8px; width: auto; height: auto; margin: 0 0 0 auto; color: var(--prism-muted); }
+html[data-pku-prism='enabled'] :is(.stream-detail-page, #containerdiv:has(> .gradeTableNew)) .sorter label { color: var(--prism-muted); font: 400 12px/1.6 var(--prism-font); }
+html[data-pku-prism='enabled'] :is(.stream-detail-page, #containerdiv:has(> .gradeTableNew)) #filterby { position: static; box-sizing: border-box; display: flex; flex-wrap: wrap; gap: 4px; width: auto; padding: 0; margin: 0; }
+html[data-pku-prism='enabled'] :is(.stream-detail-page, #containerdiv:has(> .gradeTableNew)) #filterby li { float: none; width: auto; height: auto; margin: 0; }
+html[data-pku-prism='enabled'] :is(.stream-detail-page, #containerdiv:has(> .gradeTableNew)) #filterby a { box-sizing: border-box; display: block; min-height: 32px; padding: 4px 8px; border: 1px solid var(--prism-border); border-radius: var(--prism-radius-sm); color: var(--prism-text); }
+html[data-pku-prism='enabled'] :is(.stream-detail-page, #containerdiv:has(> .gradeTableNew)) :is(.gradeTableNew, #grades_wrapper) { float: none; width: 100%; margin: 0; font: 400 13px/1.6 var(--prism-font); }
+html[data-pku-prism='enabled'] .gradeTableNew .grades_header { position: static; display: flow-root; width: 100%; height: auto; margin: 0 0 8px; background: var(--prism-subtle); color: var(--prism-muted); border-color: var(--prism-border); box-shadow: none; font: 500 12px/1.6 var(--prism-font); }
+html[data-pku-prism='enabled'] .gradeTableNew .grades_header .cell { height: auto; padding: 8px 10px; color: var(--prism-muted); font: inherit; }
+html[data-pku-prism='enabled'] .gradeTableNew .grades_header .cell.grade { font: inherit; }
+html[data-pku-prism='enabled'] .filterBarHorizontal #filterby a.active { background: var(--prism-selected); color: var(--prism-accent) !important; border-color: var(--prism-accent); }
+html[data-pku-prism='enabled'] .filterBarHorizontal #filterby a.active:is(:hover, :focus) { background: var(--prism-selected); color: var(--prism-accent) !important; }
+html[data-pku-prism='enabled'] #containerdiv:has(> .gradeTableNew) .gradeTableNew { display: flow-root; }
+html[data-pku-prism='enabled'] #containerdiv:has(> .gradeTableNew) #grades_wrapper { margin-top: 0; }
+html[data-pku-prism='enabled'] .gradeTableNew .row:hover { background: var(--prism-subtle); border-color: var(--prism-border); }
+@media (max-width: 600px) {
+  html[data-pku-prism='enabled'] #containerdiv:has(> .gradeTableNew) { min-width: 0; overflow-x: auto; }
+  html[data-pku-prism='enabled'] #containerdiv > .gradeTableNew { min-width: 560px; }
+}
+html[data-pku-prism='enabled'] :is(#stream_alerts, #stream_mygrades) .stream_left { box-sizing: border-box; width: 100% !important; min-width: 0; max-width: none; margin: 0 !important; padding: 0 !important; border: 0; }
+html[data-pku-prism='enabled'] #stream_mygrades .stream_context { color: var(--prism-text) !important; font: 400 13px/1.7 var(--prism-font); margin: 0 0 8px; }
+html[data-pku-prism='enabled'] #stream_mygrades .stream_context_bottom { color: var(--prism-muted); font: 400 13px/1.7 var(--prism-font); margin: 0; }
+html[data-pku-prism='enabled'] #stream_mygrades .stream_item { padding: 16px; }
+html[data-pku-prism='enabled'] #stream_mygrades .stream_left { height: calc(100dvh - 132px) !important; }
+html[data-pku-prism='enabled'] #stream_mygrades .stream_header { float: none; display: flow-root; }
+html[data-pku-prism='enabled'] #stream_mygrades .left_stream_wrapper { clear: both; }
+html[data-pku-prism='enabled'][data-pku-prism-page='calendar'] #outer_left_stream_alerts { display: grid; grid-template-columns: 240px minmax(0, 1fr); width: 100%; margin: 0; }
+html[data-pku-prism='enabled'][data-pku-prism-page='calendar'] #streamHeader_calendar { position: sticky; top: 16px; align-self: start; box-sizing: border-box; width: auto; height: auto; min-width: 0; max-height: calc(100dvh - 96px); padding: 16px; margin: 0; overflow-y: auto; border-right: 1px solid var(--prism-border); background: var(--prism-surface); }
+html[data-pku-prism='enabled'] #calendar_content { box-sizing: border-box; width: 100%; min-width: 0; margin: 0; padding: 16px; background: var(--prism-surface); overflow-x: auto; }
+html[data-pku-prism='enabled'][data-pku-prism-page='calendar'] #calendar_content { position: relative !important; inset: auto; width: 100% !important; height: auto !important; min-height: 0 !important; max-height: none; }
+html[data-pku-prism='enabled'][data-pku-prism-page='calendar'] #streamHeader_calendar { min-height: 0 !important; }
+html[data-pku-prism='enabled'] :is(.fc-header, .fc-border-separate, .ui-datepicker) { color: var(--prism-text); background: var(--prism-surface); border-color: var(--prism-border); box-shadow: none; }
+html[data-pku-prism='enabled'] :is(.fc-border-separate, .ui-datepicker-calendar) :is(th, td) { border-color: var(--prism-border); color: var(--prism-text); }
+html[data-pku-prism='enabled'] :is(.fc-state-default, .ui-state-default, .ui-datepicker-header) { background: var(--prism-surface); color: var(--prism-text); border-color: var(--prism-border); box-shadow: none; text-shadow: none; }
+html[data-pku-prism='enabled'] :is(.fc-state-default:hover, .ui-state-default:hover) { background: var(--prism-subtle); color: var(--prism-text); }
+html[data-pku-prism='enabled'] :is(.fc-state-highlight, .ui-state-highlight) { background: var(--prism-selected); color: var(--prism-accent); }
+html[data-pku-prism='enabled'] .calendar-item { border-color: var(--prism-border); color: var(--prism-text); }
+html[data-pku-prism='enabled'] #calendar_content .fc-state-highlight { background: var(--prism-selected) !important; color: var(--prism-text); }
+html[data-pku-prism='enabled'] #streamHeader_calendar .ui-datepicker { box-sizing: border-box; width: 100%; margin: 0; padding: 0; background: var(--prism-surface); font: 400 12px/1.6 var(--prism-font); }
+html[data-pku-prism='enabled'] #streamHeader_calendar .ui-datepicker :is(th, td) { padding: 1px; }
+html[data-pku-prism='enabled'] #streamHeader_calendar .ui-datepicker a { padding: 4px 2px; }
+html[data-pku-prism='enabled'] #streamHeader_calendar #calendarList { width: auto; margin: 16px 0 0; }
+html[data-pku-prism='enabled'] #streamHeader_calendar .cal-nav { display: flex; gap: 4px; margin: 0 0 16px; padding: 0; }
+html[data-pku-prism='enabled'] #streamHeader_calendar .cal-nav a { box-sizing: border-box; width: auto; height: auto; min-height: 32px; padding: 4px 12px; border: 1px solid var(--prism-border); border-radius: var(--prism-radius-md); background: var(--prism-surface); color: var(--prism-text); }
+html[data-pku-prism='enabled'] #streamHeader_calendar .cal-nav a::after { content: attr(title); font: 500 13px/1.6 var(--prism-font); }
+html[data-pku-prism='enabled'] #streamHeader_calendar .cal-nav .active a { background: var(--prism-selected); color: var(--prism-accent); }
+html[data-pku-prism='enabled'] #calendar_content .fc-button { background: var(--prism-surface); color: var(--prism-text); border: 1px solid var(--prism-border); border-radius: var(--prism-radius-md); box-shadow: none; text-shadow: none; }
+html[data-pku-prism='enabled'] #calendar_content .fc-button:hover { background: var(--prism-subtle); color: var(--prism-text); }
+html[data-pku-prism='enabled'] #streamHeader_calendar h1 { color: var(--prism-text); font: 600 20px/1.4 var(--prism-font); }
+html[data-pku-prism='enabled'] #streamHeader_calendar h1 { position: static; float: none; width: auto; margin: 0 0 16px; padding: 0; }
+html[data-pku-prism='enabled'] #streamHeader_calendar :is(.cal-nav, .cal-nav li, .cal-nav a) { position: static; float: none; width: auto; height: auto; }
+html[data-pku-prism='enabled'] #streamHeader_calendar #calendarList > :first-child a { display: inline; padding: 0; }
+html[data-pku-prism='enabled'] #streamHeader_calendar .ui-datepicker :is(.ui-state-active, .ui-state-highlight) { background: var(--prism-selected); color: var(--prism-accent); }
+html[data-pku-prism='enabled'] #calendar_content .fc-button :is(.fc-button-inner, .fc-button-content, .fc-button-effect) { background: none; color: inherit; box-shadow: none; text-shadow: none; }
+html[data-pku-prism='enabled'] #calendar_content .fc-day-number { color: var(--prism-text); }
+html[data-pku-prism='enabled'][data-pku-prism-frame] :is(.locationPane, #containerdiv) { display: flow-root; margin: 0; padding: 0; background: var(--prism-canvas); }
+html[data-pku-prism='enabled'][data-pku-prism-frame] :is(.locationPane, #containerdiv)::after { display: none; }
+@media (max-width: 900px) {
+  html[data-pku-prism='enabled'] .pagingprefs { display: flex; flex-wrap: wrap; gap: 8px; float: none; width: 100%; margin: 0; }
+  html[data-pku-prism='enabled'] .pagingprefs > a { box-sizing: border-box; flex: 1; width: auto; min-width: 0; margin: 0; text-align: center; }
+  html[data-pku-prism='enabled'] :is(#containerdiv, .containerPortal:not([data-prism-layout='workspace'])) { padding: 16px; }
+  html[data-pku-prism='enabled'] :is(.landingPageColumn > ul, .containerPortal:not([data-prism-layout='workspace'])) { grid-template-columns: minmax(0, 1fr); }
+  html[data-pku-prism='enabled'] .mybb-div { grid-template-columns: minmax(0, 1fr); }
+  html[data-pku-prism='enabled'] #side_nav { padding: 8px; border-right: 0; border-bottom: 1px solid var(--prism-border); }
+  html[data-pku-prism='enabled'] #mybbListTools { display: flex; overflow-x: auto; }
+  html[data-pku-prism='enabled'] #mybbListTools li { flex: 0 0 auto; }
+  html[data-pku-prism='enabled'] #mybbListTools a { min-height: 44px; white-space: nowrap; }
+  html[data-pku-prism='enabled'] #iframe_wrap { height: calc(100dvh - var(--prism-header-height, 64px) - 80px); }
+  html[data-pku-prism='enabled'][data-pku-prism-page='stream'] .stream_full { grid-template-columns: minmax(0, 1fr); }
+  html[data-pku-prism='enabled'][data-pku-prism-page='stream'] .stream_full > .stream_header { grid-column: 1; grid-row: 1; max-height: 180px; overflow: auto; border-right: 0; border-bottom: 1px solid var(--prism-border); }
+  html[data-pku-prism='enabled'][data-pku-prism-page='stream'] .stream_full > .current_filter { grid-column: 1; grid-row: 2; }
+  html[data-pku-prism='enabled'][data-pku-prism-page='stream'] .stream_full > .left_stream_wrapper { grid-column: 1; grid-row: 3; }
+  html[data-pku-prism='enabled'][data-pku-prism-page='stream'] .stream_full .stream_left { height: calc(100dvh - 260px) !important; }
+  html[data-pku-prism='enabled'][data-pku-prism-page='stream'] .stream_page { width: 100% !important; margin: 0; }
+  html[data-pku-prism='enabled'][data-pku-prism-page='stream'] .stream_pages:not(.vertical_filter) { display: flex; flex-direction: column; }
+  html[data-pku-prism='enabled'][data-pku-prism-page='stream'] .stream_pages:not(.vertical_filter) > .stream_page_left { position: static; float: none; }
+  html[data-pku-prism='enabled'] #stream_mygrades .stream_left { height: 220px !important; }
+  html[data-pku-prism='enabled'] #stream_mygrades > .stream_page_left { height: auto !important; }
+  html[data-pku-prism='enabled'][data-pku-prism-page='stream'] .stream_page_left .stream_header { width: 100%; }
+  html[data-pku-prism='enabled'][data-pku-prism-page='stream'] .stream_page_left .stream_item { padding: 16px; }
+  html[data-pku-prism='enabled'][data-pku-prism-page='stream'] .stream_right { position: static; display: block; min-height: 480px; }
+  html[data-pku-prism='enabled'][data-pku-prism-page='calendar'] #outer_left_stream_alerts { grid-template-columns: minmax(0, 1fr); }
+  html[data-pku-prism='enabled'][data-pku-prism-page='calendar'] #calendar { min-width: 640px; }
+  html[data-pku-prism='enabled'][data-pku-prism-page='calendar'] #streamHeader_calendar { position: static; height: auto !important; max-height: 240px !important; overflow: auto; border-right: 0; border-bottom: 1px solid var(--prism-border); }
+  html[data-pku-prism='enabled'] .column-wrapper { max-width: 100%; overflow-x: auto; }
+}

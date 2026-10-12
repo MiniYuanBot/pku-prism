@@ -3,3 +3,11 @@
 @import './pages/portal.css';
 @import './pages/course.css';
 @import './components.css';
+@import './course-switcher.css';
+@import './native-pages.css';
+@import './app-shell.css';
+@import './context-sidebar.css';
+@import './global-menu.css';
+@import './pages/assignment.css';
+@import './pages/overview.css';
+@import './pages/classin.css';

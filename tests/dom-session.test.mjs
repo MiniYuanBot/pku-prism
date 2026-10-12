@@ -48,6 +48,16 @@ test('nested moves restore exact node identity, order and original containers', 
   assert.equal(shell.parentNode, null);
   assert.doesNotThrow(() => session.restore());
 });
+test('connected moves and rollback use the state-preserving browser API', () => {
+  const root = new Tree('document', true), native = new Tree('native'), panel = new Tree('panel'), frame = new Tree('iframe');
+  root.append(native, panel); native.append(frame);
+  let stableMoves = 0;
+  for (const parent of [native, panel]) parent.moveBefore = function(node, before) { stableMoves++; this.insertBefore(node, before); };
+  const session = new DomSession();
+  session.move(frame, panel); session.restore();
+  assert.equal(stableMoves, 2);
+  assert.deepEqual(native.children, [frame]);
+});
 test('repeated filtering restores original attributes rather than the preceding filter', () => {
   const node = new Tree('row'); node.setAttribute('hidden', 'original'); node.setAttribute('id', 'native');
   const session = new DomSession();
@@ -63,6 +73,15 @@ test('native attribute updates retain ownership during cleanup', () => {
   session.attribute(node, 'id', 'prism'); node.setAttribute('id', 'native-update');
   session.restore();
   assert.equal(node.getAttribute('id'), 'native-update');
+});
+test('presentation text restores in place and preserves a later native update', () => {
+  const label = { data: '我的主页(My Page)' }, changed = { data: '我的社区(My Community)' };
+  const session = new DomSession();
+  session.text(label, '我的主页'); session.text(changed, '我的社区');
+  changed.data = 'Native update';
+  session.restore();
+  assert.equal(label.data, '我的主页(My Page)');
+  assert.equal(changed.data, 'Native update');
 });
 test('a replaced native region is not resurrected by rollback', () => {
   const root = new Tree('document', true), original = new Tree('original'), target = new Tree('target'), item = new Tree('item');

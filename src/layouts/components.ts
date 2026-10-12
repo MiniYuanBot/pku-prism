@@ -1,5 +1,30 @@
 import type { DomSession } from '../core/dom-session';
 
+export function icon(name: 'sidebar' | 'search' | 'refresh' | 'external' | 'arrow-right' | 'help' | 'home'): SVGSVGElement {
+  const paths = {
+    sidebar: 'M4 4h16v16H4z M9 4v16',
+    search: 'M16 16l5 5 M18 10a8 8 0 1 1-16 0 8 8 0 0 1 16 0',
+    refresh: 'M20 7v5h-5 M20 12a8 8 0 1 1-2-6',
+    external: 'M14 3h7v7 M21 3l-11 11 M10 3H3v18h18v-7',
+    'arrow-right': 'M5 12h14 M13 6l6 6-6 6',
+    help: 'M22 12a10 10 0 1 1-20 0 10 10 0 0 1 20 0 M9 8a3 3 0 0 1 6 0c0 2-3 2-3 4 M12 16h.01',
+    home: 'M3 10l9-7 9 7 M5 9v12h14V9 M9 21v-8h6v8',
+  };
+  const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+  svg.setAttribute('viewBox', '0 0 24 24');
+  svg.setAttribute('aria-hidden', 'true');
+  svg.setAttribute('focusable', 'false');
+  svg.setAttribute('fill', 'none');
+  svg.setAttribute('stroke', 'currentColor');
+  svg.setAttribute('stroke-width', '1.5');
+  svg.setAttribute('stroke-linecap', 'round');
+  svg.setAttribute('stroke-linejoin', 'round');
+  const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+  path.setAttribute('d', paths[name]);
+  svg.append(path);
+  return svg;
+}
+
 export function element<K extends keyof HTMLElementTagNameMap>(tag: K, className: string, text?: string): HTMLElementTagNameMap[K] {
   const node = document.createElement(tag);
   node.className = className;

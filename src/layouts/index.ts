@@ -3,7 +3,7 @@ import type { PageKind } from '../core/page';
 import { redesignAnnouncements } from './announcements';
 import { redesignContent } from './content';
 import { redesignPortal } from './portal';
-import { element } from './components';
+import { redesignShell } from './shell';
 
 export function redesignPage(page: PageKind, control: HTMLElement): () => void {
   const session = new DomSession();
@@ -11,16 +11,7 @@ export function redesignPage(page: PageKind, control: HTMLElement): () => void {
     if (page === 'portal') redesignPortal(session);
     if (page === 'announcements') redesignAnnouncements(session);
     if (page === 'content') redesignContent(session);
-    const header = document.querySelector<HTMLElement>(page === 'portal' ? '.prism-catalog-heading' : '#pageTitleDiv');
-    if (header) {
-      if (page !== 'portal') {
-        const course = document.querySelector('#breadcrumbs .coursePath > a')?.textContent?.trim();
-        if (course) session.own(element('p', 'prism-course-context', course), header, header.firstChild);
-      }
-      const slot = session.own(element('div', 'prism-inline-controls'), header);
-      session.move(control, slot);
-      session.attribute(control, 'data-inline', '');
-    }
+    redesignShell(session, control);
     const title = document.querySelector('#pageTitleText')?.textContent?.trim();
     for (const link of document.querySelectorAll<HTMLAnchorElement>('#courseMenuPalette_contents > li > a')) {
       if (link.textContent?.trim() === title || (page === 'announcements' && link.textContent?.trim() === '课程通知')) {

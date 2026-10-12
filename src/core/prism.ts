@@ -3,6 +3,7 @@ import { createToggle, controlId, destroyEvent } from '../ui/toggle';
 import { enhanceCourseLabels } from './course-labels';
 import { redesignPage } from '../layouts';
 import type { PageKind } from './page';
+import { themeFrames } from './frames';
 import { readEnabled, readTheme, resolveTheme, watchSettings, writeEnabled, writeTheme } from './settings';
 export function mountPrism(page: PageKind): () => void {
   document.getElementById(controlId)?.dispatchEvent(new Event(destroyEvent));
@@ -24,6 +25,7 @@ export function mountPrism(page: PageKind): () => void {
     writeTheme(theme);
     render();
   });
+  const frames = themeFrames(css, () => ({ enabled, theme: resolveTheme(theme, systemTheme.matches) }));
   function clearPage() {
     restoreLayout?.();
     restoreLayout = undefined;
@@ -45,6 +47,7 @@ export function mountPrism(page: PageKind): () => void {
       if (!restoreLayout) restoreLayout = redesignPage(page, toggle.host);
     } else clearPage();
     toggle.update(enabled, theme, resolved);
+    frames.refresh();
   }
   const stopWatching = watchSettings((value, preference) => {
     enabled = value;
@@ -57,6 +60,7 @@ export function mountPrism(page: PageKind): () => void {
     systemTheme.removeEventListener('change', render);
     toggle.host.removeEventListener(destroyEvent, destroy);
     clearPage();
+    frames.destroy();
     toggle.destroy();
   }
   toggle.host.addEventListener(destroyEvent, destroy);

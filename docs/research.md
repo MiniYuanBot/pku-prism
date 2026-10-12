@@ -2,6 +2,8 @@
 
 勘察日期：2026-10-12。通过 Chrome DevTools MCP 直接检查已登录的 Blackboard Learn。此文件只记录结构信息；不保存账户信息、课程标识、认证凭证或表单值。
 
+早期记录描述 0.2.x 的观察与取舍；当前适配方式和范围以末尾 0.3 记录为准。
+
 ## PKU-Art
 
 研究入口：[仓库](https://github.com/zhuozhiyongde/PKU-Art)、[构建配置](https://github.com/zhuozhiyongde/PKU-Art/blob/main/vite.config.js)、[入口](https://github.com/zhuozhiyongde/PKU-Art/blob/main/src/main.js)、[样式路由](https://github.com/zhuozhiyongde/PKU-Art/blob/main/src/style.js)、[主题管理](https://github.com/zhuozhiyongde/PKU-Art/blob/main/src/theme.js)。
@@ -66,3 +68,66 @@ Prism 采用 CSS 字符串注入和按页面拆分的思路。现阶段仅有 Vi
 手机面包屑隐藏了 root.coursePath 的课程名称，故页头补充来自原生课程链接的纯文本上下文。页面标题区还可能包含隐藏字段 form，重排不得移除该 form。外观控制在手机进入页头正常流；其生命周期须先恢复位置再销毁，防止回滚复活已销毁控制。
 
 实际点击文件夹进入下一级后返回，原生读取导航正常。未点击作业提交入口或附件下载，未读取任何隐藏表单值。
+
+## 0.2.1 交互样式补充
+
+通过真实 hover 检查发现，Prism 的 shell 曾对 portlet、公告与内容列表统一注入下划线；该规则范围过宽。导航与资源操作现在明确覆盖各交互状态，富文本内容保留作者格式。首页与公告页本地按钮的 pointer 原先可测得，本轮明确 enabled hover、子元素 cursor 继承和 disabled 状态，避免将不同现象混为一处样式冲突。
+
+本地 summary 默认仍是 list-item，带浏览器 marker；首页桌面还使用 pointer-events:none，但没有同步移除键盘展开行为。现在两个页面共用完整 Flex 摘要行与箭头，保持原生 details 点击和键盘行为。
+
+课程间导航由 `#breadcrumbs .coursePath .courseArrow .contextMenuContainer` 下的原生 `a.cmimg` 触发。生成的 `.cmdiv` 动态插入 body，ID 每次生成均可能变化；内部课程链接执行 `breadcrumbs.navCourse`，关闭控件是 `.contextmenubar_top a.close-menu`。原站关闭按钮对所有状态声明白底 !important，且手机 courseArrow 可能偏离原课程名称。样式按菜单行为限定，保留原生事件与链接，恢复手机原生课程名称和切换入口；没有新增菜单实现或动态观察器。
+
+## 0.3 共享框架与原生工具
+
+本轮检查 18 个已登录的顶层页面，包括用户预先打开的工具页面，并只读进入课程内容文件夹、讨论区和工具目录。页面识别此前只覆盖少数路由，导致其他课程工具和内嵌页面完全缺少主题；现在深度重排仍受路由与 DOM 守卫保护，其他 `body#learn-oe-body` 原生页面获得共同基线，认证路由始终排除。
+
+| 实际区域 | 稳定结构 | 适配决定 |
+| --- | --- | --- |
+| 顶部站点与账户 | `#topTabs`、`.tabWrapper-right`、`#appTabList`、`#paneTabs`、`.localViewToggle`、`.global-nav-bar-wrap` | 移动完整容器至一个共享头部；站点和次级视图进入 popover，保留原生账户 flyout |
+| 课程 / 资源侧栏 | `#navigationPane` 与 `#contentPanel` 同级；`#menuWrap`、`#courseMenuPalette`、`#ccShortcutViewId_contents` | 整体移动到 Grid；明确按钮控制桌面侧栏和手机抽屉，旧 puller 只隐藏 |
+| 账户飞出菜单 | `#global-nav-flyout`、`#flyoutMenuContent`、`#global-list-tools`、`.accordion_content`、`#bottomButtons` | 分为工具导航与原生 accordion；样式覆盖稍后加载的后代，不改请求或事件 |
+| 社区 / 课程目录 | `.containerPortal`、`.column-2`、`.column-3`、`.portlet`、`.collapsible` | 模块改为自适应 Grid 和自然高度，去除小幅内层溢出 |
+| My Blackboard | `.mybb-div`、`#side_nav`、`#mybbListTools`、`#iframe_wrap`、`#mybbCanvas` | 文字导航 + 原生 frame；移除旧 700px 最小高度及无用外层滚动 |
+| 通知流 | `.stream_full` 的 `.stream_header`、`.current_filter`、`.left_stream_wrapper` | 明确筛选 / 列表列与行，避免 heading 成为意外 Grid 子项，把列表推到下方 |
+| 成绩 | `#stream_mygrades`、`.stream_left`、`.stream_right`、`.stream-detail-page`、`.filterBarHorizontal`、`.sorter`、`.gradeTableNew` | 手机列表在上、详情在下；筛选和排序恢复正常流，保留原生详情、数值和内部滚动 |
+| 日历 | `#outer_left_stream_alerts`、`#streamHeader_calendar`、`#calendar_content`、`#calendar` | 桌面筛选 / 月网格并列；手机先显示视图与月份，宽网格在自身容器滚动 |
+| 原生工具 | `.landingPageColumn`、`.inventory`、`.inventoryListTableContainerDiv`、`.rumble`、`.pagingprefs`、`.column-nav-inner` | 统一目录、表格、操作条和表单表现，保留业务语义 |
+
+原站响应式脚本会把账户菜单移进站点表格，并把 `.tabWrapper-right` 设为 fixed / max-height:0。共享框架需要完整重置这些几何属性，并仅观察已移动的几个局部导航容器；停用时断开观察，必要时调用原站自身的响应式布局方法恢复当前断点。没有全页 DOM 观察器。头部实际高度随内容换行变化，由局部 ResizeObserver 测量。
+
+页面和成绩详情使用多层同源 iframe；父页面可递归添加 CSS 主题，原生 frame 的 load 后再次适配。仅处理同源且匹配原生标记的文档，跳过跨域 frame，不在子文档内重组业务 DOM。原生 LTI 包装页有同源方向框架和跨域应用内容，后者无法由父页面样式控制。
+
+实际资源标题含 `style="color:#000000"` 的 span，必须在标题区域覆盖继承色；正文富文本不作统一清色。原生按钮和分页带有固定颜色及颜色过渡，会在切换主题时短暂出现旧底色；已适配的这些控件使用成对前景 / 背景与即时颜色切换。原生 clearfix 的零高点号仍会产生 22px 行框溢出，在已用 Grid / flow-root 取代清浮动的 My Blackboard 容器内取消该伪元素。
+
+账户 flyout 的工具 accordion 实际加载出原生工具链接；课程 accordion 在本次会话持续呈现原生加载状态。Prism 只补充可读的加载提示，不接管数据加载，也不把未返回的课程内容宣称为已验证。
+
+## 0.4 两层导航、作业与总览
+
+本轮重新观察用户打开的课程公告、作业提交历史、作业提交页与 My Blackboard 总览，并只读打开主页、社区、资源库与课程目录。所有全局入口来自原生 `#appTabList td > a`，包含英文后缀的 Text 节点可原位简化并恢复；浅色 hover 变白来自原生嵌套 span 的状态色，必须在导航内同步前景继承。
+
+- 全局 header 保留四个原生站点链接，添加定位主页课程区的“我的课程”与课程搜索。`#breadcrumbs`、`#paneTabs`、`.localViewToggle` 移入当前原生上下文侧栏；课程路径中重复入口和无链接当前项隐藏，保留可用的上级返回链接。课程刷新和弹窗菜单来自 `.actionBarMicro .nav a`，保留节点及事件，以 SVG 和原生可访问标题压缩空间。旧 `.locationPane` 顶部 margin 是空导航带的来源，统一框架内清除。
+- 主页 `.prism-workspace-nav`、课程 / 资源 `#navigationPane`、My Blackboard `#side_nav` 共用完整收起和 ≤900px 抽屉机制；主页原有 1037px 单列断点改为 900px，避免平板宽度把工具区放到主区上方。移除侧栏 Grid 列时需匹配原布局规则的 specificity，否则栏隐藏后主区仍只有原侧栏宽度。
+- 本次动态 `.cmdiv` 课程菜单的业务项没有 href，使用 `role=menuitem` 及原生事件；其分组标签为 `.labelMenuItem`。旧选择器只匹配 `breadcrumbs.navCourse` 链接，因而漏掉该变体。样式同时识别两种已观察结构，不写生成 ID。原生 onfocus / onmouseover 负责延迟初始化，点击打开菜单；不替换该逻辑。移动端浮层以左右 inset 约束，避免经典滚动条使 vw 宽度偏出视口。
+- `#quick_links_wrap` 是原生无障碍快捷链接入口，移入顶部外观设置下方；其 `.lb-wrapper:has(.ax-content)` 弹窗保留跳转、键盘快捷键和 Escape，只适配表面和滚动。原账户 flyout 仍可打开；窄屏固定在统一头部下方并约束两侧。
+- 作业 `uploadAssignment` 路由同时出现 `#uploadAssignmentFormId` 填写页和 `#inlineGrader` 提交历史页。前者重排原生步骤，后者保留文档查看器与原生尝试详情。TinyMCE 文档为同源 `body#tinymce.mce-content-body[contenteditable=true]`，只适配 CSS。没有读取编辑内容、字段值或执行提交。
+- 普通 insertBefore 移动包含连接 iframe 的区域，会使编辑器文档重载为 about:blank；改用 moveBefore，并在回滚使用同一机制。实测主题切换、停用及重复注入后两个编辑器仍保留原 Document。无该 API 时不重排含 iframe 的原生区域。
+- 总览同源内容以 `#mybb_column_wrapper` 区分于全屏 stream。原生 `.stream_details` 在手机隐藏课程名称，应恢复其阅读布局；成绩 `.hidden` / `.hidden-msg` 继续沿用原生悬停揭示，不把值提前显示。总览列与列表恢复自然高度，清除原生米黄表面和装饰网格。
+
+以上只记录去除个人信息的结构。原生作业、成绩、通信及认证数据均未写入；跨域文档 / LTI 内部仍不处理。
+
+## 0.4.1 ClassIn 文字与原生目录组合项
+
+通过 MCP 检查用户当前 ClassIn 绑定页与教师课程公告页。ClassIn 的 `.containerOptions` / `#panelbutton1` / `#searchForm` 引入 Bootstrap 样式，标签和说明继承固定 `#111`，页头直接文本继承 `#333`；`#containerdiv.container` 的固定宽度导致整页约 87px 横向溢出。适配以原生 body、具体路由和 `#panelbutton1 #searchForm #enInputContent` 三项共同守卫，统一文字 / 按钮主题，标签与字段采用响应式 Grid，保留原生中英文区可见性。空返回容器还有 400px 最小高度，局部取消后回到自然高度。没有读取、填写字段或触发短信 / 绑定操作。
+
+课程小组与教师控制面板的组合项结构一致：`li > h4 > a[aria-expanded]`、可选的兄弟 `.submenuLink`、原生 `.submenu`。旧小组标题的左 padding 只有 12px，展开背景图与文字重叠；教师面板原来预留 30px，因而较好。展开后原站把 class 改为 `comboLink_active` / `submenuLink_active`，不能只匹配初始类。改为 aria-expanded 驱动的细线箭头、完整标签和独立跳转列；保留原节点、标题、href、组折叠和异步内容。原生跳转链接有字体伪图标与 img，统一隐藏装饰并加入单份 SVG；侧栏文本换行，横向裁切仅约束已确认的原生装饰溢出，实际操作盒子都在侧栏边界内。
+
+`#helpTextToggleLink` 原为灰底问号，移动完整 `#helpTextToggle` 至原生小操作条，替换显示为帮助 SVG。原点击事件及动态 title 仍控制帮助说明的显示 / 隐藏，停用恢复原位。教师课程的不可用 / 预览 / 编辑控件保留，不触发业务状态切换，仅约束原生按钮和移动设置入口在侧栏内的几何位置。公告来源区 span 的固定灰色也改为 muted Token，富文本正文格式保持原样。
+
+
+## 0.4.2 独立成绩页与主页侧栏
+
+- 实际 `/webapps/bb-mygrades-BBLEARN/myGrades` 顶层页识别为 tools，`.gradeTableNew .grades_header` 位于 `#containerdiv`，不在 `.stream-detail-page` 内，原表头白底与 `#filterby a.active` 的深色字因此漏掉；筛选列表还保留绝对定位，撑宽整页。共享结构规则覆盖两种成绩视图，筛选与排序恢复正常文档流。
+- 原课程 `.actionBarMicro` 内含 `.nav.clearfix.u_floatThis-right`，在折叠目录时整个操作区还会隐藏。整体移到侧栏最后的独立 footer，保留原帮助、刷新和弹窗节点。`#courseMenu_combo` 所在空 h3 在此页面恰好叫 anonymous_element_6；只依稳定功能链接识别，把链接变为 footer 的课程首页图标，隐藏空标题，绝不按生成 ID 全站删除。
+- 主页 `#paneTabs` 包含“我的机构”和 `#overflowLiId`；原触发器 `#overflowIconId` 展开原生 `#overflowULId.more[role=menu]`。已观察列表有“通知指示板”，白色绝对定位浮层没有正确继承主题。读取原生 secondaryTabs.js 确认其 resize 处理会拆下 overflowLiId、将 overflowULId 的 li 重新分配后复原，因此保留这两个容器不动；将列表改为静态可见、普通链接语义，仅隐藏触发器链接。主页工具 portlet 与 paneTabs 放入同一 menuWrap-inner，共用课程目录的行样式。
+
+- FlyoutMenu.initARIA 会把真实 href 存入原节点 ohref 并移除 href，且将菜单项设为 tabindex=-1；所以不能克隆或重建链接。直接展示后，以普通 link / tabindex=0 保留原点击回调，无 href 的键盘激活转发原 click。旧 flyout 的 enabled 标志在启用期间关闭，停用恢复；其 close 在 mouseout 时仍写 aria-hidden，局部观察器仅协调此导航及该属性。

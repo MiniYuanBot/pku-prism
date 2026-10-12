@@ -1,0 +1,42 @@
+/* This flyout loads its descendants after opening; CSS also covers future native items. */
+html[data-pku-prism='enabled'] #global-nav-flyout { position: absolute; top: 56px; right: 16px; left: auto; box-sizing: border-box; width: min(420px, calc(100vw - 24px)); height: auto !important; max-height: calc(100dvh - 80px); padding: 8px; border: 1px solid var(--prism-border); border-radius: var(--prism-radius-lg); background: var(--prism-surface); color: var(--prism-text); box-shadow: none; overflow: auto; }
+html[data-pku-prism='enabled'] #flyoutMenuContent { display: grid; grid-template-columns: 124px minmax(0, 1fr); gap: 12px; }
+html[data-pku-prism='enabled'] #global-nav-flyout :where(#global-nav-tools, #vertical_container, .accordion_content, .accordion_toggle, #bottomButtons) { position: static; box-sizing: border-box; float: none; width: auto; height: auto; min-height: 0; margin: 0; border-color: var(--prism-border); background: var(--prism-surface); color: var(--prism-text); box-shadow: none; }
+html[data-pku-prism='enabled'] #global-nav-flyout :is(ul, li) { width: auto; margin: 0; padding: 0; border: 0; background: none; }
+html[data-pku-prism='enabled'] #global-nav-flyout :is(#global-list-tools, #global-more-tools) a { position: relative; display: flex; align-items: center; min-height: 36px; margin: 2px 0; padding: 8px; border: 0; border-radius: var(--prism-radius-md); background: none; color: var(--prism-text); font: 400 13px/1.6 var(--prism-font); text-decoration: none; }
+html[data-pku-prism='enabled'] #global-nav-flyout #global-list-tools a::before { display: none; }
+html[data-pku-prism='enabled'] #global-nav-flyout #global-list-tools a::after { content: attr(title); }
+html[data-pku-prism='enabled'] #global-nav-flyout .accordion_toggle { display: block; width: 100%; padding: 10px; text-align: left; font: 500 13px/1.6 var(--prism-font); border: 0; border-bottom: 1px solid var(--prism-border); cursor: pointer; }
+html[data-pku-prism='enabled'] #global-nav-flyout .accordion_content { max-height: 360px; padding: 8px; overflow-y: auto; }
+html[data-pku-prism='enabled'] #global-nav-flyout .accordion_content a { display: block; min-height: 20px; padding: 8px; border-radius: var(--prism-radius-md); color: var(--prism-text); font: 400 13px/1.6 var(--prism-font); overflow-wrap: anywhere; text-decoration: none; }
+html[data-pku-prism='enabled'] #global-nav-flyout :is(a, .accordion_toggle):is(:hover, :focus) { background-color: var(--prism-subtle) !important; color: var(--prism-text) !important; }
+html[data-pku-prism='enabled'] #global-nav-flyout :is(a, button):focus-visible { outline: 2px solid var(--prism-accent); outline-offset: -2px; }
+html[data-pku-prism='enabled'] #global-nav-flyout #bottomButtons { display: flex; justify-content: flex-end; gap: 8px; padding: 8px 0 0; margin: 8px 0 0; border: 0; border-top: 1px solid var(--prism-border); }
+html[data-pku-prism='enabled'] #global-nav-flyout #bottomButtons a { display: flex; align-items: center; justify-content: center; min-width: 36px; min-height: 36px; border-radius: var(--prism-radius-md); background: none; color: var(--prism-text); }
+html[data-pku-prism='enabled'] #global-nav-flyout .badge { position: static; flex: 0 0 auto; margin-right: 4px; background: var(--prism-accent); color: var(--prism-surface); font-size: 12px; }
+html[data-pku-prism='enabled'] #global-nav-flyout :is(#global-list-tools, #global-more-tools) a { box-sizing: border-box; width: 100%; height: auto; text-indent: 0; opacity: 1; background-image: none; white-space: normal; overflow-wrap: anywhere; }
+html[data-pku-prism='enabled'] #global-nav-flyout #global-list-tools a::after { min-width: 0; }
+html[data-pku-prism='enabled'] #global-nav-flyout .accordion_content a { border: 0 !important; }
+html[data-pku-prism='enabled'] #global-nav-flyout :is(a, button):focus:not(:focus-visible) { outline: none; }
+html[data-pku-prism='enabled'] #global-nav-flyout :is(a, button):focus-visible { outline: 2px solid var(--prism-accent) !important; }
+html[data-pku-prism='enabled'] #global-nav-flyout .accordion_content { height: auto !important; min-height: 0; }
+html[data-pku-prism='enabled'] #global-nav-flyout .section-loading { min-height: 48px; }
+html[data-pku-prism='enabled'] #global-nav-flyout .section-loading:not(:has(*))::before { content: '正在加载…'; display: block; padding: 8px; color: var(--prism-muted); font: 400 13px/1.6 var(--prism-font); }
+html[data-pku-prism='enabled'] #global-nav-flyout .accordion_toggle span { float: none; display: block; padding: 0; background: none; color: inherit !important; font: inherit; }
+html[data-pku-prism='enabled'] #global-nav-flyout #bottomButtons :is(li, a) { position: static; float: none; width: auto; height: auto; text-indent: 0; padding: 4px 8px; }
+html[data-pku-prism='enabled'] #global-nav-flyout #vertical_container { overflow: visible; }
+/* Native accessibility shortcut dialog; keep its focus trap, Escape and jump actions. */
+html[data-pku-prism='enabled'] .lb-wrapper:has(.ax-content) { box-sizing: border-box; width: min(720px, calc(100vw - 24px)) !important; height: auto !important; max-height: calc(100dvh - 24px) !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%); padding: 0; border: 1px solid var(--prism-border); border-radius: var(--prism-radius-lg); background: var(--prism-surface); color: var(--prism-text); box-shadow: none; }
+html[data-pku-prism='enabled'] .lb-wrapper:has(.ax-content) .lb-header { padding: 16px; border-bottom: 1px solid var(--prism-border); background: var(--prism-surface); color: var(--prism-text); }
+html[data-pku-prism='enabled'] .lb-wrapper:has(.ax-content) .lb-header h2 { margin: 0; padding: 0; background: none; color: var(--prism-text); font: 600 16px/1.5 var(--prism-font); }
+html[data-pku-prism='enabled'] .lb-wrapper:has(.ax-content) .lb-content { box-sizing: border-box; height: auto !important; max-height: calc(100dvh - 140px) !important; overflow-y: auto !important; padding: 16px; background: var(--prism-surface); color: var(--prism-text); font: 400 13px/1.6 var(--prism-font); }
+html[data-pku-prism='enabled'] .ax-content :is(.content-lite, .legend) { margin: 0; padding: 0; background: none; color: var(--prism-text); }
+html[data-pku-prism='enabled'] .ax-content h2 { margin: 16px 0 8px; color: var(--prism-muted); font: 500 13px/1.6 var(--prism-font); }
+html[data-pku-prism='enabled'] .ax-content :is(.shortcut-list, .keycombos) { margin: 0; padding: 0; list-style: none; }
+html[data-pku-prism='enabled'] .ax-content .shortcut-list a { display: block; padding: 8px; border-radius: var(--prism-radius-sm); color: var(--prism-text); text-decoration: none; cursor: pointer; }
+html[data-pku-prism='enabled'] .ax-content .shortcut-list a:is(:hover, :focus) { background: var(--prism-subtle); color: var(--prism-text); text-decoration: none; }
+html[data-pku-prism='enabled'] .lb-wrapper:has(.ax-content) .lbAction { background-color: var(--prism-surface); color: var(--prism-text); border-color: var(--prism-border); cursor: pointer; }
+@media (max-width: 600px) {
+  html[data-pku-prism='enabled'] #global-nav-flyout { position: fixed; top: calc(var(--prism-header-height, 64px) + 8px); left: 12px !important; right: 12px !important; width: auto; max-height: calc(100dvh - var(--prism-header-height, 64px) - 20px); }
+  html[data-pku-prism='enabled'] #global-nav-flyout a { min-height: 44px; }
+}

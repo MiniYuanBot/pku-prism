@@ -1,10 +1,9 @@
 /* The portal is rebuilt around course discovery, not Blackboard's three float columns. */
 html[data-pku-prism='enabled'][data-pku-prism-page='portal']:has(.containerPortal[data-prism-layout='workspace']) :is(#content, #content > div, .contentBox-edit, .contentPaneWide) { margin: 0; padding: 0; border: 0; background: none; }
 html[data-pku-prism='enabled'][data-pku-prism-page='portal']:has(.containerPortal[data-prism-layout='workspace']) .containerPortal { display: block; padding: 0; margin: 0; }
-html[data-pku-prism='enabled'][data-pku-prism-page='portal']:has(.containerPortal[data-prism-layout='workspace']) .prism-workspace { display: grid; grid-template-columns: 200px minmax(0, 1fr) 280px; min-height: calc(100vh - 110px); }
+html[data-pku-prism='enabled'][data-pku-prism-page='portal']:has(.containerPortal[data-prism-layout='workspace']) .prism-workspace { display: grid; grid-template-columns: 232px minmax(0, 1fr) 280px; min-height: calc(100vh - 110px); }
 html[data-pku-prism='enabled'][data-pku-prism-page='portal']:has(.containerPortal[data-prism-layout='workspace']) .prism-workspace > * { min-width: 0; }
 html[data-pku-prism='enabled'][data-pku-prism-page='portal']:has(.containerPortal[data-prism-layout='workspace']) .prism-workspace-nav { padding: 24px 12px; background: var(--prism-surface); border-right: 1px solid var(--prism-border); }
-html[data-pku-prism='enabled'][data-pku-prism-page='portal']:has(.containerPortal[data-prism-layout='workspace']) .prism-nav-summary { padding: 0 12px 12px; color: var(--prism-muted); font: 500 12px/1.6 var(--prism-font); }
 html[data-pku-prism='enabled'][data-pku-prism-page='portal']:has(.containerPortal[data-prism-layout='workspace']) .prism-course-catalog { padding: 32px; }
 html[data-pku-prism='enabled'][data-pku-prism-page='portal']:has(.containerPortal[data-prism-layout='workspace']) .prism-catalog-heading { display: flex; align-items: center; flex-wrap: wrap; gap: 16px; justify-content: space-between; margin-bottom: 24px; }
 html[data-pku-prism='enabled'][data-pku-prism-page='portal']:has(.containerPortal[data-prism-layout='workspace']) .prism-catalog-toolbar { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; margin-bottom: 24px; }
@@ -24,17 +23,6 @@ html[data-pku-prism='enabled'][data-pku-prism-page='portal']:has(.containerPorta
 html[data-pku-prism='enabled'][data-pku-prism-page='portal']:has(.containerPortal[data-prism-layout='workspace']) .prism-course-name { order: 0; font: 600 15px/1.5 var(--prism-font); color: var(--prism-text); }
 html[data-pku-prism='enabled'][data-pku-prism-page='portal']:has(.containerPortal[data-prism-layout='workspace']) .prism-course-term { order: 1; font: 400 12px/1.6 var(--prism-font); color: var(--prism-muted); }
 html[data-pku-prism='enabled'][data-pku-prism-page='portal']:has(.containerPortal[data-prism-layout='workspace']) .prism-course-code { order: 2; margin-top: auto; font: 400 12px/1.6 var(--prism-font); color: var(--prism-muted); font-variant-numeric: tabular-nums; }
-html[data-pku-prism='enabled'][data-pku-prism-page='portal']:has(.containerPortal[data-prism-layout='workspace']) #appTabList { display: block; position: static; width: 100%; height: auto; margin: 0 0 24px; }
-html[data-pku-prism='enabled'][data-pku-prism-page='portal']:has(.containerPortal[data-prism-layout='workspace']) #appTabList :is(tbody, tr, td) { display: block; position: static; width: auto; height: auto; padding: 0 !important; border: 0; }
-html[data-pku-prism='enabled'][data-pku-prism-page='portal']:has(.containerPortal[data-prism-layout='workspace']) #appTabList a { position: static; display: block; padding: 8px 12px; margin: 2px 0; border: 0; border-radius: var(--prism-radius-md); background: none; color: var(--prism-muted); font: 500 13px/1.6 var(--prism-font); white-space: normal; text-shadow: none; }
-html[data-pku-prism='enabled'][data-pku-prism-page='portal']:has(.containerPortal[data-prism-layout='workspace']) #appTabList a[aria-current='true'] { background: var(--prism-selected); color: var(--prism-accent); }
-html[data-pku-prism='enabled'][data-pku-prism-page='portal']:has(.containerPortal[data-prism-layout='workspace']) #appTabList a:hover { background: var(--prism-subtle); }
-html[data-pku-prism='enabled'][data-pku-prism-page='portal']:has(.containerPortal[data-prism-layout='workspace']) .prism-workspace-nav .portlet { border-top: 1px solid var(--prism-border); padding-top: 20px; }
-html[data-pku-prism='enabled'][data-pku-prism-page='portal']:has(.containerPortal[data-prism-layout='workspace']) .prism-workspace-nav .portlet h2 { padding: 0 12px; color: var(--prism-muted); font-size: 12px; }
-html[data-pku-prism='enabled'][data-pku-prism-page='portal']:has(.containerPortal[data-prism-layout='workspace']) .prism-workspace-nav .portletList { padding: 0; margin: 0; }
-html[data-pku-prism='enabled'][data-pku-prism-page='portal']:has(.containerPortal[data-prism-layout='workspace']) .prism-workspace-nav .portletList li { padding: 0; margin: 0; border: 0; background: none; }
-html[data-pku-prism='enabled'][data-pku-prism-page='portal']:has(.containerPortal[data-prism-layout='workspace']) .prism-workspace-nav .portletList a { display: block; min-height: 20px; padding: 7px 12px; border-radius: var(--prism-radius-md); background: none; color: var(--prism-muted); font: 400 13px/1.6 var(--prism-font); }
-html[data-pku-prism='enabled'][data-pku-prism-page='portal']:has(.containerPortal[data-prism-layout='workspace']) .prism-workspace-nav .portletList a:hover { background: var(--prism-subtle); color: var(--prism-text); text-decoration: none; }
 html[data-pku-prism='enabled'][data-pku-prism-page='portal']:has(.containerPortal[data-prism-layout='workspace']) #column2 h3 { margin: 16px 0 8px; padding: 0; color: var(--prism-muted); font: 500 12px/1.6 var(--prism-font); overflow-wrap: anywhere; }
 html[data-pku-prism='enabled'][data-pku-prism-page='portal']:has(.containerPortal[data-prism-layout='workspace']) #column2 .courseDataBlock { margin: 0 0 16px; padding: 0; border: 0; }
 html[data-pku-prism='enabled'][data-pku-prism-page='portal']:has(.containerPortal[data-prism-layout='workspace']) #column2 .courseDataBlock li { margin: 0; padding: 4px 0; background: none; font: 400 13px/1.7 var(--prism-font); }
@@ -42,34 +30,24 @@ html[data-pku-prism='enabled'][data-pku-prism-page='portal']:has(.containerPorta
 html[data-pku-prism='enabled'][data-pku-prism-page='portal']:has(.containerPortal[data-prism-layout='workspace']) .portlet .noItems { margin: 0 0 8px; padding: 0; border: 0; color: var(--prism-muted); font: 400 13px/1.6 var(--prism-font); }
 html[data-pku-prism='enabled'][data-pku-prism-page='portal']:has(.containerPortal[data-prism-layout='workspace']) .moduleControlWrapper { padding: 12px 0 0; margin: 0; border-top: 1px solid var(--prism-border); }
 html[data-pku-prism='enabled'][data-pku-prism-page='portal']:has(.containerPortal[data-prism-layout='workspace']) .paneTabs { padding: 0 24px; border-bottom: 1px solid var(--prism-border); }
-html[data-pku-prism='enabled'][data-pku-prism-page='portal']:has(.containerPortal[data-prism-layout='workspace']) :is(#paneTabs, #paneTabs > li, #paneTabs > li > a) { margin: 0; border: 0; background: none; }
-html[data-pku-prism='enabled'][data-pku-prism-page='portal']:has(.containerPortal[data-prism-layout='workspace']) #paneTabs a { display: block; padding: 8px 12px; color: var(--prism-muted); font: 400 12px/1.6 var(--prism-font); }
-html[data-pku-prism='enabled'][data-pku-prism-page='portal']:has(.containerPortal[data-prism-layout='workspace']) #paneTabs .active a { color: var(--prism-text); }
 html[data-pku-prism='enabled'][data-pku-prism-page='portal']:has(.containerPortal[data-prism-layout='workspace']) .tabWrapper-right { min-height: 0; height: 0; padding: 0; }
 html[data-pku-prism='enabled'][data-pku-prism-page='portal']:has(.containerPortal[data-prism-layout='workspace']) .global-nav-bar-wrap-mobile-nav { display: none; }
-@media (max-width: 1200px) and (min-width: 1038px) {
-  html[data-pku-prism='enabled'][data-pku-prism-page='portal']:has(.containerPortal[data-prism-layout='workspace']) .prism-workspace { grid-template-columns: 180px minmax(0, 1fr); }
+@media (max-width: 1200px) and (min-width: 901px) {
+  html[data-pku-prism='enabled'][data-pku-prism-page='portal']:has(.containerPortal[data-prism-layout='workspace']) .prism-workspace { grid-template-columns: 232px minmax(0, 1fr); }
   html[data-pku-prism='enabled'][data-pku-prism-page='portal']:has(.containerPortal[data-prism-layout='workspace']) .prism-workspace-context { grid-column: 2; border-left: 0; border-top: 1px solid var(--prism-border); padding: 24px; }
   html[data-pku-prism='enabled'][data-pku-prism-page='portal']:has(.containerPortal[data-prism-layout='workspace']) .prism-course-catalog { padding: 24px; }
 }
-@media (max-width: 1037px) {
+@media (max-width: 900px) {
   html[data-pku-prism='enabled'][data-pku-prism-page='portal']:has(.containerPortal[data-prism-layout='workspace']) .prism-workspace { grid-template-columns: minmax(0, 1fr); }
   html[data-pku-prism='enabled'][data-pku-prism-page='portal']:has(.containerPortal[data-prism-layout='workspace']) .prism-workspace-nav { padding: 8px 16px; border-right: 0; border-bottom: 1px solid var(--prism-border); }
-  html[data-pku-prism='enabled'][data-pku-prism-page='portal']:has(.containerPortal[data-prism-layout='workspace']) .prism-nav-summary { padding: 10px 0; font-size: 13px; cursor: pointer; }
   html[data-pku-prism='enabled'][data-pku-prism-page='portal']:has(.containerPortal[data-prism-layout='workspace']) .prism-course-catalog { padding: 24px 16px; }
   html[data-pku-prism='enabled'][data-pku-prism-page='portal']:has(.containerPortal[data-prism-layout='workspace']) .prism-workspace-context { border-left: 0; border-top: 1px solid var(--prism-border); padding: 24px 16px; }
   html[data-pku-prism='enabled'][data-pku-prism-page='portal']:has(.containerPortal[data-prism-layout='workspace']) .brandingImgWrap { position: static; width: auto !important; height: 56px !important; padding: 16px; overflow: visible; }
   html[data-pku-prism='enabled'][data-pku-prism-page='portal']:has(.containerPortal[data-prism-layout='workspace']) .brandingImgWrap::before { display: inline; content: 'PKU Prism'; color: var(--prism-accent); }
   html[data-pku-prism='enabled'][data-pku-prism-page='portal']:has(.containerPortal[data-prism-layout='workspace']) .brandingImgWrap::after { display: none; }
   html[data-pku-prism='enabled'][data-pku-prism-page='portal']:has(.containerPortal[data-prism-layout='workspace']) #topTabs { height: 56px !important; }
-  html[data-pku-prism='enabled'][data-pku-prism-page='portal']:has(.containerPortal[data-prism-layout='workspace']) .global-nav-bar-wrap { position: absolute; top: 0; height: 0; }
   html[data-pku-prism='enabled'][data-pku-prism-page='portal']:has(.containerPortal[data-prism-layout='workspace']) .tabWrapper-right { min-height: 0; }
   html[data-pku-prism='enabled'][data-pku-prism-page='portal']:has(.containerPortal[data-prism-layout='workspace']) #globalNavPageContentArea { top: 0; }
-  html[data-pku-prism='enabled'][data-pku-prism-page='portal']:has(.containerPortal[data-prism-layout='workspace']) #paneTabs { display: flex; flex-wrap: wrap; height: auto; }
-  html[data-pku-prism='enabled'][data-pku-prism-page='portal']:has(.containerPortal[data-prism-layout='workspace']) #paneTabs > li { width: auto; }
-  html[data-pku-prism='enabled'][data-pku-prism-page='portal']:has(.containerPortal[data-prism-layout='workspace']) #appTabList a { min-height: 28px; padding: 8px 12px; }
-  html[data-pku-prism='enabled'][data-pku-prism-page='portal']:has(.containerPortal[data-prism-layout='workspace']) #appTabList td.active > a { padding-left: 12px; }
-  html[data-pku-prism='enabled'][data-pku-prism-page='portal']:has(.containerPortal[data-prism-layout='workspace']) .prism-workspace-nav .portletList a { min-height: 28px; padding: 8px 12px; }
 }
 @media (max-width: 600px) {
   html[data-pku-prism='enabled'][data-pku-prism-page='portal']:has(.containerPortal[data-prism-layout='workspace']) .prism-course-catalog { padding: 24px 12px; }
@@ -77,7 +55,4 @@ html[data-pku-prism='enabled'][data-pku-prism-page='portal']:has(.containerPorta
   html[data-pku-prism='enabled'][data-pku-prism-page='portal']:has(.containerPortal[data-prism-layout='workspace']) .prism-view-switch { margin-top: 16px; }
   html[data-pku-prism='enabled'][data-pku-prism-page='portal']:has(.containerPortal[data-prism-layout='workspace']) .courseListing { grid-template-columns: minmax(0, 1fr); }
   html[data-pku-prism='enabled'][data-pku-prism-page='portal']:has(.containerPortal[data-prism-layout='workspace']) .courseListing > li > a { min-height: 112px; }
-}
-@media (min-width: 1038px) {
-  html[data-pku-prism='enabled'][data-pku-prism-page='portal']:has(.containerPortal[data-prism-layout='workspace']) .prism-nav-summary { list-style: none; pointer-events: none; }
 }

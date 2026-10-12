@@ -1,5 +1,6 @@
 /* Shared by the scoped page stylesheet and the isolated Prism control. */
 html[data-pku-prism='enabled'], :host {
+  --prism-scrim: rgb(0 0 0 / .24);
   --prism-white: #fff;
   --prism-zinc-50: #fafafa;
   --prism-zinc-100: #f4f4f5;

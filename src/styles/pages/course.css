@@ -79,6 +79,7 @@ html[data-pku-prism='enabled'][data-pku-prism-page='announcements'] #announcemen
   overflow-wrap: anywhere;
 }
 html[data-pku-prism='enabled'][data-pku-prism-page='announcements'] #announcementList .announcementInfo p { margin: 0 0 8px; }
+html[data-pku-prism='enabled'][data-pku-prism-page='announcements'] #announcementList .announcementInfo span { color: var(--prism-muted); }
 html[data-pku-prism='enabled'] :is(#announcementList, #content_listContainer) a { color: var(--prism-accent); }
 html[data-pku-prism='enabled'][data-pku-prism-page='content'] #content_listContainer { margin: 0; padding: 0; }
 html[data-pku-prism='enabled'][data-pku-prism-page='content'] #content_listContainer > li {

@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-10-12T04:01:49.282274+00:00",
+  "generatedAt": "2026-10-12T06:42:22.471531+00:00",
   "title": "PKU Prism 视觉规范",
   "extensions": {
     "shadows": [
@@ -19,22 +19,348 @@
     ],
     "breakpoints": [
       {
-        "name": "course-cards-single-column",
+        "name": "course-cards-and-header-phone",
         "value": "600px"
       },
       {
-        "name": "course-mobile",
+        "name": "reader-mobile",
         "value": "736px"
       },
       {
-        "name": "workspace-single-column",
-        "value": "1037px"
+        "name": "shared-rail-drawer-and-native-tools-single-column",
+        "value": "900px"
       },
       {
-        "name": "compact-desktop",
+        "name": "shared-header-wrap",
+        "value": "1200px"
+      },
+      {
+        "name": "portal-and-reader-compact-desktop",
         "value": "1200px"
       }
-    ]
+    ],
+    "colorMeta": {
+      "brand": {
+        "role": "primary",
+        "displayName": "北大红",
+        "tonalRamp": [
+          "oklch(15% 0.1562 19.8)",
+          "oklch(26% 0.1562 19.8)",
+          "oklch(38% 0.1562 19.8)",
+          "oklch(49% 0.1562 19.8)",
+          "oklch(61% 0.1562 19.8)",
+          "oklch(72% 0.1562 19.8)",
+          "oklch(84% 0.1562 19.8)",
+          "oklch(95% 0.1562 19.8)"
+        ]
+      },
+      "canvas": {
+        "role": "neutral",
+        "displayName": "画布",
+        "tonalRamp": [
+          "oklch(15% 0.0000 89.9)",
+          "oklch(26% 0.0000 89.9)",
+          "oklch(38% 0.0000 89.9)",
+          "oklch(49% 0.0000 89.9)",
+          "oklch(61% 0.0000 89.9)",
+          "oklch(72% 0.0000 89.9)",
+          "oklch(84% 0.0000 89.9)",
+          "oklch(95% 0.0000 89.9)"
+        ]
+      },
+      "surface": {
+        "role": "neutral",
+        "displayName": "内容面",
+        "tonalRamp": [
+          "oklch(15% 0.0000 89.9)",
+          "oklch(26% 0.0000 89.9)",
+          "oklch(38% 0.0000 89.9)",
+          "oklch(49% 0.0000 89.9)",
+          "oklch(61% 0.0000 89.9)",
+          "oklch(72% 0.0000 89.9)",
+          "oklch(84% 0.0000 89.9)",
+          "oklch(95% 0.0000 89.9)"
+        ]
+      },
+      "subtle": {
+        "role": "neutral",
+        "displayName": "辅助面",
+        "tonalRamp": [
+          "oklch(15% 0.0013 286.4)",
+          "oklch(26% 0.0013 286.4)",
+          "oklch(38% 0.0013 286.4)",
+          "oklch(49% 0.0013 286.4)",
+          "oklch(61% 0.0013 286.4)",
+          "oklch(72% 0.0013 286.4)",
+          "oklch(84% 0.0013 286.4)",
+          "oklch(95% 0.0013 286.4)"
+        ]
+      },
+      "border": {
+        "role": "neutral",
+        "displayName": "结构边线",
+        "tonalRamp": [
+          "oklch(15% 0.0040 286.3)",
+          "oklch(26% 0.0040 286.3)",
+          "oklch(38% 0.0040 286.3)",
+          "oklch(49% 0.0040 286.3)",
+          "oklch(61% 0.0040 286.3)",
+          "oklch(72% 0.0040 286.3)",
+          "oklch(84% 0.0040 286.3)",
+          "oklch(95% 0.0040 286.3)"
+        ]
+      },
+      "control-border": {
+        "role": "neutral",
+        "displayName": "控件边线",
+        "tonalRamp": [
+          "oklch(15% 0.0138 285.9)",
+          "oklch(26% 0.0138 285.9)",
+          "oklch(38% 0.0138 285.9)",
+          "oklch(49% 0.0138 285.9)",
+          "oklch(61% 0.0138 285.9)",
+          "oklch(72% 0.0138 285.9)",
+          "oklch(84% 0.0138 285.9)",
+          "oklch(95% 0.0138 285.9)"
+        ]
+      },
+      "text": {
+        "role": "neutral",
+        "displayName": "主文字",
+        "tonalRamp": [
+          "oklch(15% 0.0059 285.9)",
+          "oklch(26% 0.0059 285.9)",
+          "oklch(38% 0.0059 285.9)",
+          "oklch(49% 0.0059 285.9)",
+          "oklch(61% 0.0059 285.9)",
+          "oklch(72% 0.0059 285.9)",
+          "oklch(84% 0.0059 285.9)",
+          "oklch(95% 0.0059 285.9)"
+        ]
+      },
+      "muted": {
+        "role": "neutral",
+        "displayName": "次级文字",
+        "tonalRamp": [
+          "oklch(15% 0.0146 285.8)",
+          "oklch(26% 0.0146 285.8)",
+          "oklch(38% 0.0146 285.8)",
+          "oklch(49% 0.0146 285.8)",
+          "oklch(61% 0.0146 285.8)",
+          "oklch(72% 0.0146 285.8)",
+          "oklch(84% 0.0146 285.8)",
+          "oklch(95% 0.0146 285.8)"
+        ]
+      },
+      "accent": {
+        "role": "primary",
+        "displayName": "浅色强调",
+        "tonalRamp": [
+          "oklch(15% 0.1562 19.8)",
+          "oklch(26% 0.1562 19.8)",
+          "oklch(38% 0.1562 19.8)",
+          "oklch(49% 0.1562 19.8)",
+          "oklch(61% 0.1562 19.8)",
+          "oklch(72% 0.1562 19.8)",
+          "oklch(84% 0.1562 19.8)",
+          "oklch(95% 0.1562 19.8)"
+        ]
+      },
+      "selected": {
+        "role": "primary",
+        "displayName": "浅红选中面",
+        "tonalRamp": [
+          "oklch(15% 0.0132 5.8)",
+          "oklch(26% 0.0132 5.8)",
+          "oklch(38% 0.0132 5.8)",
+          "oklch(49% 0.0132 5.8)",
+          "oklch(61% 0.0132 5.8)",
+          "oklch(72% 0.0132 5.8)",
+          "oklch(84% 0.0132 5.8)",
+          "oklch(95% 0.0132 5.8)"
+        ]
+      },
+      "on-brand": {
+        "role": "neutral",
+        "displayName": "品牌面文字",
+        "tonalRamp": [
+          "oklch(15% 0.0000 89.9)",
+          "oklch(26% 0.0000 89.9)",
+          "oklch(38% 0.0000 89.9)",
+          "oklch(49% 0.0000 89.9)",
+          "oklch(61% 0.0000 89.9)",
+          "oklch(72% 0.0000 89.9)",
+          "oklch(84% 0.0000 89.9)",
+          "oklch(95% 0.0000 89.9)"
+        ]
+      },
+      "scrim": {
+        "role": "neutral",
+        "displayName": "抽屉遮罩",
+        "tonalRamp": [
+          "oklch(15% 0.0000 0.0 / .24)",
+          "oklch(26% 0.0000 0.0 / .24)",
+          "oklch(38% 0.0000 0.0 / .24)",
+          "oklch(49% 0.0000 0.0 / .24)",
+          "oklch(61% 0.0000 0.0 / .24)",
+          "oklch(72% 0.0000 0.0 / .24)",
+          "oklch(84% 0.0000 0.0 / .24)",
+          "oklch(95% 0.0000 0.0 / .24)"
+        ]
+      },
+      "dark-canvas": {
+        "role": "neutral",
+        "displayName": "深色画布",
+        "tonalRamp": [
+          "oklch(15% 0.0059 285.9)",
+          "oklch(26% 0.0059 285.9)",
+          "oklch(38% 0.0059 285.9)",
+          "oklch(49% 0.0059 285.9)",
+          "oklch(61% 0.0059 285.9)",
+          "oklch(72% 0.0059 285.9)",
+          "oklch(84% 0.0059 285.9)",
+          "oklch(95% 0.0059 285.9)"
+        ]
+      },
+      "dark-surface": {
+        "role": "neutral",
+        "displayName": "深色内容面",
+        "tonalRamp": [
+          "oklch(15% 0.0056 286.0)",
+          "oklch(26% 0.0056 286.0)",
+          "oklch(38% 0.0056 286.0)",
+          "oklch(49% 0.0056 286.0)",
+          "oklch(61% 0.0056 286.0)",
+          "oklch(72% 0.0056 286.0)",
+          "oklch(84% 0.0056 286.0)",
+          "oklch(95% 0.0056 286.0)"
+        ]
+      },
+      "dark-subtle": {
+        "role": "neutral",
+        "displayName": "深色辅助面",
+        "tonalRamp": [
+          "oklch(15% 0.0055 286.0)",
+          "oklch(26% 0.0055 286.0)",
+          "oklch(38% 0.0055 286.0)",
+          "oklch(49% 0.0055 286.0)",
+          "oklch(61% 0.0055 286.0)",
+          "oklch(72% 0.0055 286.0)",
+          "oklch(84% 0.0055 286.0)",
+          "oklch(95% 0.0055 286.0)"
+        ]
+      },
+      "dark-border": {
+        "role": "neutral",
+        "displayName": "深色结构边线",
+        "tonalRamp": [
+          "oklch(15% 0.0119 285.8)",
+          "oklch(26% 0.0119 285.8)",
+          "oklch(38% 0.0119 285.8)",
+          "oklch(49% 0.0119 285.8)",
+          "oklch(61% 0.0119 285.8)",
+          "oklch(72% 0.0119 285.8)",
+          "oklch(84% 0.0119 285.8)",
+          "oklch(95% 0.0119 285.8)"
+        ]
+      },
+      "dark-control-border": {
+        "role": "neutral",
+        "displayName": "深色控件边线",
+        "tonalRamp": [
+          "oklch(15% 0.0129 286.1)",
+          "oklch(26% 0.0129 286.1)",
+          "oklch(38% 0.0129 286.1)",
+          "oklch(49% 0.0129 286.1)",
+          "oklch(61% 0.0129 286.1)",
+          "oklch(72% 0.0129 286.1)",
+          "oklch(84% 0.0129 286.1)",
+          "oklch(95% 0.0129 286.1)"
+        ]
+      },
+      "dark-text": {
+        "role": "neutral",
+        "displayName": "深色主文字",
+        "tonalRamp": [
+          "oklch(15% 0.0013 286.4)",
+          "oklch(26% 0.0013 286.4)",
+          "oklch(38% 0.0013 286.4)",
+          "oklch(49% 0.0013 286.4)",
+          "oklch(61% 0.0013 286.4)",
+          "oklch(72% 0.0013 286.4)",
+          "oklch(84% 0.0013 286.4)",
+          "oklch(95% 0.0013 286.4)"
+        ]
+      },
+      "dark-muted": {
+        "role": "neutral",
+        "displayName": "深色次级文字",
+        "tonalRamp": [
+          "oklch(15% 0.0129 286.1)",
+          "oklch(26% 0.0129 286.1)",
+          "oklch(38% 0.0129 286.1)",
+          "oklch(49% 0.0129 286.1)",
+          "oklch(61% 0.0129 286.1)",
+          "oklch(72% 0.0129 286.1)",
+          "oklch(84% 0.0129 286.1)",
+          "oklch(95% 0.0129 286.1)"
+        ]
+      },
+      "dark-accent": {
+        "role": "primary",
+        "displayName": "深色浅红强调",
+        "tonalRamp": [
+          "oklch(15% 0.0921 10.8)",
+          "oklch(26% 0.0921 10.8)",
+          "oklch(38% 0.0921 10.8)",
+          "oklch(49% 0.0921 10.8)",
+          "oklch(61% 0.0921 10.8)",
+          "oklch(72% 0.0921 10.8)",
+          "oklch(84% 0.0921 10.8)",
+          "oklch(95% 0.0921 10.8)"
+        ]
+      },
+      "dark-selected": {
+        "role": "primary",
+        "displayName": "深色红灰选中面",
+        "tonalRamp": [
+          "oklch(15% 0.0273 355.9)",
+          "oklch(26% 0.0273 355.9)",
+          "oklch(38% 0.0273 355.9)",
+          "oklch(49% 0.0273 355.9)",
+          "oklch(61% 0.0273 355.9)",
+          "oklch(72% 0.0273 355.9)",
+          "oklch(84% 0.0273 355.9)",
+          "oklch(95% 0.0273 355.9)"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "headline": {
+        "displayName": "页面标题",
+        "purpose": "课程和原生工具的主要标题。"
+      },
+      "body": {
+        "displayName": "工作区正文",
+        "purpose": "导航、资源与原生内容的基础阅读文字。"
+      },
+      "reader": {
+        "displayName": "公告正文",
+        "purpose": "较宽松行高的富文本阅读区。"
+      },
+      "label": {
+        "displayName": "辅助操作",
+        "purpose": "按钮、目录与共享导航。"
+      },
+      "metadata": {
+        "displayName": "元信息",
+        "purpose": "学期、编号、日期、数量与不低于 12px 的计数徽标。"
+      },
+      "table-body": {
+        "displayName": "表格正文",
+        "purpose": "原生工具的数据行，表头以字重 500 区分。"
+      }
+    }
   },
   "components": [
     {
@@ -62,11 +388,12 @@
       "css": ".ds-search{display:block;width:100%;min-width:0;height:36px;padding:7px 60px 7px 12px;margin:0;border:1px solid var(--prism-control-border, #71717a);border-radius:var(--prism-radius-md, 6px);background:var(--prism-surface, #fff);color:var(--prism-text, #18181b);caret-color:var(--prism-accent, #9e2533);font:400 13px/1.6 var(--prism-font, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif);box-sizing:border-box}.ds-search::placeholder{color:var(--prism-muted, #52525b);opacity:1}.ds-search::-webkit-search-cancel-button{display:none}.ds-search:focus-visible{outline:2px solid var(--prism-accent, #9e2533);outline-offset:2px}@media(max-width:736px){.ds-search{min-height:44px}}"
     },
     {
-      "name": "工作区导航",
+      "name": "共享上下文侧栏",
       "kind": "nav",
-      "description": "首页原生导航的紧凑行式表现；当前项使用选中色。",
-      "html": "<nav class=\"ds-nav\" aria-label=\"教学网工作区\"><a href=\"#courses\" aria-current=\"true\">我的课程</a><a href=\"#tools\">工具</a></nav>",
-      "css": ".ds-nav a{display:block;padding:8px 12px;margin:2px 0;border-radius:var(--prism-radius-md, 6px);background:none;color:var(--prism-muted, #52525b);font:500 13px/1.6 var(--prism-font, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif);text-decoration:none;white-space:normal}.ds-nav a[aria-current='true']{background:var(--prism-selected, #faeef0);color:var(--prism-accent, #9e2533)}.ds-nav a:hover{background:var(--prism-subtle, #f4f4f5)}.ds-nav a:focus-visible{outline:2px solid var(--prism-accent, #9e2533);outline-offset:2px}@media(max-width:1037px){.ds-nav a{min-height:28px}}"
+      "description": "主页工具、机构与直接展示的溢出目的地共享课程目录的完整文字行。桌面默认展开且可完全收起；≤900px 默认隐藏，以带焦点循环和 Escape 返回的抽屉打开。课程身份和长目录独立滚动；帮助、课程首页、刷新与弹窗入口固定在侧栏底部的图标区。小组与控制面板采用展开箭头、完整标签、独立跳转按钮；保留原生链接、节点与业务事件。",
+      "html": "<nav class=\"ds-rail\" aria-label=\"课程目录\"><a href=\"#announcements\" aria-current=\"page\">课程公告</a><a href=\"#content\">教学内容</a><a href=\"#tools\">课程工具</a></nav>",
+      "css": ".ds-rail{width:232px;max-width:100%;padding:16px 8px;border-right:1px solid var(--prism-border, #e4e4e7);background:var(--prism-surface, #fff);color:var(--prism-text, #18181b);font:400 13px/1.6 var(--prism-font, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif);box-sizing:border-box}.ds-rail a{display:flex;align-items:center;min-height:36px;padding:8px 12px;margin:2px 0;border-radius:var(--prism-radius-md, 6px);color:inherit;text-decoration:none;box-sizing:border-box}.ds-rail a:hover{background:var(--prism-subtle, #f4f4f5)}.ds-rail a[aria-current='page']{background:var(--prism-selected, #faeef0);color:var(--prism-accent, #9e2533)}.ds-rail a:focus-visible{outline:2px solid var(--prism-accent, #9e2533);outline-offset:-2px}@media(max-width:900px){.ds-rail a{min-height:44px}}",
+      "refersTo": "shell-rail"
     },
     {
       "name": "课程入口卡片",
@@ -94,14 +421,30 @@
     {
       "name": "外观控制组",
       "kind": "custom",
-      "description": "Shadow DOM 内的启停与主题选择；桌面固定于右下角，手机在页面标题区参与文档流。",
+      "description": "Shadow DOM 内的启停与主题选择，在共享头部的外观 popover 内显示；停用后恢复独立入口。",
       "html": "<div class=\"ds-appearance\" role=\"group\" aria-label=\"Prism 外观\"><button type=\"button\" aria-pressed=\"true\">Prism</button><select aria-label=\"主题\"><option>系统</option><option>浅色</option><option>深色</option></select></div>",
-      "css": ".ds-appearance{display:flex;gap:4px;padding:4px;border:1px solid var(--prism-border, #e4e4e7);border-radius:var(--prism-radius-lg, 8px);background:var(--prism-surface, #fff);color:var(--prism-text, #18181b);font:500 12px/1.5 var(--prism-font, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif);width:max-content;max-width:100%}.ds-appearance button,.ds-appearance select{min-height:32px;padding:4px 8px;border:1px solid transparent;border-radius:var(--prism-radius-sm, 4px);color:var(--prism-muted, #52525b);background:var(--prism-surface, #fff);font:inherit;cursor:pointer}.ds-appearance button[aria-pressed='true']{color:var(--prism-accent, #9e2533);background:var(--prism-selected, #faeef0)}.ds-appearance select{border-color:var(--prism-control-border, #71717a)}.ds-appearance button:hover,.ds-appearance select:hover{background:var(--prism-subtle, #f4f4f5);color:var(--prism-text, #18181b)}.ds-appearance button:focus-visible,.ds-appearance select:focus-visible{outline:2px solid var(--prism-accent, #9e2533);outline-offset:2px}@media(max-width:736px){.ds-appearance{padding:0;border:0;background:transparent}.ds-appearance button,.ds-appearance select{min-height:44px}}"
+      "css": ".ds-appearance{display:flex;gap:4px;padding:0;border:0;border-radius:var(--prism-radius-lg, 8px);background:var(--prism-surface, #fff);color:var(--prism-text, #18181b);font:500 12px/1.5 var(--prism-font, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif);width:max-content;max-width:100%}.ds-appearance button,.ds-appearance select{min-height:32px;padding:4px 8px;border:1px solid transparent;border-radius:var(--prism-radius-sm, 4px);color:var(--prism-muted, #52525b);background:var(--prism-surface, #fff);font:inherit;cursor:pointer}.ds-appearance button[aria-pressed='true']{color:var(--prism-accent, #9e2533);background:var(--prism-selected, #faeef0)}.ds-appearance select{border-color:var(--prism-control-border, #71717a)}.ds-appearance button:hover,.ds-appearance select:hover{background:var(--prism-subtle, #f4f4f5);color:var(--prism-text, #18181b)}.ds-appearance button:focus-visible,.ds-appearance select:focus-visible{outline:2px solid var(--prism-accent, #9e2533);outline-offset:2px}@media(max-width:736px){.ds-appearance{padding:0;border:0}.ds-appearance button,.ds-appearance select{min-height:44px}}"
+    },
+    {
+      "name": "共享头部",
+      "kind": "custom",
+      "refersTo": "shell-header",
+      "description": "固定顺序的五个全局入口与课程搜索、外观和原生账户 / 注销。课程身份与面包屑返回链接留在侧栏，没有第二个上下文顶栏。",
+      "html": "<header class=\"ds-header\"><span class=\"ds-brand\">PKU Prism</span><nav class=\"ds-sites\" aria-label=\"教学网站点\"><a href=\"#home\">我的主页</a><a href=\"#courses\" aria-current=\"page\">我的课程</a><a href=\"#community\">我的社区</a><a href=\"#resources\">我的资源</a><a href=\"#catalog\">北大课程</a></nav><div class=\"ds-utilities\"><button type=\"button\">搜索我的课程</button><button type=\"button\">外观</button><button type=\"button\">账户</button><a href=\"#logout\">注销</a></div></header>",
+      "css": ".ds-header{display:flex;align-items:center;gap:12px;min-height:64px;padding:12px 24px;box-sizing:border-box;border-bottom:1px solid var(--prism-border,#e4e4e7);background:var(--prism-surface,#fff);color:var(--prism-text,#18181b);font:500 13px/1.6 var(--prism-font,sans-serif)}.ds-brand{color:var(--prism-accent,#9e2533);font-size:15px;font-weight:600;white-space:nowrap}.ds-sites,.ds-utilities{display:flex;align-items:center;gap:4px}.ds-utilities{margin-left:auto}.ds-header a,.ds-header button{display:flex;align-items:center;justify-content:center;min-height:36px;padding:6px 10px;border:0;border-radius:var(--prism-radius-md,6px);background:transparent;color:inherit;font:inherit;text-decoration:none;cursor:pointer}.ds-header :is(a,button):hover{background:var(--prism-subtle,#f4f4f5);color:var(--prism-text,#18181b)}.ds-header :is(a,button):focus-visible{outline:2px solid var(--prism-accent,#9e2533);outline-offset:-2px}.ds-header a[aria-current='page']{background:var(--prism-selected,#faeef0);color:var(--prism-accent,#9e2533)}@media(max-width:1200px){.ds-header{flex-wrap:wrap;padding:8px 16px}.ds-sites{order:1;flex-basis:100%;justify-content:center}}@media(max-width:600px){.ds-header{padding:8px 12px}.ds-sites{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:0}.ds-sites a{padding:8px 2px;min-height:44px}}"
+    },
+    {
+      "name": "原生工具表格",
+      "kind": "custom",
+      "refersTo": "inventory",
+      "description": "任务、通讯录或资源库沿用原生表格结构；局部容器承担横向滚动。",
+      "html": "<div class=\"ds-table-wrap\"><table class=\"ds-table\"><thead><tr><th scope=\"col\">名称</th><th scope=\"col\">类型</th></tr></thead><tbody><tr><td><a href=\"#resource\">课程材料</a></td><td>文件</td></tr><tr><td><a href=\"#folder\">教学资源</a></td><td>文件夹</td></tr></tbody></table></div>",
+      "css": ".ds-table-wrap{max-width:100%;overflow-x:auto;border:1px solid var(--prism-border, #e4e4e7);border-radius:var(--prism-radius-md, 6px);background:var(--prism-surface, #fff)}.ds-table{width:100%;border-collapse:collapse;color:var(--prism-text, #18181b);font:400 13px/1.6 var(--prism-font, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif)}.ds-table :is(th,td){padding:12px;text-align:left;border-bottom:1px solid var(--prism-border, #e4e4e7);background:var(--prism-surface, #fff)}.ds-table th{font-weight:500;background:var(--prism-subtle, #f4f4f5)}.ds-table tr:hover :is(th,td){background:var(--prism-subtle, #f4f4f5)}.ds-table a{color:var(--prism-accent, #9e2533);text-decoration:none}.ds-table a:hover{color:var(--prism-text, #18181b)}.ds-table a:focus-visible{outline:2px solid var(--prism-accent, #9e2533);outline-offset:2px}"
     }
   ],
   "narrative": {
     "northStar": "大学课程工作区",
-    "overview": "面向每日查看课程、通知与教学材料的教学网用户。延续 Linear 的紧凑层级、shadcn/ui 的语义色与状态、Notion 的阅读节奏，以中性表面与北大红组织一个安静、清晰的课程工作区。课程名称和正在阅读的内容承担视觉重心，编号、学期、日期和来源完整保留并降低权重。\n\n组件以内容和操作为单位：课程入口使用卡片，通知使用目录与阅读区，教学材料和作业使用平整资源行。局部组件只改变本地呈现，不推断业务状态。原生内容、链接、权限、表单归属和事件语义决定界面能做什么；CSS 负责表现，TypeScript 负责可逆 DOM 重组。",
+    "overview": "面向每日查看课程、通知与教学材料的教学网用户。延续 Linear 的紧凑层级、shadcn/ui 的语义色与状态、Notion 的阅读节奏，以中性表面与北大红组织一个安静、清晰的课程工作区。课程名称和正在阅读的内容承担视觉重心，编号、学期、日期和来源完整保留并降低权重。\n\n共享头部只容纳全局入口、搜索、账户与外观；上下文导航独立在左侧：主页显示工具，课程页显示原生课程目录，My Blackboard 和资源库保留各自文字导航。课程身份、课程切换与面包屑中的返回链接进入侧栏，不再堆叠第二排上下文顶栏。组件以内容和操作为单位：课程入口使用卡片，公告使用目录与阅读区，教学材料和作业使用平整资源行，原生工具沿用统一的表格、表单与模块样式。局部组件只改变本地呈现，不推断业务状态。原生内容、链接、权限、表单归属和事件语义决定界面能做什么；CSS 负责表现，TypeScript 负责可逆 DOM 重组。",
     "keyCharacteristics": [
       "中性色为主，品牌色只标识品牌、链接、选中与焦点。",
       "名称优先、元信息完整，长标题可换行。",
@@ -126,7 +469,7 @@
       },
       {
         "name": "The Flat Surface Rule",
-        "body": "课程卡片、公告阅读区、资源行与控制面板均保持平整，用背景、边线和排版表示层级。",
+        "body": "课程卡片、公告阅读区、资源行与控制面板均保持平整，用背景、边线和排版表示层级。抽屉通过中性遮罩区分层次，不依靠阴影。",
         "section": "elevation"
       }
     ],
@@ -134,8 +477,8 @@
       "**Do** 复用语义 Token；浅深色改变颜色，保持几何尺寸一致。",
       "**Do** 优先呈现名称、正文与主要业务入口，完整保留课程、角色和资源标识。",
       "**Do** 为本地搜索、选中和展开提供可访问状态、数量反馈及清空入口。",
-      "**Do** 在已识别页面的 `html[data-pku-prism='enabled']` 范围内改造；移动原生节点而不复制业务节点，停用恢复位置、属性和文本。",
-      "**Do** 用真实 DOM 与构建产物核验布局；未知页保留原站，验证范围与环境限制写入验证记录。"
+      "**Do** 在已识别 Blackboard 页面的 `html[data-pku-prism='enabled']` 与对应页面标记范围内改造；深度重组另设 DOM 守卫，移动原生节点而不复制业务节点，停用恢复位置、属性和文本。",
+      "**Do** 用真实 DOM 与构建产物核验布局；原生工具共享基线，未知结构先观察再专项适配，验证范围与环境限制写入验证记录。"
     ],
     "donts": [
       "**Don't** 使用渐变、毛玻璃、装饰性 Emoji、重阴影、入场动画或新增动画。",
