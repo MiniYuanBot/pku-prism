@@ -1,71 +1,103 @@
 # PKU Prism
 
-重设计北京大学教学网课程工作界面的独立 Tampermonkey UserScript，使用 TypeScript、CSS 和 Vite。采用中性色与北大红的紧凑 Dashboard 风格，支持浅色、深色和跟随系统。视觉依据见 [docs/DESIGN.md](docs/DESIGN.md)，信息架构与安全边界见 [docs/REDESIGN.md](docs/REDESIGN.md)。
+PKU Prism 是一个用于北京大学教学网的 Tampermonkey（油猴）脚本，重新整理导航、课程列表、公告和教学内容的布局，支持浅色、深色和跟随系统。
 
-## 开发
+**[安装最新版](https://github.com/MiniYuanBot/pku-prism/releases/latest/download/pku-prism.user.js)** · [所有版本与更新说明](https://github.com/MiniYuanBot/pku-prism/releases)
 
-需要 Node.js 20.19+ 或 22.12+，推荐 Node.js 22 LTS。
+安装链接在首个 Release 发布后生效。
 
-```sh
-npm ci
-npm run dev
-```
+打开教学网后，顶部是全站入口，左侧是当前页面的工具或课程目录。课程、作业和附件仍使用教学网原来的链接与控件；不习惯新界面时，可以在「外观」中随时停用。
 
-打开 `http://localhost:5173`，安装页面提供的开发脚本，再访问教学网。开发脚本从本机 Vite 加载模块，支持热更新；不要同时启用开发脚本和正式脚本。开发脚本只应在开发期间启用。
+## 界面预览
 
-```sh
-npm run check       # 页面识别测试、TypeScript 检查、构建和产物校验
-npm run build:watch # 持续构建，供 MCP 注入调试
-npm run preview     # 在 4173 端口提供 dist 安装文件
-```
+下面是在真实教学网页面截取的界面。账号、课程及公告内容已替换为示例，不包含个人学习记录。
 
-运行 `npm run build` 后，将 [dist/pku-prism.user.js](dist/pku-prism.user.js) 的内容导入 Tampermonkey 新建脚本，或通过本地预览服务器打开 `http://localhost:4173/pku-prism.user.js` 安装。
+![PKU Prism 深色首页：顶部全局导航、左侧工具、课程卡片和右侧公告与事务](docs/images/home-dark.png)
 
-正式脚本为单文件 IIFE，包含 CSS，不依赖运行时 CDN、框架或开发服务器。UserScript 元数据由本项目的轻量 Vite 插件生成。
+<details>
+<summary>查看浅色界面</summary>
 
-## 当前行为
+![PKU Prism 浅色首页](docs/images/home-light.png)
 
-- 只匹配 `https://course.pku.edu.cn/webapps/*`，排除认证路由；独立脚本不在 iframe 启动，父页面只为同源、带原生 Blackboard 标记的内容 frame 注入 CSS 主题。
-- 首页、公告、教学内容及同结构的作业列表使用深度布局适配；其他原生页面获得共享框架与基础样式，保留提交表单、富文本和原生业务流程。
-- 两层导航：顶部直接显示五个全局入口、课程搜索、外观和原生账户 / 注销；主页工具、课程目录与面包屑返回功能位于上下文侧栏。桌面默认展开且可完全收起，≤900px 默认隐藏、使用文字抽屉。
-- 首页工具位于工作区侧栏；主区提供当前 / 历史课程切换、本地搜索、角色分组与课程卡片，公告与事务在辅助区。
-- 公告采用目录 + 完整阅读区，支持选择、搜索与全部展开；课程内容采用资源列表，作业标题和附件常显，说明按需展开。
-- 课程名称优先显示，完整保留学期和编号；课程身份与切换位于侧栏，公告目录按需展开。作业表单、提交历史与总览沿用原生业务控件，适配浅深色与窄屏。
-- 共享头部“外观”菜单提供启停与颜色模式；停用后保留独立控制。仅使用 `pku-prism:enabled` 与 `pku-prism:theme` 两个自有偏好键，支持跨标签同步。
-- 任务、邮箱、通讯录、个人信息、目标、社区、课程目录、资源库、日历、通知和成绩获得对应原生容器适配；同源嵌套 frame 跟随主题和启停。
-- 停用回滚 DOM 位置、属性与原始 Text 节点，并移除样式与自定义组件；保留控制供重新启用。重复注入先清理旧实例。
-- 保留原生链接与表单节点、事件、提交逻辑和课程数据，不读取认证信息，不发送网络请求。
+</details>
 
-也可以在 Tampermonkey 中彻底关闭脚本，再刷新页面。没有原生 Blackboard 标记的页面和跨域 LTI 内部保持原样。通用基线减少漏页，但不等于已穷尽所有业务路由；新结构仍需真实观察、适配和验证。
+## 功能
 
-## 目录
+- **导航分成两层**：顶部保留「我的主页、我的课程、我的社区、我的资源、北大课程」，以及搜索、外观、账户和注销。左侧在主页显示工具，在课程内显示目录；课程名称、课程间切换和上级返回入口也放在侧栏，避免多条顶部导航堆叠。
+- **课程更容易查找**：首页区分当前学期和历史课程，支持按名称或编号在当前视图中搜索，按角色分组显示课程卡片。课程名、学期和完整编号分别呈现，公告和事务在桌面右侧的辅助区。
+- **公告有独立阅读区**：可以搜索公告目录、选择一条完整阅读，也能切回全部展开；窄屏下目录可以按需展开。
+- **教学内容更紧凑**：资源与文件夹整理为列表，作业标题和附件保持可见，较长的说明按需展开。
+- **浅深色一致**：导航、菜单、表格、表单和提示使用同一套主题。
+- **侧栏可以完全收起**：宽屏默认展开，窄屏默认隐藏，通过顶部按钮打开抽屉。课程目录保留文字，不压缩成图标栏。
+- **随时恢复原站**：停用后恢复教学网原来的界面，仍可随时重新启用。
 
-```text
-src/main.ts              启动、站点限制和 HMR 清理
-src/core/page.ts         路由与 DOM 识别
-src/core/prism.ts        样式与开关生命周期
-src/core/settings.ts     独立偏好键与标签页同步
-src/core/course-labels.ts 可逆的课程文本分层
-src/core/dom-session.ts  节点移动、属性与事件的可逆事务
-src/core/frames.ts       同源原生内容 frame 的主题与清理
-src/layouts/             共享框架、工作台、公告阅读器与资源列表组件
-src/ui/                  Shadow DOM 启停和主题控制
-src/styles/              共享 Token、外壳和页面样式
-scripts/                 产物校验和真实浏览器冒烟检查
-tests/                   路由、偏好、文本与 DOM 回滚边界测试
-docs/                    设计规范、页面研究与验证记录
-```
+任务、邮箱、通讯录、个人信息、目标、社区、资源库、日历、通知和成绩等页面也有基础适配。作业提交页、提交历史和总览保留原来的操作方式。
 
-## 浏览器验证
+## 安装
 
-通过 Chrome DevTools MCP 观察实际页面并临时执行构建产物。可将 `scripts/browser-smoke.js` 中的 `smokePrism` 函数放入 `evaluate_script`，以构建产物的字符串为参数调用。MCP 的 `args` 用于元素 UID，传代码时应把字符串作为 JavaScript 字面量嵌入函数，不要放入 `args`。
+从 Release 安装即可使用，无需配置开发环境。
 
-冒烟检查覆盖课程视图、搜索 / 无结果 / 清空、公告选择与全部阅读、作业说明展开、搜索不提交原生表单、主题与偏好同步、原始链接和表单归属、祖先事件，以及停用后的完整原生 DOM / Text 节点恢复。测试结束清理实例并恢复 Prism 自有偏好键，不读取任何表单值。
+### 第一步：准备 Tampermonkey
 
-截图只用于本地视觉检查；不把真实课程内容、姓名、成绩或整页 HTML 纳入仓库。`.local/` 可存放个人调试文件且已忽略。
+从 [Tampermonkey 官网](https://www.tampermonkey.net/) 安装对应浏览器的扩展，并允许它在 `course.pku.edu.cn` 上运行。Chrome / Edge 用户还需按扩展提示开启用户脚本权限；具体入口见 [Tampermonkey 官方说明](https://www.tampermonkey.net/faq.php#Q209)。
 
-当前环境验证：`npm run check` 已通过，真实浏览器注入与开关验证见 [docs/verification.md](docs/verification.md)。本次终端网络和监听端口受沙箱限制，依赖使用本机已有安装离线准备；`npm ci` 的联网安装与 Vite HMR 的端到端流程尚未验证。MCP 临时注入不等于已安装 Tampermonkey 脚本。
+目前主要在 Chrome 中检查使用效果，其他浏览器尚未完成同等范围的测试。
 
-## 实现参考
+### 第二步：安装 PKU Prism
 
-研究了 [PKU-Art](https://github.com/zhuozhiyongde/PKU-Art) 的按页 CSS 加载和主题管理思路。本项目代码独立编写，未复制其源码或资源。详见 [页面与实现研究](docs/research.md)。
+1. 点击[安装最新版](https://github.com/MiniYuanBot/pku-prism/releases/latest/download/pku-prism.user.js)，或在 [Release 页面](https://github.com/MiniYuanBot/pku-prism/releases/latest)的 Assets 中选择 `pku-prism.user.js`。
+2. Tampermonkey 打开安装页后，确认名称为 PKU Prism，点击「安装」。
+3. 在 Tampermonkey 管理面板中确认 PKU Prism 已启用。
+
+如果浏览器只下载了文件，可以在 Tampermonkey 管理面板的「实用工具 → 从 URL 安装」中粘贴[安装链接](https://github.com/MiniYuanBot/pku-prism/releases/latest/download/pku-prism.user.js)。也可以新建脚本，用下载文件的完整内容替换默认内容并保存。
+
+### 第三步：打开教学网
+
+登录[北大教学网](https://course.pku.edu.cn)并刷新页面。看到顶部 PKU Prism 标识和「外观」菜单后，即可切换主题或调整侧栏。
+
+更新时再次打开安装链接，在 Tampermonkey 中确认更新，然后刷新教学网。自己构建脚本的步骤见[技术与开发说明](docs/DEVELOPMENT.md)。
+
+## 使用
+
+| 操作 | 位置与行为 |
+| --- | --- |
+| 切换浅色 / 深色 | 顶部「外观」→ 颜色模式；也可以选择「跟随系统」 |
+| 暂时恢复原站 | 「外观」→「Prism 已启用」，点击后停用；控制入口仍可用于重新启用 |
+| 完全关闭脚本 | 在 Tampermonkey 中关闭 PKU Prism，然后刷新页面 |
+| 展开或收起侧栏 | 顶部左侧的侧栏按钮；窄屏抽屉可以按 Escape 关闭 |
+| 查找课程 | 「我的课程」进入首页课程区，在当前学期或历史课程视图中搜索 |
+| 阅读公告 | 选择目录中的公告，或使用全部展开；搜索只过滤当前列表 |
+
+启停与颜色偏好会保存，并在教学网标签页之间同步。
+
+### 与 Course Fetch 一起使用
+
+[Course Fetch](https://github.com/MiniYuanBot/course-fetch) 用于整理和下载课堂实录。它与 Prism 是两个独立脚本，可以分别安装和停用。
+
+Course Fetch 0.6.0 的面板已采用同一套样式：当前页面启用 Prism 时自动跟随浅深色；没有启用 Prism 时，可以在 Course Fetch 中单独选择「浅色 / 深色 / 跟随系统」。具体同步范围见[技术说明](docs/DEVELOPMENT.md#与-course-fetch-的主题同步)。
+
+## 常见问题
+
+### 安装后没有变化
+
+确认 Tampermonkey 和脚本均已开启、扩展有运行权限，并刷新页面。Prism 在登录后的教学网页面运行，登录页和部分第三方页面会保持原样。
+
+### 有些页面仍然像原站
+
+首页、课程公告、教学内容和常见作业列表做了较多布局调整，其他页面主要统一导航和基础样式。部分课程定制、历史页面和第三方应用尚未适配，具体范围见[技术说明](docs/DEVELOPMENT.md#适配范围与限制)。
+
+如果遇到错位或文字看不清，可以先停用 Prism，再反馈页面类型、操作步骤和截图。分享截图前请遮去姓名、学号、课程内容和成绩，不要附登录凭证或整页 HTML。
+
+### 会不会影响作业提交或修改课程数据
+
+Prism 只调整页面的显示和布局，保留教学网原来的操作方式，不会自动提交作业、修改成绩或发送邮件，也不读取登录凭证。
+
+并非所有页面和操作都已完成测试。遇到异常时，可以先停用 Prism，再使用原站操作。测试范围见[验证记录](docs/verification.md)。
+
+## 技术文档
+
+界面参考 Linear、shadcn/ui 和 Notion，使用中性色与北大红 `#9E2533`。另外感谢 [PKU-Art](https://github.com/zhuozhiyongde/PKU-Art) 的灵感提供与实现参考！
+
+源码构建、本地开发、Release 发布、实现方式和文件管理见[技术与开发说明](docs/DEVELOPMENT.md)。
+
+[设计规范](docs/DESIGN.md) · [布局设计](docs/REDESIGN.md) · [页面研究](docs/research.md) · [验证记录](docs/verification.md)

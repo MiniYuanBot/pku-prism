@@ -1,9 +1,31 @@
+# 依赖、构建产物与缓存
 node_modules/
-dist/
-.local/
-.impeccable/config.local.json
+/dist/
+/coverage/
+/.vite/
+/.cache/
+/.tmp/
+*.tsbuildinfo
+
+# 个人截图、调试脚本与本机工具配置
+/.local/
+/.agents/skills/
+/.claude/
+/.codex/
+/.impeccable/config.local.json
+
+# 环境文件；示例配置仍可提交
 .env
 .env.*
 !.env.example
+
+# 日志、编辑器备份与系统文件
 *.log
+*.log.*
+.idea/
+*.swp
+*.swo
+*~
 .DS_Store
+._*
+Thumbs.db
