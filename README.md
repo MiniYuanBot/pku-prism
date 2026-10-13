@@ -4,8 +4,6 @@ PKU Prism 是一个用于北京大学教学网的 Tampermonkey（油猴）脚本
 
 **[安装最新版](https://github.com/MiniYuanBot/pku-prism/releases/latest/download/pku-prism.user.js)** · [所有版本与更新说明](https://github.com/MiniYuanBot/pku-prism/releases)
 
-安装链接在首个 Release 发布后生效。
-
 打开教学网后，顶部是全站入口，左侧是当前页面的工具或课程目录。课程、作业和附件仍使用教学网原来的链接与控件；不习惯新界面时，可以在「外观」中随时停用。
 
 ## 界面预览
@@ -55,7 +53,7 @@ PKU Prism 是一个用于北京大学教学网的 Tampermonkey（油猴）脚本
 
 登录[北大教学网](https://course.pku.edu.cn)并刷新页面。看到顶部 PKU Prism 标识和「外观」菜单后，即可切换主题或调整侧栏。
 
-更新时再次打开安装链接，在 Tampermonkey 中确认更新，然后刷新教学网。自己构建脚本的步骤见[技术与开发说明](docs/DEVELOPMENT.md)。
+更新时可以在 Tampermonkey 中检查更新，也可以再次打开安装链接，确认更新后刷新教学网。从 0.4.2 升级时，请先手动安装一次新版，使脚本获得固定更新地址。自己构建脚本的步骤见[技术与开发说明](docs/DEVELOPMENT.md)。
 
 ## 使用
 
@@ -77,6 +75,12 @@ PKU Prism 是一个用于北京大学教学网的 Tampermonkey（油猴）脚本
 Course Fetch 0.6.0 的面板已采用同一套样式：当前页面启用 Prism 时自动跟随浅深色；没有启用 Prism 时，可以在 Course Fetch 中单独选择「浅色 / 深色 / 跟随系统」。具体同步范围见[技术说明](docs/DEVELOPMENT.md#与-course-fetch-的主题同步)。
 
 ## 常见问题
+
+### 安装时显示 Reinstall
+
+先比较安装页与管理面板中的版本号。同版本再次安装可能显示 Reinstall（重新安装），不会带来新版功能。需要升级时，应安装版本号更高的 Release。
+
+重新安装和升级都会替换已有 PKU Prism 的脚本内容。如果你在编辑器中手动改过脚本，请先导出备份。安装与更新的识别规则见[技术说明](docs/DEVELOPMENT.md#安装与更新标识)。
 
 ### 安装后没有变化
 

@@ -49,13 +49,25 @@ https://github.com/MiniYuanBot/pku-prism/releases/latest/download/pku-prism.user
 
 1. 发布新版本前，修改 `package.json` 的 `version`，同步 `package-lock.json` 中的根项目版本。UserScript 的 `@version` 由构建读取 `package.json` 生成；首次发布可以使用当前版本。
 2. 运行 `npm ci` 与 `npm run check`。后者会测试、检查 TypeScript、构建并校验单文件产物。
-3. 将对应代码提交并推送，创建与版本一致的标签，例如当前版本对应 `v0.4.2`。
+3. 将对应代码提交并推送，创建与版本一致的标签，例如版本 `0.4.3` 对应 `v0.4.3`。
 4. 在 GitHub 创建 Release，选择标签，填写更新内容，上传本机 `dist/pku-prism.user.js`，确认附件名后发布。
 5. 发布后检查 README 的安装链接能否取得脚本，并通过 Tampermonkey 安装或更新，再刷新教学网验证。
 
-`dist/` 仍由 `.gitignore` 排除，Release 附件从本机构建目录上传，不需要把产物加入源码仓库。首次 Release 发布前，README 的最新版安装链接尚不可用。
+`dist/` 仍由 `.gitignore` 排除，Release 附件从本机构建目录上传，不需要把产物加入源码仓库。已经发布的旧附件不会随着本地构建更新；每次发布都需上传对应版本的新产物。
 
-当前正式脚本没有显式设置 `@updateURL` 和 `@downloadURL`，README 说明的是从最新 Release 手动安装或更新，不承诺自动更新。开发脚本则明确将这两个地址设为 `none`，避免开发版本参与更新。
+正式脚本的 `@updateURL` 与 `@downloadURL` 均指向上述最新版附件地址。Tampermonkey 可从该地址检查版本并下载更新；自动检查是否启用及其时间间隔由扩展设置决定。开发脚本将两个地址设为 `none`，避免开发版本参与正式更新。
+
+## 安装与更新标识
+
+正式脚本保留已发布版本的 `@name PKU Prism` 与 `@namespace pku-prism`，不为了与 Course Fetch 的元数据格式一致而改动已有标识。主页与问题反馈分别通过 `@homepageURL` 和 `@supportURL` 指向本项目及其 Issues；作者为 `miniyuan`，许可证声明与项目的 MIT LICENSE 一致。
+
+版本号由 `package.json` 生成，发布修复时应提高版本号。同版本重复安装可能显示 Reinstall；安装链接本身不会把相同版本变成升级。更新会替换旧版脚本代码，编辑器中的手工改动不会自动合并。
+
+0.4.2 的已发布附件没有显式更新地址。如果旧安装无法取得新版，应先手动安装一次 0.4.3 或更高版本，使元数据包含固定的 Release 更新地址，再使用扩展的更新检查。
+
+元数据测试与构建校验会检查正式版标识、包版本、主页、反馈地址、两个更新地址、许可证及原有站点限制；开发版使用独立名称 `PKU Prism (Dev)` 并禁用更新。不新增脚本权限或扩大站点匹配范围。
+
+字段定义见 [Tampermonkey 官方元数据说明](https://www.tampermonkey.net/documentation.php#meta:namespace)、[更新地址说明](https://www.tampermonkey.net/documentation.php#meta:updateURL)。
 
 ## 源码结构
 
