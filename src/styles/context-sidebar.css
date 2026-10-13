@@ -1,13 +1,32 @@
-/* Native group and control-panel expanders share the same icon / label / jump layout. */
-html[data-pku-prism='enabled'] #navigationPane[data-prism-context-rail] { overflow: hidden; height: calc(100dvh - var(--prism-header-height)); }
-html[data-pku-prism='enabled'] [data-prism-context-rail] .prism-context-body { flex: 1 1 auto; min-height: 0; overflow-y: auto; overflow-x: hidden; }
+/* Compact native course navigation with consistent levels and trailing expanders. */
+html[data-pku-prism='enabled'][data-pku-prism-page] #navigationPane[data-prism-context-rail] { overflow: hidden; height: calc(100dvh - var(--prism-header-height)); min-height: 0; }
+/* The identity and actions stay in the rail; only the middle directory scrolls. */
+html[data-pku-prism='enabled'][data-pku-prism-page] #navigationPane[data-prism-context-rail] > #breadcrumbs { flex: 0 0 auto; }
+html[data-pku-prism='enabled'][data-pku-prism-page] [data-prism-context-rail] .prism-context-body { flex: 1 1 auto; min-width: 0; min-height: 0; overflow-y: auto; overflow-x: hidden; overscroll-behavior-y: contain; overflow-anchor: none; }
+/* A scrollbar appearing must not change the directory width or wrap its labels. */
+html[data-pku-prism='enabled'][data-pku-prism-page] :is([data-prism-context-rail], .prism-context-body) { scrollbar-width: none; }
+html[data-pku-prism='enabled'][data-pku-prism-page] :is([data-prism-context-rail], .prism-context-body)::-webkit-scrollbar { display: none; width: 0; height: 0; }
 html[data-pku-prism='enabled'] [data-prism-context-rail] .prism-context-body #menuWrap { height: auto; min-height: 0; }
 html[data-pku-prism='enabled'] [data-prism-context-rail] .prism-context-footer { flex: 0 0 auto; margin-top: auto; padding: 12px 4px 0; border-top: 1px solid var(--prism-border); }
 html[data-pku-prism='enabled'] [data-prism-context-rail] .prism-context-footer .actionBarMicro { display: block !important; height: auto; max-height: none; margin: 0; padding: 0; }
-html[data-pku-prism='enabled'] [data-prism-context-rail] .prism-context-footer .nav { justify-content: flex-start; margin: 0; background: transparent; }
+html[data-pku-prism='enabled'] [data-prism-context-rail] .prism-context-footer .nav { flex-wrap: wrap; justify-content: flex-start; margin: 0; background: transparent; }
 html[data-pku-prism='enabled'] [data-prism-context-rail] .prism-context-footer .nav > li { position: static; display: flex; align-items: center; float: none; margin: 0; padding: 0; border: 0; background: none; }
 html[data-pku-prism='enabled'] [data-prism-context-rail] .prism-context-footer [data-prism-icon-action] { position: static; margin: 0; border: 0; border-radius: var(--prism-radius-md); cursor: pointer; }
 html[data-pku-prism='enabled'] [data-prism-context-rail] .prism-context-footer #courseMenu_combo { display: inline-flex !important; }
+/* Preview, availability and edit mode retain their native region and event handlers. */
+html[data-pku-prism='enabled'][data-pku-prism-page] .prism-context-footer .nav > .prism-context-course-actions { display: block; }
+html[data-pku-prism='enabled'][data-pku-prism-page] .prism-context-footer #breadcrumb_controls_id[data-prism-course-actions] { position: static; inset: auto; display: flex; flex-wrap: wrap; align-items: center; gap: 4px; float: none; width: auto; height: auto !important; margin: 0; padding: 0; border: 0; background: transparent !important; box-shadow: none; }
+html[data-pku-prism='enabled'][data-pku-prism-page] .prism-context-footer [data-prism-course-actions] :is(.student-preview-control, .lock-unlock-toggle, .modeSwitchWrap, .modeSwitchWrap > div) { position: static; display: flex; align-items: center; flex: 0 0 auto; float: none; width: auto; height: auto; min-height: 0; margin: 0; padding: 0; border: 0; background: none; }
+html[data-pku-prism='enabled'][data-pku-prism-page] .prism-context-footer #breadcrumb_controls_id [data-prism-icon-action] { position: static; box-sizing: border-box; display: inline-flex; align-items: center; justify-content: center; visibility: visible; width: 28px; height: 28px; min-height: 28px; margin: 0; padding: 4px; border: 0; border-radius: var(--prism-radius-md); background: transparent !important; color: var(--prism-muted) !important; font-size: 0; box-shadow: none; text-decoration: none; text-indent: 0; cursor: pointer; }
+html[data-pku-prism='enabled'][data-pku-prism-page] .prism-context-footer #breadcrumb_controls_id [data-prism-icon-action]:is(:hover, :focus-visible) { background: var(--prism-subtle) !important; color: var(--prism-text) !important; }
+html[data-pku-prism='enabled'][data-pku-prism-page] .prism-context-footer #breadcrumb_controls_id #editModeToggleLink.read-on { background: var(--prism-selected) !important; color: var(--prism-accent) !important; }
+html[data-pku-prism='enabled'][data-pku-prism-page] .prism-context-footer #breadcrumb_controls_id [data-prism-icon-action]::before,
+html[data-pku-prism='enabled'][data-pku-prism-page] .prism-context-footer #breadcrumb_controls_id [data-prism-icon-action]::after,
+html[data-pku-prism='enabled'][data-pku-prism-page] .prism-context-footer [data-prism-course-actions] :is(#startStudentPreviewLink > span, .mobile-course-instructor-settings-button, #enterStudentPreviewForm, #courseAvailabilityToggle),
+html[data-pku-prism='enabled'][data-pku-prism-page] .prism-context-footer .course-availability-button.course-available [data-prism-lock='lock'],
+html[data-pku-prism='enabled'][data-pku-prism-page] .prism-context-footer .course-availability-button:not(.course-available) [data-prism-lock='unlock'] { display: none !important; }
+html[data-pku-prism='enabled'][data-pku-prism-page] .prism-context-footer [data-prism-course-actions] :is(.hideoff, .switcherLabel, #statusText) { position: absolute !important; width: 1px !important; height: 1px !important; padding: 0 !important; margin: -1px !important; overflow: hidden !important; clip: rect(0, 0, 0, 0) !important; white-space: nowrap; font: 400 12px/1.6 var(--prism-font); }
+html[data-pku-prism='enabled'][data-pku-prism-page] .prism-context-footer #breadcrumb_controls_id [aria-disabled='true'] { cursor: not-allowed; }
 html[data-pku-prism='enabled'] .prism-home-menu { width: 100%; height: auto !important; max-height: none; margin: 0; padding: 0; overflow: visible !important; color: var(--prism-text); }
 html[data-pku-prism='enabled'][data-pku-prism-page='portal'] .prism-workspace [data-prism-context-section] { position: static; width: auto; margin: 0; padding: 0; border: 0; background: none; }
 html[data-pku-prism='enabled'] .prism-home-menu #paneTabs[data-prism-context-section] { margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--prism-border); }
@@ -18,50 +37,43 @@ html[data-pku-prism='enabled'] .prism-home-menu :is(#paneTabs, #overflowULId) > 
 html[data-pku-prism='enabled'] .prism-home-menu #overflowULId a { width: auto; white-space: normal; overflow-wrap: anywhere; text-shadow: none; }
 html[data-pku-prism='enabled'] .prism-home-menu a:focus-visible { outline: 2px solid var(--prism-accent); outline-offset: -2px; }
 html[data-pku-prism='enabled'] .prism-home-menu .hideoff { position: absolute !important; width: 1px !important; height: 1px !important; padding: 0 !important; margin: -1px !important; overflow: hidden !important; clip: rect(0, 0, 0, 0) !important; white-space: nowrap; }
-html[data-pku-prism='enabled'] #navigationPane[data-prism-context-rail] li:has(> h4 > a[aria-expanded]) {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) 32px;
-  align-items: start;
-  margin: 2px 0;
-  padding: 0;
-  border: 0;
-  background: none;
-}
-html[data-pku-prism='enabled'] #navigationPane[data-prism-context-rail] li > h4 {
-  grid-column: 1;
-  min-width: 0;
-  margin: 0;
-  padding: 0;
-}
-html[data-pku-prism='enabled'] #navigationPane[data-prism-context-rail] li > h4:only-child,
-html[data-pku-prism='enabled'] #navigationPane[data-prism-context-rail] li:not(:has(> [data-prism-context-jump])) > h4 { grid-column: 1 / -1; }
-html[data-pku-prism='enabled'] #navigationPane[data-prism-context-rail] :is(h4, .navPaletteTitle h3) > a[aria-expanded] {
+/* Section labels align at the left; each descendant level adds 12px. */
+html[data-pku-prism='enabled'][data-pku-prism-page] #navigationPane[data-prism-context-rail] #menuWrap .menuWrap-inner { display: flex; flex-direction: column; gap: 12px; }
+html[data-pku-prism='enabled'][data-pku-prism-page] #navigationPane[data-prism-context-rail] #menuWrap .navDivider { margin: 0; padding: 8px 12px 0; border: 0; border-top: 1px solid var(--prism-border); background: none; color: var(--prism-muted); font: 500 12px/20px var(--prism-font); text-align: left; }
+html[data-pku-prism='enabled'][data-pku-prism-page] #navigationPane[data-prism-context-rail] #menuWrap :is(.navPalette, .navPaletteContent, .navPaletteTitle, .navPaletteTitle h3) { margin: 0; padding: 0; }
+html[data-pku-prism='enabled'][data-pku-prism-page] #navigationPane[data-prism-context-rail] #menuWrap .navPaletteContent > ul { margin: 4px 0 0; padding: 0; }
+html[data-pku-prism='enabled'][data-pku-prism-page] #navigationPane[data-prism-context-rail] #menuWrap :is(.submenuLink, .submenuLink_active) { display: none !important; }
+html[data-pku-prism='enabled'][data-pku-prism-page] #navigationPane[data-prism-context-rail] #menuWrap li:has(> h4 > a[aria-expanded]) { display: block; margin: 0; padding: 0; border: 0; background: none; }
+html[data-pku-prism='enabled'][data-pku-prism-page] #navigationPane[data-prism-context-rail] #menuWrap li > h4 { min-width: 0; margin: 0; padding: 0; }
+html[data-pku-prism='enabled'][data-pku-prism-page] #navigationPane[data-prism-context-rail] #menuWrap :is(h4, .navPaletteTitle h3) > a[aria-expanded] {
   box-sizing: border-box;
   position: static;
-  display: grid;
-  grid-template-columns: 8px minmax(0, 1fr);
+  display: flex;
   align-items: center;
+  justify-content: space-between;
   gap: 12px;
   width: 100%;
   height: auto;
-  min-height: 36px;
+  min-height: 32px;
   margin: 0;
-  padding: 8px 12px;
+  padding: 6px 24px;
   border: 0;
   border-radius: var(--prism-radius-md);
   background: transparent !important;
   color: var(--prism-text) !important;
-  font: 400 13px/1.6 var(--prism-font);
+  font: 400 13px/20px var(--prism-font);
   text-decoration: none;
   overflow-wrap: anywhere;
   cursor: pointer;
 }
-html[data-pku-prism='enabled'] #navigationPane[data-prism-context-rail] .navPaletteTitle h3 > a[aria-expanded] { font-weight: 600; }
-html[data-pku-prism='enabled'] #navigationPane[data-prism-context-rail] :is(h4, .navPaletteTitle h3) > a[aria-expanded]::before {
+html[data-pku-prism='enabled'][data-pku-prism-page] #navigationPane[data-prism-context-rail] #menuWrap .navPaletteTitle h3 > a[aria-expanded] { padding: 6px 12px; font-weight: 600; }
+html[data-pku-prism='enabled'][data-pku-prism-page] #navigationPane[data-prism-context-rail] #menuWrap :is(h4, .navPaletteTitle h3) > a[aria-expanded]::before { display: none; }
+html[data-pku-prism='enabled'][data-pku-prism-page] #navigationPane[data-prism-context-rail] #menuWrap :is(h4, .navPaletteTitle h3) > a[aria-expanded]::after {
   content: '';
   box-sizing: border-box;
   position: static;
   display: block;
+  flex: 0 0 6px;
   width: 6px;
   height: 6px;
   margin: 0;
@@ -72,43 +84,18 @@ html[data-pku-prism='enabled'] #navigationPane[data-prism-context-rail] :is(h4, 
   color: var(--prism-muted);
   transform: rotate(-45deg);
 }
-html[data-pku-prism='enabled'] #navigationPane[data-prism-context-rail] :is(h4, .navPaletteTitle h3) > a[aria-expanded='true']::before { transform: rotate(45deg); }
-html[data-pku-prism='enabled'] #navigationPane[data-prism-context-rail] :is(h4, .navPaletteTitle h3) > a[aria-expanded]:is(:hover, :focus-visible) { background: var(--prism-subtle) !important; }
-html[data-pku-prism='enabled'] #navigationPane[data-prism-context-rail] li > .submenu { grid-column: 1 / -1; width: auto; margin: 0 0 8px; padding: 0 0 0 32px; }
-html[data-pku-prism='enabled'] #navigationPane[data-prism-context-rail] .submenu > li > a { display: block; padding: 8px; color: var(--prism-text); font: 400 13px/1.6 var(--prism-font); overflow-wrap: anywhere; }
-html[data-pku-prism='enabled'] #navigationPane[data-prism-context-rail] [data-prism-context-jump] {
-  box-sizing: border-box;
-  position: static;
-  grid-column: 2;
-  grid-row: 1;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 32px;
-  height: 36px;
-  margin: 0;
-  padding: 4px;
-  border: 0;
-  border-radius: var(--prism-radius-md);
-  background: transparent;
-  color: var(--prism-muted);
-}
-html[data-pku-prism='enabled'] #navigationPane[data-prism-context-rail] [data-prism-context-jump]:is(:hover, :focus-visible) { background: var(--prism-subtle); color: var(--prism-text); }
-html[data-pku-prism='enabled'] #navigationPane[data-prism-context-rail] [data-prism-context-jump] svg { width: 16px; height: 16px; }
-html[data-pku-prism='enabled'] #navigationPane[data-prism-context-rail] [data-prism-context-jump] img,
-html[data-pku-prism='enabled'] #navigationPane[data-prism-context-rail] [data-prism-context-jump]::before,
-html[data-pku-prism='enabled'] #navigationPane[data-prism-context-rail] [data-prism-context-jump]::after { display: none; }
+html[data-pku-prism='enabled'][data-pku-prism-page] #navigationPane[data-prism-context-rail] #menuWrap :is(h4, .navPaletteTitle h3) > a[aria-expanded='true']::after { transform: rotate(45deg); }
+html[data-pku-prism='enabled'][data-pku-prism-page] #navigationPane[data-prism-context-rail] #menuWrap :is(h4, .navPaletteTitle h3) > a[aria-expanded]:is(:hover, :focus-visible) { background: var(--prism-subtle) !important; }
+html[data-pku-prism='enabled'][data-pku-prism-page] #navigationPane[data-prism-context-rail] #menuWrap :is(#courseMenuPalette_contents, #ccShortcutViewId_contents, .submenu) > li > a { box-sizing: border-box; display: block; min-height: 32px; margin: 0; padding: 6px 24px; color: var(--prism-text); font: 400 13px/20px var(--prism-font); overflow-wrap: anywhere; }
+html[data-pku-prism='enabled'][data-pku-prism-page] #navigationPane[data-prism-context-rail] #menuWrap li > .submenu { width: auto; margin: 0; padding: 0 0 0 12px; }
+html[data-pku-prism='enabled'][data-pku-prism-page] #navigationPane[data-prism-context-rail] #menuWrap #courseMenuPalette_contents .divider { margin: 4px 24px; }
 /* The help toggle keeps its original click handler and status title in the small action group. */
 html[data-pku-prism='enabled'] [data-prism-context-rail] #helpTextToggle { position: static; width: auto; height: auto; margin: 0; padding: 0; float: none; }
 html[data-pku-prism='enabled'] [data-prism-context-rail] #helpTextToggleLink[data-prism-icon-action] { position: static; width: 28px; height: 28px; min-height: 28px; margin: 0; padding: 4px; border: 0; border-radius: var(--prism-radius-md); background: transparent; }
 html[data-pku-prism='enabled'] [data-prism-context-rail] #helpTextToggleLink[data-prism-icon-action]::before { display: none; }
-html[data-pku-prism='enabled'] [data-prism-context-rail] #breadcrumbs .lock-unlock-toggle { box-sizing: border-box; width: 100%; max-width: 100%; margin: 0; }
-html[data-pku-prism='enabled'] [data-prism-context-rail] #breadcrumbs .course-availability-button { box-sizing: border-box; position: static; width: 100%; max-width: 100%; }
-html[data-pku-prism='enabled'] [data-prism-context-rail] #breadcrumbs .mobile-course-instructor-settings-button { position: static; width: 32px; height: 32px; }
 @media (max-width: 900px) {
   html[data-pku-prism='enabled'] #navigationPane[data-prism-context-rail] { height: calc(100dvh - var(--prism-header-height) - 24px); }
-  html[data-pku-prism='enabled'] #navigationPane[data-prism-context-rail] li:has(> h4 > a[aria-expanded]) { grid-template-columns: minmax(0, 1fr) 44px; }
-  html[data-pku-prism='enabled'] #navigationPane[data-prism-context-rail] :is(h4, .navPaletteTitle h3) > a[aria-expanded] { min-height: 44px; }
-  html[data-pku-prism='enabled'] #navigationPane[data-prism-context-rail] [data-prism-context-jump],
+  html[data-pku-prism='enabled'][data-pku-prism-page] #navigationPane[data-prism-context-rail] #menuWrap :is(h4 > a[aria-expanded], .navPaletteTitle h3 > a[aria-expanded], #courseMenuPalette_contents > li > a, #ccShortcutViewId_contents > li > a, .submenu > li > a) { min-height: 44px; }
   html[data-pku-prism='enabled'] [data-prism-context-rail] #helpTextToggleLink[data-prism-icon-action] { width: 44px; height: 44px; }
+  html[data-pku-prism='enabled'][data-pku-prism-page] .prism-context-footer #breadcrumb_controls_id [data-prism-icon-action] { width: 44px; height: 44px; min-height: 44px; }
 }

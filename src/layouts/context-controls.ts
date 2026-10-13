@@ -1,7 +1,7 @@
 import type { DomSession } from '../core/dom-session';
 import { element, icon } from './components';
 
-/** Keep native help, expanders and jump links; only change their presentation. */
+/** Keep native help and expanders; only change their presentation. */
 export function redesignContextControls(session: DomSession, rail: HTMLElement): void {
   redesignHomeContext(session, rail);
   const toolbarRegion = rail.querySelector<HTMLElement>('#courseMenuPalette > .actionBarMicro');
@@ -21,9 +21,10 @@ export function redesignContextControls(session: DomSession, rail: HTMLElement):
       session.attribute(home, 'data-prism-icon-action', 'home');
       const glyph = icon('home'); home.append(glyph); session.defer(() => glyph.remove());
     }
-    const content = session.own(element('div', 'prism-context-body'), rail, rail.firstChild);
+    const identity = rail.querySelector<HTMLElement>(':scope > #breadcrumbs');
+    const content = session.own(element('div', 'prism-context-body'), rail, identity ? identity.nextSibling : rail.firstChild);
     for (const node of [...rail.children]) {
-      if (node !== content && node !== footer) session.move(node, content);
+      if (node !== identity && node !== content && node !== footer) session.move(node, content);
     }
   }
   const help = rail.querySelector<HTMLAnchorElement>('#helpTextToggleLink');
@@ -42,9 +43,46 @@ export function redesignContextControls(session: DomSession, rail: HTMLElement):
     session.attribute(link, 'data-prism-icon-action', name);
     const glyph = icon(name); link.append(glyph); session.defer(() => glyph.remove());
   }
-  for (const link of rail.querySelectorAll<HTMLAnchorElement>('.submenuLink:not([data-prism-icon-action]), .submenuLink_active:not([data-prism-icon-action])')) {
-    session.attribute(link, 'data-prism-context-jump', '');
-    const glyph = icon('arrow-right'); link.append(glyph); session.defer(() => glyph.remove());
+  redesignCourseManagement(session, rail, toolbar ?? null);
+}
+
+/** Move the intact native action region; keep its forms, handlers and live status. */
+function redesignCourseManagement(session: DomSession, rail: HTMLElement, toolbar: Element | null): void {
+  const panel = rail.querySelector<HTMLElement>('#controlPanelPalette');
+  const label = panel?.querySelector<HTMLElement>('#controlPanelPalette_link');
+  const divider = panel?.previousElementSibling;
+  if (label && divider instanceof HTMLElement && divider.matches('h2.navDivider')) {
+    const name = divider.textContent?.trim() || '课程管理';
+    for (const node of label.childNodes) {
+      if (node.nodeType === Node.TEXT_NODE && node.textContent?.includes('控制面板')) {
+        session.text(node as Text, node.textContent.replace('控制面板', name));
+      }
+    }
+    session.hidden(divider, true);
+  }
+  const controls = rail.querySelector<HTMLElement>('#breadcrumb_controls_id.breadcrumb-controls');
+  if (!toolbar || !controls) return;
+  const cell = session.own(element('li', 'prism-context-course-actions'), toolbar);
+  session.move(controls, cell);
+  session.attribute(controls, 'data-prism-course-actions', '');
+  for (const [selector, name] of [['#startStudentPreviewLink', 'preview'], ['#editModeToggleLink', 'edit']] as const) {
+    const link = controls.querySelector<HTMLElement>(selector);
+    if (!link) continue;
+    session.attribute(link, 'data-prism-icon-action', name);
+    const glyph = icon(name); link.append(glyph); session.defer(() => glyph.remove());
+    if (name === 'edit') {
+      session.attribute(link, 'aria-label', '编辑模式');
+      const status = link.querySelector<HTMLElement>('#statusText');
+      if (status) session.attribute(link, 'aria-describedby', [link.getAttribute('aria-describedby'), status.id].filter(Boolean).join(' '));
+    }
+  }
+  const availability = controls.querySelector<HTMLElement>('.course-availability-button');
+  if (availability) {
+    session.attribute(availability, 'data-prism-icon-action', 'availability');
+    for (const state of ['lock', 'unlock'] as const) {
+      const glyph = icon(state); glyph.setAttribute('data-prism-lock', state);
+      availability.append(glyph); session.defer(() => glyph.remove());
+    }
   }
 }
 
@@ -54,6 +92,11 @@ function redesignHomeContext(session: DomSession, rail: HTMLElement): void {
   const tools = rail.querySelector<HTMLElement>(':scope > .portlet');
   const tabs = rail.querySelector<HTMLElement>(':scope > #paneTabs');
   if (!tools || !tabs) return;
+  for (const link of tools.querySelectorAll('a')) for (const node of link.childNodes) {
+    if (node.nodeType === Node.TEXT_NODE && node.textContent?.trim() === 'Application Authorization') {
+      session.text(node as Text, node.textContent.replace('Application Authorization', '应用授权'));
+    }
+  }
   const menu = session.own(element('div', 'prism-home-menu menuWrap-inner'), rail, tools);
   session.move(tools, menu);
   session.move(tabs, menu);

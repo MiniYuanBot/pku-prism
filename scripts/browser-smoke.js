@@ -18,7 +18,16 @@ async function smokePrism(source) {
   const nativeFlyout = document.querySelector('#overflowIconId')?.flyoutMenu;
   const nativeFlyoutEnabled = nativeFlyout?.enabled;
   const siteLabels = [...document.querySelectorAll('#appTabList td > a')].map(node => ({ node, text: node.textContent }));
+  const authorizationLabels = [...document.querySelectorAll('.portletList a')].flatMap(link => [...link.childNodes]
+    .filter(node => node.nodeType === Node.TEXT_NODE && node.textContent.trim() === 'Application Authorization')
+    .map(node => ({ node, text: node.textContent })));
   const quickLinks = document.querySelector('#quick_links_wrap');
+  const courseActions = document.querySelector('#breadcrumb_controls_id.breadcrumb-controls');
+  const nativeActions = [...(courseActions?.querySelectorAll('#startStudentPreviewLink, .course-availability-button, #editModeToggleLink') ?? [])]
+    .map(node => ({ node, handler: node.onclick, role: node.getAttribute('role'), checked: node.getAttribute('aria-checked'), title: node.title, className: node.className, label: node.getAttribute('aria-label'), description: node.getAttribute('aria-describedby') }));
+  const managementLink = document.querySelector('#controlPanelPalette_link');
+  const managementText = managementLink?.textContent;
+  const managementDivider = document.querySelector('#controlPanelPalette')?.previousElementSibling;
   const originalFrames = [...document.querySelectorAll('iframe')].flatMap(frame => {
     try {
       const doc = frame.contentDocument;
@@ -43,10 +52,13 @@ async function smokePrism(source) {
       node.childNodes.length === children.length && children.every((child, index) => node.childNodes[index] === child)), 'Exact native tree and attributes restored');
     assert(courseText.every(({link, node}) => link.firstChild === node), 'Original Text nodes restored');
     assert(siteLabels.every(({node, text}) => node.textContent === text), 'Original bilingual site labels restored');
+    assert(authorizationLabels.every(({node, text}) => node.textContent === text), 'Original authorization Text restored');
+    assert(!managementLink || managementLink.textContent === managementText, 'Original management heading restored');
+    assert(nativeActions.every(({node, label, description}) => node.getAttribute('aria-label') === label && node.getAttribute('aria-describedby') === description), 'Native action accessibility attributes restored');
     assert(originalFrames.every(({frame, doc}) => frame.contentDocument === doc), 'Original live iframe documents preserved');
     assert(!nativeFlyout || nativeFlyout.enabled === nativeFlyoutEnabled, 'Original overflow keyboard behavior restored');
   };
-  const probeTargets = [...document.querySelectorAll('.courseListing, #announcementForm, #content_listContainer')];
+  const probeTargets = [...document.querySelectorAll('.courseListing, #announcementForm, #content_listContainer, #breadcrumb_controls_id.breadcrumb-controls')];
   let probes = 0;
   const probe = () => probes++;
   probeTargets.forEach(node => node.addEventListener('pku-prism:qa-probe', probe));
@@ -109,12 +121,36 @@ async function smokePrism(source) {
     assert(!document.querySelector('.prism-shell-sites'), 'No redundant site dropdown');
     assert(visible('.prism-shell-site-panel #appTabList td > a').length === siteLabels.length + 1, 'All site links and My Courses directly visible');
     assert(siteLabels.every(({node}) => !/\([A-Za-z ]+\)/.test(node.textContent)), 'Site labels omit English suffix');
+    assert(authorizationLabels.every(({node}) => node.textContent.trim() === '应用授权'), 'Authorization label translated in place');
     if (quickLinks) assert(document.querySelector('.prism-shell-appearance-panel').contains(quickLinks), 'Native quick links in header settings');
     assert(!document.querySelector('.prism-shell-header #breadcrumbs, .prism-shell-header #paneTabs'), 'Header has no context navigation');
     const footer = document.querySelector('.prism-context-footer');
     if (footer) {
       assert(footer.parentElement.lastElementChild === footer && footer.querySelector('.nav.clearfix.u_floatThis-right'), 'Native low-frequency actions are at the end of the sidebar');
       assert(footer.querySelector('#courseMenu_combo[data-prism-icon-action="home"]'), 'Course home link joins footer icons');
+      const rail = footer.parentElement;
+      const identity = rail.querySelector(':scope > #breadcrumbs');
+      const directory = rail.querySelector(':scope > .prism-context-body');
+      assert(directory && (!identity || identity.nextElementSibling === directory), 'Course identity stays above the independent scrolling directory');
+      assert(getComputedStyle(directory).scrollbarWidth === 'none', 'Directory scrollbar does not reserve a shifting gutter');
+      if (directory.clientHeight > 0 && directory.scrollHeight > directory.clientHeight) {
+        const before = [identity, footer, directory].map(node => node?.getBoundingClientRect());
+        const scrollTop = directory.scrollTop;
+        directory.scrollTop = directory.scrollHeight;
+        const after = [identity, footer, directory].map(node => node?.getBoundingClientRect());
+        assert(directory.scrollTop > 0 && before.every((rect, i) => !rect || (rect.x === after[i].x && rect.y === after[i].y && rect.width === after[i].width && rect.height === after[i].height)), 'Scrolling the directory keeps the identity, footer and column geometry fixed');
+        directory.scrollTop = scrollTop;
+      }
+      if (courseActions) {
+        assert(footer.contains(courseActions), 'Intact native management action region joins footer');
+        assert(nativeActions.every(({node, handler, role, checked, title, className}) => node.isConnected && node.onclick === handler && node.getAttribute('role') === role && node.getAttribute('aria-checked') === checked && node.title === title && node.className === className), 'Native management handlers, roles and business states unchanged');
+        for (const {node} of nativeActions) assert([...node.querySelectorAll('svg')].filter(svg => getComputedStyle(svg).display !== 'none').length === 1, 'Each management action shows one icon');
+        const nativeCheckbox = courseActions.querySelector('#courseAvailabilityToggle');
+        if (nativeCheckbox) assert(nativeCheckbox.isConnected && !nativeCheckbox.getClientRects().length, 'Availability widget keeps its input without a duplicate keyboard stop');
+      }
+      if (managementLink && managementDivider?.matches('h2.navDivider')) {
+        assert(managementDivider.hidden && managementLink.textContent.trim() === managementDivider.textContent.trim(), 'One native expander represents course management');
+      }
     }
     const overflow = document.querySelector('.prism-home-menu #overflowULId');
     if (overflow) {
@@ -125,11 +161,19 @@ async function smokePrism(source) {
     }
     assert(document.querySelector('.prism-global-search'), 'Global course search destination');
     if (helpLink) assert(document.querySelector('.actionBarMicro .nav').contains(helpLink) && helpLink.querySelector('svg'), 'Native help toggle becomes a toolbar icon');
-    for (const link of document.querySelectorAll('[data-prism-context-jump]')) assert(link.querySelectorAll('svg').length === 1, 'One icon per native jump action');
+    for (const link of document.querySelectorAll('#navigationPane #menuWrap :is(.submenuLink, .submenuLink_active)')) {
+      assert(link.isConnected && getComputedStyle(link).display === 'none', 'Redundant jumps retained but hidden');
+    }
     const appearance = document.querySelector('.prism-shell-appearance');
-    appearance.querySelector('summary').click();
-    appearance.querySelector('summary').dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true }));
-    assert(!appearance.open && document.activeElement === appearance.querySelector('summary'), 'Appearance Escape restores focus');
+    if (document.querySelector('.prism-shell-header').dataset.prismAppearance === 'inline') {
+      assert(appearance.open && getComputedStyle(appearance.querySelector('summary')).display === 'none', 'Appearance controls directly exposed');
+      document.dispatchEvent(new PointerEvent('pointerdown', { bubbles: true }));
+      assert(appearance.open, 'Inline appearance stays open on outside interaction');
+    } else {
+      appearance.querySelector('summary').click();
+      appearance.querySelector('summary').dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true }));
+      assert(!appearance.open && document.activeElement === appearance.querySelector('summary'), 'Appearance Escape restores focus');
+    }
     const railButton = document.querySelector('.prism-rail-toggle');
     if (railButton) {
       const initial = railButton.getAttribute('aria-expanded');

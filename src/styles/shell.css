@@ -9,6 +9,14 @@ html[data-pku-prism='enabled'] #learn-oe-body {
   color: var(--prism-text);
   font: 400 14px/1.6 var(--prism-font);
 }
+/* Blackboard paints :focus after pointer clicks and restored focus as well. */
+html[data-pku-prism='enabled'][data-pku-prism-page] :is(a, button, input, select, textarea, summary, [tabindex]):focus:not(:focus-visible) {
+  outline: none;
+}
+html[data-pku-prism='enabled'][data-pku-prism-page] :is(a, button, input, select, textarea, summary, [tabindex]):focus-visible {
+  outline: 2px solid var(--prism-accent);
+  outline-offset: 2px;
+}
 html[data-pku-prism='enabled'] :is(#globalNavPageContentArea, .locationPane, .contentBox, #contentPanel, #containerdiv, #contentPanel > .shadow) {
   background: var(--prism-canvas);
   color: var(--prism-text);

@@ -1,6 +1,6 @@
 # 页面与实现研究
 
-勘察日期：2026-10-12。通过 Chrome DevTools MCP 直接检查已登录的 Blackboard Learn。此文件只记录结构信息；不保存账户信息、课程标识、认证凭证或表单值。
+勘察日期：2026-10-12；导航徽标与焦点补充：2026-10-14。通过 Chrome DevTools MCP 直接检查已登录的 Blackboard Learn。此文件只记录结构信息；不保存账户信息、课程标识、认证凭证或表单值。
 
 早期记录描述 0.2.x 的观察与取舍；当前适配方式和范围以末尾 0.3 记录为准。
 
@@ -131,3 +131,29 @@ Prism 采用 CSS 字符串注入和按页面拆分的思路。现阶段仅有 Vi
 - 主页 `#paneTabs` 包含“我的机构”和 `#overflowLiId`；原触发器 `#overflowIconId` 展开原生 `#overflowULId.more[role=menu]`。已观察列表有“通知指示板”，白色绝对定位浮层没有正确继承主题。读取原生 secondaryTabs.js 确认其 resize 处理会拆下 overflowLiId、将 overflowULId 的 li 重新分配后复原，因此保留这两个容器不动；将列表改为静态可见、普通链接语义，仅隐藏触发器链接。主页工具 portlet 与 paneTabs 放入同一 menuWrap-inner，共用课程目录的行样式。
 
 - FlyoutMenu.initARIA 会把真实 href 存入原节点 ohref 并移除 href，且将菜单项设为 tabindex=-1；所以不能克隆或重建链接。直接展示后，以普通 link / tabindex=0 保留原点击回调，无 href 的键盘激活转发原 click。旧 flyout 的 enabled 标志在启用期间关闭，停用恢复；其 close 在 mouseout 时仍写 aria-hidden，局部观察器仅协调此导航及该属性。
+
+## 2026-10-14 账户计数与链接焦点
+
+- 首页与课程公告路由实测：`#global-nav-link` 内包含头像、账户名称 Text、`#badgeTotal` 和展开图标；徽标内部是隐藏的 `#badgeAXLabel.hideoff` 与显示数字的 `#badgeTotalCount.badge`。仅调整外层字号不能修复布局：外层实际为 0×0px，内部计数仍继承 shared.css 的 `.nav-link .badge { position: absolute; right: 22px; top: 5px; }`，相对头部定位到了按钮外。两层均改为正常 Flex 流，计数保留原节点与原生 visibility。
+- MCP 的匹配样式确认 core.css 对 `input:focus, button:focus, select:focus, a:focus` 使用 `2px solid #0076d0`，app_nav.css 另对导航等区域设置浅紫色 `:focus` 轮廓。问题链接实测 `:focus=true`、`:focus-visible=false` 却仍有蓝色 2px 实线，说明旧站没有区分鼠标焦点与需要显示的键盘焦点。原有 Prism 只声明 `:focus-visible` 的颜色，没有清除互斥状态下的旧站轮廓。
+- 共享基线在已识别页面清除 `:focus:not(:focus-visible)` 的轮廓，并为 `:focus-visible` 使用主题色；不执行 blur、不拦截鼠标事件、不加入焦点状态监听器。实际鼠标点击账户按钮和鼠标操作后程序聚焦课程链接均无轮廓；真实 Tab 到课程链接时仍显示主题色 2px 实线。
+
+## 2026-10-14 外观展开与课程导航密度
+
+- 外观由自有 details / summary、标题、Shadow DOM 启停 / 主题控件，以及原生 `#quick_links_wrap` 构成。原生入口实际为 `#quick_links_lightbox_link`，仍调用原生快速链接对话框。展开布局沿用同一份节点；现有 header ResizeObserver 增加对站点区、工具区和账户区的局部观察，以账户和站点文字的实际宽度计算可用空间，计入站点链接已换到第二行的情况。
+- 学生及教师课程中，`#menuWrap .menuWrap-inner` 包含课程目录与小组 / 控制面板 navPalette；教师页另有原生 `h2.navDivider` 管理区标识。旧 `#courseMenuPalette .navPaletteContent` 仍带 14px 上下内边距，h3 又叠加水平内边距、下 margin 和左箭头。直接重置这些已观察容器，分区使用 12px 间距，导航行统一 32px / 窄屏 44px。管理区标识保留文字并缩减原先 18px 顶 padding、14px 底 margin。
+- 展开项均由 `.navPaletteTitle h3 > a[aria-expanded]` 或 `li > h4 > a[aria-expanded]` 控制，兄弟 `.submenu` 保持原生异步加载与显隐。箭头从 before 移到 after，父标题与子项依次采用 12px、24px 水平内边距，submenu 再增加 12px。小组及教师面板的 `.submenuLink` 会切换到 `.submenuLink_active`，两者都在 menuWrap 内隐藏；移到 footer 的原生课程首页入口不在该范围内。
+- 首页应用授权链接为 `.portletList a` 中的独立 Text 节点；仅将精确匹配的英文名称翻译为“应用授权”，使用 DomSession.text 回滚，不重建链接或替换整段 HTML。
+
+## 2026-10-14 助教管理控件与目录层级
+
+- 助教公告页实测 `.breadcrumb-controls.clearfix#breadcrumb_controls_id` 是 breadcrumbs 的直接子节点，包含 `#enterStudentPreviewForm`、`#student-preview-control #startStudentPreviewLink`、`.lock-unlock-toggle .course-availability-button`、`.modeSwitchWrap #editModeToggleLink`、旧移动端齿轮与预览 ribbon。预览表单只有原生隐藏控件，未读取其值。把整个区域移入 footer 的原生操作条，内部表单归属和事件容器保持不变，不逐个拆散业务控件。
+- 学生预览与可用性使用原生 onclick，编辑模式使用原 href 回调。可用性链接保留原 `role=checkbox`、aria-checked、title 和 class；不推导或改写后台状态，图标仅跟随已观察的 course-available class。编辑模式 read-on 的状态规则另经原站 CSSOM 确认；原 statusText 作为 aria-describedby，旧标签与状态文字仅在视觉上收起。
+- 可用性还有 `input#courseAvailabilityToggle[type=checkbox]`，原本与链接形成两个可访问的复选框及重复 Tab 停靠点。图标化后只隐藏该 input 的显示，保留原节点供原生 widget 使用；可操作、带原角色的链接继续可达。旧齿轮只有展开原管理面板的作用，当前入口已经直接显示，因此隐藏该重复入口。
+- 原 `h2.navDivider` 紧邻 `#controlPanelPalette`，与内部 `#controlPanelPalette_link` 重复显示“课程管理 / 控制面板”。隐藏静态标题，把其名称用于原生展开链接的 Text 节点；保持同一个 aria-controls / aria-expanded 和原事件，形成与课程目录同级的单一“课程管理”分区，管理项与子项延续 12px 逐级缩进。
+
+## 2026-10-14 侧栏固定区域与隐藏滚动条
+
+- 沿用此前 MCP 已确认的 `#navigationPane`、原生 `#breadcrumbs`、`#menuWrap` 和底部操作条结构。本轮 Chrome MCP 无法连接，未把代码推断记作新的实页观测。
+- 旧布局把课程名称与目录一起放入 `.prism-context-body`，滚动时名称会离开顶部；此前已观察到经典滚动条带来 15px 的可用宽度差，可能引起目录换行和高度变化。此次从布局上消除这两项变化来源，尚待实页确认用户所述跳动是否完全消失。
+- 保留 `#breadcrumbs` 为侧栏直接子节点，与 `.prism-context-body`、`.prism-context-footer` 形成上中下三段。上下两段不参与收缩，中间使用 `min-height: 0` 的弹性滚动区；隐藏滚动条及其占位，关闭滚动锚定，限制纵向滚动传播。移动原生节点仍由 DomSession 记录并完整回滚，没有新增监听器或观察器。

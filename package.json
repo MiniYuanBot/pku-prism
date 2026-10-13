@@ -1,6 +1,6 @@
 {
   "name": "pku-prism",
-  "version": "0.4.3",
+  "version": "0.4.4",
   "private": true,
   "description": "A reversible UI and UX redesign userscript for PKU Blackboard Learn.",
   "type": "module",

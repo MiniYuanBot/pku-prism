@@ -82,9 +82,11 @@ export function redesignShell(session: DomSession, control: HTMLElement): void {
   session.hidden(top, true);
   const nativeHeader = document.querySelector<HTMLElement>('#globalNavPageNavArea');
   if (nativeHeader?.contains(top)) session.hidden(nativeHeader, true);
-  session.listen(document, 'pointerdown', event => { if (!appearance.contains(event.target as Node)) appearance.open = false; });
+  session.listen(document, 'pointerdown', event => {
+    if (header.dataset.prismAppearance !== 'inline' && !appearance.contains(event.target as Node)) appearance.open = false;
+  });
   session.listen(appearance, 'keydown', event => {
-    if ((event as KeyboardEvent).key === 'Escape') { appearance.open = false; summary.focus(); }
+    if (header.dataset.prismAppearance !== 'inline' && (event as KeyboardEvent).key === 'Escape') { appearance.open = false; summary.focus(); }
   });
 
   const heightToken = '--prism-header-height';
@@ -92,11 +94,33 @@ export function redesignShell(session: DomSession, control: HTMLElement): void {
   const originalPriority = document.body.style.getPropertyPriority(heightToken);
   let height = '';
   const measure = () => {
+    const wasInline = header.dataset.prismAppearance === 'inline';
+    const wasOpen = appearance.open;
+    const active = document.activeElement;
+    const containsFocus = !!active && appearance.contains(active);
+    // Measure the expanded contents, including the native account's current width.
+    // The site links move to their own row at the existing header breakpoint.
+    header.dataset.prismAppearance = 'inline';
+    appearance.open = true;
+    const style = getComputedStyle(header);
+    const row = [...header.children].filter((node): node is HTMLElement => node instanceof HTMLElement &&
+      getComputedStyle(node).display !== 'none' && (node !== sites || getComputedStyle(sites).flexBasis !== '100%'));
+    const required = row.reduce((width, node) => width + Math.max(node.scrollWidth, node.getBoundingClientRect().width), 0) +
+      (row.length - 1) * parseFloat(style.columnGap);
+    const available = header.clientWidth - parseFloat(style.paddingLeft) - parseFloat(style.paddingRight);
+    if (required > available) {
+      header.dataset.prismAppearance = 'menu';
+      appearance.open = (!wasInline && wasOpen) || (containsFocus && active !== summary);
+      if (active === summary) summary.focus({ preventScroll: true });
+    } else if (active === summary) {
+      control.shadowRoot?.querySelector<HTMLElement>('button')?.focus({ preventScroll: true });
+    }
     height = `${Math.ceil(header.getBoundingClientRect().height)}px`;
     document.body.style.setProperty(heightToken, height);
   };
   const observer = new ResizeObserver(measure);
-  observer.observe(header); measure();
+  for (const region of [header, sites, utilities, account]) observer.observe(region);
+  measure();
   session.defer(() => {
     observer.disconnect();
     if (document.body.style.getPropertyValue(heightToken) !== height) return;
